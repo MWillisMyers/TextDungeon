@@ -20,6 +20,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-//At the age of 3, my uncle and I played hide and seek. This was a mistake. Our annual game of "hide and seek", became known as 'Naked and Afraid' instead. I am still scarred from these experiences and now I play Torbyorn on attack to hide my trust issues and pain.
+//At the age of 3, my uncle and I played hide and seek. This was a mistake. Our annual game of "hide and seek", became known as 'Naked and Afraid' instead. I am still scarred from these experiences and now I play Torbjorn on attack to hide my trust issues and pain.
 }
 
