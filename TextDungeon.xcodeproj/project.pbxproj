@@ -13,6 +13,7 @@
 		A205D522201F6BB400618B8E /* TextDungeon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A205D520201F6BB400618B8E /* TextDungeon.xcdatamodeld */; };
 		A205D524201F6BB400618B8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A205D523201F6BB400618B8E /* Assets.xcassets */; };
 		A205D527201F6BB400618B8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A205D525201F6BB400618B8E /* LaunchScreen.storyboard */; };
+		BC39075A2022180700F50F82 /* Inventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3907592022180700F50F82 /* Inventory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		A205D523201F6BB400618B8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A205D526201F6BB400618B8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A205D528201F6BB400618B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC3907592022180700F50F82 /* Inventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inventory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				A205D519201F6BB400618B8E /* AppDelegate.swift */,
 				A205D51B201F6BB400618B8E /* ViewController.swift */,
+				BC3907592022180700F50F82 /* Inventory.swift */,
 				A205D51D201F6BB400618B8E /* Main.storyboard */,
 				A205D523201F6BB400618B8E /* Assets.xcassets */,
 				A205D525201F6BB400618B8E /* LaunchScreen.storyboard */,
@@ -139,6 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC39075A2022180700F50F82 /* Inventory.swift in Sources */,
 				A205D51C201F6BB400618B8E /* ViewController.swift in Sources */,
 				A205D51A201F6BB400618B8E /* AppDelegate.swift in Sources */,
 				A205D522201F6BB400618B8E /* TextDungeon.xcdatamodeld in Sources */,
