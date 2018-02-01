@@ -20,7 +20,7 @@ class player {
     var Experience: Int
     init() {
         Speed = 10 //higher speed means attack first, this game is legit just a pokemon clone without the pokemon
-        Attack = 1 // this is probably going to be a multiplier on their attacks
+        Attack = 1 // this is probably going to be a multiplier on the player's attacks
         Health = 100
         Gold = 0 //you're broke lmao
         Experience = 0
@@ -32,7 +32,7 @@ class sorcerer: player {
     var spAttack:Double
     override init() {
         Mana = 100
-        spAttack = 1 //another multiplier
+        spAttack = 1.0 //another multiplier
     }
 }
 
@@ -42,8 +42,10 @@ class barbarian: player {
 
 class ranger: player {
     var hitChance:Double
+    var rangedAttack:Double
     override init() {
         hitChance = 0.5 //maybe a base hit chance?
+        rangedAttack = 1.0
     }
     /*
  the archer will be based on hit chance, so that when the player engages on an enemy farther away
