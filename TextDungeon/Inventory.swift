@@ -10,5 +10,4 @@
  We do inventory stuff here.
 */
 
-
 import Foundation
