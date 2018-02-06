@@ -19,62 +19,122 @@ import Foundation
 import GameKit
 import GameplayKit
 
-enum weaponMaterials {
-    case Dull
-    case Iron
-    case Silver
-    case Cobalt
-    case Elven
-    case Dragon
+/*
+struct Dull {
+    var attack = getRandomNumber(upper: 10, lower: 1)
+    var name = "Dull"
+    var weight = getRandomNumber(upper: 1, lower: 3)
+    var rarity = 0
 }
+struct Iron {
+    var attack = getRandomNumber(upper: 25, lower: 5)
+    var name = "Iron"
+    var weight:Double = Double(getRandomNumber(upper: 4, lower: 6))
+    var rarity = getRandomNumber(upper: 1, lower: 0)
+}
+struct Cobalt {
+    var attack = getRandomNumber(upper: 33, lower: 10)
+    var name = "Cobalt"
+    var weight:Double = Double(getRandomNumber(upper: 4, lower: 6))
+    var rarity = getRandomNumber(upper: 2, lower: 0)
+}
+*/
 
-
+//weapon superclass
 class Weapon {
     var attack:Int
     var name:String
     var weight:Double
     var rarity:Int
-    init(attack:Int, name:String, rarity:Int, weight:Double) {
-        self.attack = 1
+    var doubleUndeadDamage:Bool
+    init(attack:Int, name:String, rarity:Int, weight:Double, doubleUndeadDamage:Bool) {
+        self.attack = attack
         self.rarity = rarity
         self.name = name
         self.weight = weight
+        self.doubleUndeadDamage = doubleUndeadDamage
     }
 }
 
 class Sword: Weapon {
-    
+    convenience init(material:Int) { //random initalizer, chooses different material based on integer
+        switch material {
+        case 0: //dull
+            self.init(attack: getRandomNumber(upper: 10, lower: 1), name: "Dull Sword", rarity: 0, weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: false)
+        case 1: //iron
+           self.init(attack: getRandomNumber(upper: 25, lower: 5), name: "Iron Sword", rarity: getRandomNumber(upper: 1, lower: 0), weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: false)
+        case 2: //silver
+            self.init(attack: getRandomNumber(upper: 25, lower: 5), name: "Silver Sword", rarity: 0, weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: true)
+        case 3: //cobalt
+            self.init(attack: getRandomNumber(upper: 33, lower: 10), name: "Cobalt Sword", rarity: 0, weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: false)
+        case 4: //elven
+            self.init(attack: getRandomNumber(upper: 66, lower: 33), name: "Elven Sword", rarity: 0, weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: false)
+        case 5: //dragon
+            self.init(attack: getRandomNumber(upper: 100, lower: 66), name: "Dragon Sword", rarity: 0, weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: false)
+        default:
+            self.init(attack: 1, name: "Default", rarity: 0, weight: 1.0, doubleUndeadDamage: false)
+        }
+    }
 }
+
+
 
 class Dagger: Weapon {
-    override init(attack: Int, name: String, rarity: Int, weight:Double) {
-        super.init(attack:attack, name:name, rarity:rarity, weight:weight)
+    override init(attack: Int, name: String, rarity: Int, weight:Double, doubleUndeadDamage:Bool) {
+        super.init(attack:attack, name:name, rarity:rarity, weight:weight, doubleUndeadDamage:doubleUndeadDamage)
         self.weight = weight / 2.0
     }
+    convenience init(material:Int) { //random initalizer
+        switch material {
+        case 0: //dull
+            self.init(attack: getRandomNumber(upper: 10, lower: 1), name: "Dull Sword", rarity: 0, weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: false)
+        case 1: //iron
+            self.init(attack: getRandomNumber(upper: 25, lower: 5), name: "Iron Sword", rarity: getRandomNumber(upper: 1, lower: 0), weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: false)
+        case 2: //silver
+            self.init(attack: getRandomNumber(upper: 25, lower: 5), name: "Silver Sword", rarity: 0, weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: true)
+        case 3: //cobalt
+            self.init(attack: getRandomNumber(upper: 33, lower: 10), name: "Cobalt Sword", rarity: 0, weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: false)
+        case 4: //elven
+            self.init(attack: getRandomNumber(upper: 66, lower: 33), name: "Elven Sword", rarity: 0, weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: false)
+        case 5: //dragon
+            self.init(attack: getRandomNumber(upper: 100, lower: 66), name: "Dragon Sword", rarity: 0, weight: Double(getRandomNumber(upper: 3, lower: 1)), doubleUndeadDamage: false)
+        default:
+            self.init(attack: 1, name: "Default", rarity: 0, weight: 1.0, doubleUndeadDamage: false)
+        }
+    }
+}
+class Arrow: Weapon{
+    
+}
+let starterSword = Sword(material: 0)
+func Debug() {
+    let randomSword1 = randCommonSword()
+    let randomSword2 = randUncommonSword()
+    let randomDagger1 = 
+    print(randomSword1.name, randomSword1.attack)
+    print(randomSword2.name, randomSword2.attack)
 }
 
-func Debug() {
-    let Dagger1 = Dagger(attack: 1, name: "Dagger", rarity: 0, weight: 10)
-    print(Dagger1.weight, Dagger1.attack)
-}
-func DropCommonRandomWeapon() {
-    let Material = getRandomNumber(upper: 3, lower: 1)
-    switch Material {
-    case 1:
-        let weapMaterial = weaponMaterials.Dull
-    case 2:
-        let weapMaterial = weaponMaterials.Iron
-    case 3:
-        let weapMaterial = weaponMaterials.Cobalt
-    default:
-        let weapMaterial = weaponMaterials.Dull
+func randCommonSword() -> Sword {
+    //can limit material of sword by limiting upper material bound
+    return Sword(material: getRandomNumber(upper: 3, lower: 1))
     }
-    
-    
+func randUncommonSword() -> Sword {
+    return Sword(material: getRandomNumber(upper: 4, lower: 1))
 }
+
+
+
+
+
+
+
+
+
 func getRandomNumber (upper: Int, lower: Int) -> Int {
     return lower + Int(arc4random_uniform(UInt32(upper - lower + 1)))
 }
+
 /* this all is goddamn useless
 
 
