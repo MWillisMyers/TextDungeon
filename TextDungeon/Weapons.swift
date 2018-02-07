@@ -8,15 +8,11 @@
 /*
  but yeah i need to figure out the values for attack
  Attack value ranges from 1 - 100, and as you get farther the enemies will scale
- Dull = 1 - 10
- Iron = 1 - 33
- Silver = 1 - 33
- Cobalt = 33 - 66
- Elven = 33 - 100
- Dragon = 66 - 100
+
  
  planned feature: durability
  each material has a base durability, included in class
+ weapons can be disassembled to materials whitch can add durability back into that weapon
  
  in progress: magical items, like staffs, books.
  staff has all properties of physical item, except is also ranged.
@@ -25,8 +21,8 @@
 import Foundation
 import GameKit
 import GameplayKit
-
-enum weaponMaterials { // this enum holds a bunch of structs that define the weapon materials stats, so we can change later if nessicary
+//MARK: PhysicalWeaponMaterial
+enum PhysicalWeaponMaterials { // this enum holds a bunch of structs that define the weapon materials stats, so we can change later if nessicary
     struct Dull {
         var attack = getRandomNumber(upper: 10, lower: 1)
         var name = "Dull"
@@ -84,7 +80,7 @@ class Weapon {
 
 class Sword: Weapon {
     convenience init(material:Int) { //integer based material chooser, chooses different material based on integer
-        let matDull = weaponMaterials.Dull(), matIron = weaponMaterials.Iron(), matSilver = weaponMaterials.Silver(), matCobalt = weaponMaterials.Cobalt(), matElven = weaponMaterials.Elven(), matDragon = weaponMaterials.Dragon()
+        let matDull = PhysicalWeaponMaterials.Dull(), matIron = PhysicalWeaponMaterials.Iron(), matSilver = PhysicalWeaponMaterials.Silver(), matCobalt = PhysicalWeaponMaterials.Cobalt(), matElven = PhysicalWeaponMaterials.Elven(), matDragon = PhysicalWeaponMaterials.Dragon()
         switch material {
         case 0: //dull
             self.init(attack: matDull.attack, name: "\(matDull.name) Sword", rarity: matDull.rarity, weight: matDull.weight)
@@ -113,7 +109,7 @@ class Dagger: Weapon {
         self.weight = weight / 2.0
     }
     convenience init(material:Int) {//random initalizer
-        let matDull = weaponMaterials.Dull(), matIron = weaponMaterials.Iron(), matSilver = weaponMaterials.Silver(), matCobalt = weaponMaterials.Cobalt(), matElven = weaponMaterials.Elven(), matDragon = weaponMaterials.Dragon()
+        let matDull = PhysicalWeaponMaterials.Dull(), matIron = PhysicalWeaponMaterials.Iron(), matSilver = PhysicalWeaponMaterials.Silver(), matCobalt = PhysicalWeaponMaterials.Cobalt(), matElven = PhysicalWeaponMaterials.Elven(), matDragon = PhysicalWeaponMaterials.Dragon()
         switch material {
         case 0: //dull
             self.init(attack: matDull.attack, name: "\(matDull.name) Dagger", rarity: matDull.rarity, weight: matDull.weight)
