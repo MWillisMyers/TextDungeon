@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 //define variables
 var sentText:String?
 class ViewController: UIViewController {
@@ -22,6 +23,15 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    private func saveInv() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(SwordArray, toFile: Weapon.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("inv saved godod", log: OSLog.default, type: .debug)
+        } else {
+            os_log("inv not saved", log: OSLog.default, type: .error)
+        }
+    }
 //At the age of 3, my uncle and I played hide and seek. This was a mistake. Our annual game of "hide and seek", became known as 'Naked and Afraid' instead. I am still scarred from these experiences and now I play Torbjorn on attack to hide my trust issues and pain.
     //outlets
     @IBOutlet weak var commandField: UITextField!
@@ -29,11 +39,11 @@ class ViewController: UIViewController {
     @IBAction func sendCommand(_ sender: UIButton) {
         let sentText:String = commandField.text!
         printOut(text: sentText)
+        checkCommand()
     }
-    
-    
-    
-    
+    @IBAction func saveInvButton(_ sender: UIButton) {
+        saveInv()
+    }
     
     
     
@@ -44,12 +54,18 @@ class ViewController: UIViewController {
         let point = CGPoint(x: 0.0, y: (OutputField.contentSize.height - OutputField.bounds.height))
         OutputField.setContentOffset(point, animated: true)
     }
+    
+    func checkCommand() {
+        switch sentText {
+        case "inventory"?:]
+            let invString:String = ShowInv()
+            printOut(text: invString)
+        default:
+            return
+            // inventory() for later >:D
+        }
+    }
 }
 
-func checkCommand() {
-   // switch sentText {
-   // case "inventory":
-    // inventory() for later >:D
-    }
 
 

@@ -14,11 +14,14 @@ import Foundation
 import CoreData
 import UIKit
 
+let Sword1 = Sword(material: 0)
+var SwordArray = [Sword1]
 
-
-func loadInventory() {
-    
-    let starterSword = Sword(material: 0)
-    
+func ShowInv() -> String {
+    print(SwordArray)
+    for swords in SwordArray {
+         
+    }
 }
+
 
