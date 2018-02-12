@@ -61,7 +61,27 @@ enum PhysicalWeaponMaterials { // this enum holds a bunch of structs that define
         var rarity = getRandomNumber(upper: 3, lower: 1)
     }
 }
-
+enum MagicalWeaponMaterials {
+    struct Maple {
+        //starter staff type
+    }
+    struct Oak {
+        //basic staff type
+    }
+    struct Elder {
+        //medium staff type
+    }
+    struct DarkWood {
+        //top tier staff
+    }
+    struct SilverWood {
+        //undead staff type
+    }
+    struct IronWood {
+        //all magic converted to physical damage
+    }
+    
+}
 
 //weapon superclass
 class Weapon {
@@ -132,14 +152,15 @@ class Dagger: Weapon {
 class Arrow: Weapon{
     
 }
-let starterSword = Sword(material: 0)
 func Debug() {
     let randomSword1 = randCommonSword()
     let randomSword2 = randUncommonSword()
     let randomDagger1 = randCommonDagger()
+    let silverSword = Sword(material: 2)
     print(randomSword1.name, randomSword1.attack)
-    print(randomSword2.name, randomSword2.attack)
-    print(randomDagger1.name, randomDagger1.attack)
+    print(randomSword2.name, randomSword2.attack, randomSword2.doubleUndeadDamage)
+    print(randomDagger1.name, randomDagger1.attack, randomDagger1.doubleUndeadDamage)
+    print(silverSword.name, silverSword.attack, silverSword.doubleUndeadDamage)
 }
 
 func randCommonSword() -> Sword {

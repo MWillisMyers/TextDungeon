@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+//define variables
+var sentText:String?
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -22,5 +23,33 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 //At the age of 3, my uncle and I played hide and seek. This was a mistake. Our annual game of "hide and seek", became known as 'Naked and Afraid' instead. I am still scarred from these experiences and now I play Torbjorn on attack to hide my trust issues and pain.
+    //outlets
+    @IBOutlet weak var commandField: UITextField!
+    @IBOutlet weak var OutputField: UITextView!
+    @IBAction func sendCommand(_ sender: UIButton) {
+        let sentText:String = commandField.text!
+        printOut(text: sentText)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    func printOut(text:String) {
+        OutputField.insertText(text+"\n")
+        commandField.text = ""
+        let point = CGPoint(x: 0.0, y: (OutputField.contentSize.height - OutputField.bounds.height))
+        OutputField.setContentOffset(point, animated: true)
+    }
 }
+
+func checkCommand() {
+   // switch sentText {
+   // case "inventory":
+    // inventory() for later >:D
+    }
+
 
