@@ -108,8 +108,8 @@ class Weapon: NSObject, NSCoding {
         aCoder.encode(weight, forKey: propKeys.weight)
         aCoder.encode(rarity, forKey: propKeys.rarity)
     }
-    
-
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("inventory")
     
     init(attack:Int, name:String, rarity:Int, weight:Double) {
         self.attack = attack
@@ -214,96 +214,4 @@ func getRandomNumber (upper: Int, lower: Int) -> Int {
     return lower + Int(arc4random_uniform(UInt32(upper - lower + 1)))
 }
 
-/* this all is goddamn useless
 
-
-protocol sword {
-    var Name:String {get set}
-    var Weight:Int {get set}
-    var Attack:Int {get set}
-    var typeOfWeapon:PhysicalWeaponType {get set}
-    var Rarity:Int {get set}
-}
-enum PhysicalWeaponType {
-    case Sword
-    case Dagger
-    case Arrow
-}
-//MARK: Dull
-struct Dull: sword {
-    var Name:String
-    var Weight:Int = getRandomNumber(upper:4,lower:1)
-    var Attack:Int = getRandomNumber(upper:10,lower:1)
-    var typeOfWeapon:PhysicalWeaponType
-    var Rarity:Int = 0
-    init(Name:String, typeOfWeapon:PhysicalWeaponType) {
-        //properties set by random dropper
-        self.Name = Name
-        self.typeOfWeapon = typeOfWeapon
-    }
-}
-//MARK: Silver
-struct Silver: sword {
-    var Name:String
-    var Weight:Int = getRandomNumber(upper:4, lower:1)
-    var Attack:Int = getRandomNumber(upper:25, lower:5)
-    var typeOfWeapon:PhysicalWeaponType
-    var Rarity:Int = 0
-    init(Name:String, typeOfWeapon:PhysicalWeaponType) {
-        //properties set by random dropper
-        self.Name = Name
-        self.typeOfWeapon = typeOfWeapon
-    }
-}
-//MARK:Cobalt
-/*
-struct Cobalt: sword {
-    var Name:String
-    var Weight:Int
-    var Attack:Int = getRandomNumber(UpperBoundInt: 5)
-    var typeOfWeapon:PhysicalWeaponType
-    var Rarity:Int = 0
-    init(Name:String, Weight:Int, typeOfWeapon:PhysicalWeaponType) {
-        //properties set by random dropper
-        self.Name = Name
-        self.Weight = Weight
-        self.typeOfWeapon = typeOfWeapon
-    }
-}
-struct Elven: sword {
-    var Name:String
-    var Weight:Int
-    var Attack:Int = getRandomNumber(UpperBoundInt: 5)
-    var typeOfWeapon:PhysicalWeaponType
-    var Rarity:Int = 0
-    init(Name:String, Weight:Int, typeOfWeapon:PhysicalWeaponType) {
-        //properties set by random dropper
-        self.Name = Name
-        self.Weight = Weight
-        self.typeOfWeapon = typeOfWeapon
-    }
-}
-*/
-let StarterSword = Dull(Name:"Dull Sword", typeOfWeapon: PhysicalWeaponType.Sword)
-let StarterSword2 = Dull(Name: "Dull Sword", typeOfWeapon: PhysicalWeaponType.Sword)
-
-
-func Debug() {
-    print(StarterSword.Attack, StarterSword.Rarity)
-    print(StarterSword2.Attack, StarterSword2.Rarity)
-    let Weap1 = dropCommonWeapon()
-    print(Weap1.Name, Weap1 .Attack)
-}
-func dropCommonWeapon() -> sword {
-    let weaponTypeDull = Dull(Name:"Dull Sword", typeOfWeapon:PhysicalWeaponType.Sword)
-    let weaponTypeSilver = Silver(Name: "Silver Sword", typeOfWeapon: PhysicalWeaponType.Sword)
-    var droppedWeapon = [weaponTypeDull, weaponTypeSilver] as? sword
-    return droppedWeapon([getRandomNumber(upper: 0, lower: 1)])
-}
-
-
-
-func getRandomNumber (upper: Int, lower: Int) -> Int {
-    return lower + Int(arc4random_uniform(UInt32(upper - lower + 1)))
-}
-*/

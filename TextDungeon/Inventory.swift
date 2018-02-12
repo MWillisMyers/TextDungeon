@@ -19,7 +19,6 @@ import UIKit
 func loadInventory() {
     
     let starterSword = Sword(material: 0)
-
-
+    
 }
 
