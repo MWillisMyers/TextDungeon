@@ -21,6 +21,7 @@
 import Foundation
 import GameKit
 import GameplayKit
+import os.log
 //MARK: PhysicalWeaponMaterial
 enum PhysicalWeaponMaterials { // this enum holds a bunch of structs that define the weapon materials stats, so we can change later if nessicary
     struct Dull {
@@ -83,18 +84,50 @@ enum MagicalWeaponMaterials {
     
 }
 
+
+
+
 //weapon superclass
-class Weapon {
+class Weapon: NSObject, NSCoding {
     var attack:Int
     var name:String
     var weight:Double
     var rarity:Int
     var doubleUndeadDamage:Bool = false //dont add in the init script for simplicity, will define later in subclass init
+    
+    struct propKeys {
+        static let attack = "attack"
+        static let name = "name"
+        static let weight = "weight"
+        static let rarity = "rarity"
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(attack, forKey: propKeys.attack)
+        aCoder.encode(name, forKey: propKeys.name)
+        aCoder.encode(weight, forKey: propKeys.weight)
+        aCoder.encode(rarity, forKey: propKeys.rarity)
+    }
+    
+
+    
     init(attack:Int, name:String, rarity:Int, weight:Double) {
         self.attack = attack
         self.rarity = rarity
         self.name = name
         self.weight = weight
+    }
+    required convenience init?(coder aDecoder: NSCoder) {
+        guard let name = aDecoder.decodeObject(forKey: propKeys.name) as? String
+            else {
+                os_log("unable to decode name", log: OSLog.default, type: .debug)
+                return nil
+        }
+        let attack = aDecoder.decodeObject(forKey: propKeys.attack)
+        let weight = aDecoder.decodeObject(forKey: propKeys.weight)
+        let rarity = aDecoder.decodeObject(forKey: propKeys.rarity)
+        
+        self.init(attack:attack as! Int, name:name, rarity:rarity as! Int, weight:weight as! Double)
     }
 }
 
