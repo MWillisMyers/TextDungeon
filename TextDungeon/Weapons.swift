@@ -22,8 +22,9 @@ import Foundation
 import GameKit
 import GameplayKit
 import os.log
+
 //MARK: PhysicalWeaponMaterial
-enum PhysicalWeaponMaterials { // this enum holds a bunch of structs that define the weapon materials stats, so we can change later if nessicary
+enum PhysicalWeaponMaterials { // this enum holds a bunch of structs that define the weapon materials stats, so we can change later if necissary
     struct Dull {
         var attack = getRandomNumber(upper: 10, lower: 1)
         var name = "Dull"
@@ -51,35 +52,58 @@ enum PhysicalWeaponMaterials { // this enum holds a bunch of structs that define
     }
     struct Elven {
         var attack = getRandomNumber(upper: 66, lower: 33)
-        var name = "Cobalt"
+        var name = "Eleven"
         var weight:Double = Double(getRandomNumber(upper: 3, lower: 1))
         var rarity = getRandomNumber(upper: 3, lower: 1)
     }
     struct Dragon {
         var attack = getRandomNumber(upper: 100, lower: 50)
-        var name = "Cobalt"
+        var name = "Dragon"
         var weight:Double = Double(getRandomNumber(upper: 10, lower: 5))
         var rarity = getRandomNumber(upper: 3, lower: 1)
     }
 }
 enum MagicalWeaponMaterials {
+    //Still need to define magical aspects/elemental
+    //Attack and weight subject to change
+    //Attack var = physical damage
     struct Maple {
-        //starter staff type
+        var attack = getRandomNumber(upper: 10, lower: 1)
+        var name = "Maplewood"
+        var weight:Double = Double(getRandomNumber(upper: 2, lower: 1))
+        var rarity = 0
     }
     struct Oak {
-        //basic staff type
+        var attack = getRandomNumber(upper: 15, lower: 3)
+        var name = "Oakwood"
+        var weight:Double = Double(getRandomNumber(upper: 3, lower: 1))
+        var rarity = getRandomNumber(upper: 1, lower: 0)
     }
     struct Elder {
-        //medium staff type
+        var attack = getRandomNumber(upper: 25, lower: 10)
+        var name = "Elderwood"
+        var weight:Double = Double(getRandomNumber(upper: 5, lower: 2))
+        var rarity = getRandomNumber(upper: 2, lower: 0)
     }
     struct DarkWood {
-        //top tier staff
+        var attack = getRandomNumber(upper: 30, lower: 15)
+        var name = "Darkwood"
+        var weight:Double = Double(getRandomNumber(upper: 5, lower: 2))
+        var rarity = getRandomNumber(upper: 3, lower: 0)
     }
     struct SilverWood {
         //undead staff type
+        var attack = getRandomNumber(upper: 20, lower: 8)
+        var name = "Silverwood"
+        var weight:Double = Double(getRandomNumber(upper: 4, lower: 2))
+        var rarity = getRandomNumber(upper: 2, lower: 0)
     }
     struct IronWood {
         //all magic converted to physical damage
+        var attack = getRandomNumber(upper: 66, lower: 33)
+        var name = "Ironwood"
+        var weight:Double = Double(getRandomNumber(upper: 10, lower: 5))
+        var rarity = getRandomNumber(upper: 2, lower: 0)
     }
     
 }
