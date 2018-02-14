@@ -56,16 +56,16 @@ class ViewController: UIViewController {
     }
     
     func checkCommand() {
-        switch sentText {
-        case "inventory"?:]
-            let invString:String = ShowInv()
-            printOut(text: invString)
-        default:
-            return
+       // switch sentText {
+        //case "inventory"?:]
+        //    let invString:String = ShowInv()
+        //    printOut(text: invString)
+       // default:
+       //     return
             // inventory() for later >:D
         }
     }
-}
+
 
 
 
