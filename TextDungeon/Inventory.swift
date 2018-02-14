@@ -22,6 +22,6 @@ func ShowInv() -> String {
     for swords in SwordArray {
          print()
     }
-}
+} 
 
 
