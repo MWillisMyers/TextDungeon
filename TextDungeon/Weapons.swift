@@ -23,7 +23,7 @@ import GameKit
 import GameplayKit
 import os.log
 
-//MARK: PhysicalWeaponMaterial
+//MARK: WeaponMaterials
 enum PhysicalWeaponMaterials { // this enum holds a bunch of structs that define the weapon materials stats, so we can change later if necissary
     struct Dull {
         var attack = getRandomNumber(upper: 10, lower: 1)
@@ -110,7 +110,7 @@ enum MagicalWeaponMaterials {
 
 
 
-
+//MARK: Classes
 //weapon superclass
 class Weapon: NSObject, NSCoding {
     var attack:Int
@@ -118,7 +118,7 @@ class Weapon: NSObject, NSCoding {
     var weight:Double
     var rarity:Int
     var doubleUndeadDamage:Bool = false //dont add in the init script for simplicity, will define later in subclass init
-    
+    // All NSCoder stuff for inventory persistance
     struct propKeys {
         static let attack = "attack"
         static let name = "name"
@@ -155,6 +155,8 @@ class Weapon: NSObject, NSCoding {
     }
 }
 
+//Weapon Subclasses
+
 class Sword: Weapon {
     convenience init(material:Int) { //integer based material chooser, chooses different material based on integer
         let matDull = PhysicalWeaponMaterials.Dull(), matIron = PhysicalWeaponMaterials.Iron(), matSilver = PhysicalWeaponMaterials.Silver(), matCobalt = PhysicalWeaponMaterials.Cobalt(), matElven = PhysicalWeaponMaterials.Elven(), matDragon = PhysicalWeaponMaterials.Dragon()
@@ -178,14 +180,12 @@ class Sword: Weapon {
     }
 }
 
-
-
 class Dagger: Weapon {
-    override init(attack: Int, name: String, rarity: Int, weight:Double) {
+    override init(attack: Int, name: String, rarity: Int, weight:Double) { //override init that will take weight off because it's a dagger
         super.init(attack:attack, name:name, rarity:rarity, weight:weight)
         self.weight = weight / 2.0
     }
-    convenience init(material:Int) {//random initalizer
+    convenience init(material:Int) { //random initalizer
         let matDull = PhysicalWeaponMaterials.Dull(), matIron = PhysicalWeaponMaterials.Iron(), matSilver = PhysicalWeaponMaterials.Silver(), matCobalt = PhysicalWeaponMaterials.Cobalt(), matElven = PhysicalWeaponMaterials.Elven(), matDragon = PhysicalWeaponMaterials.Dragon()
         switch material {
         case 0: //dull
@@ -209,6 +209,9 @@ class Dagger: Weapon {
 class Arrow: Weapon{
     
 }
+
+//MARK: Functions
+
 func Debug() {
     let randomSword1 = randCommonSword()
     let randomSword2 = randUncommonSword()
@@ -233,7 +236,7 @@ func randCommonDagger() -> Dagger {
 
 
 
-
+//random number generator
 func getRandomNumber (upper: Int, lower: Int) -> Int {
     return lower + Int(arc4random_uniform(UInt32(upper - lower + 1)))
 }
