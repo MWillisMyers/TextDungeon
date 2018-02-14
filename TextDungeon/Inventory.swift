@@ -20,7 +20,7 @@ var SwordArray = [Sword1]
 func ShowInv() -> String {
     print(SwordArray)
     for swords in SwordArray {
-         
+         print()
     }
 }
 
