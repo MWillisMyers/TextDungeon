@@ -13,15 +13,32 @@
 import Foundation
 import CoreData
 import UIKit
+import os.log
 
-let Sword1 = Sword(material: 0)
-var SwordArray = [Sword1]
 
-func ShowInv() -> String {
-    print(SwordArray)
-    for swords in SwordArray {
-         print()
+
+
+
+
+
+struct inv {
+    var SwordArray:[Sword]?
+    mutating func saveInv() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(SwordArray, toFile: Weapon.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("inv saved good", log: OSLog.default, type: .debug)
+        } else {
+            os_log("inv not saved", log: OSLog.default, type: .error)
+        }
     }
-} 
-
+    
+   mutating func loadInv() -> [Sword]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Weapon.ArchiveURL.path) as? [Sword]
+    }
+    func ShowInv() -> String {
+        print(SwordArray)
+        return String(describing: SwordArray)
+    }
+    
+}
 

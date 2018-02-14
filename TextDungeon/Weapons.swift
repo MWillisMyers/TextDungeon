@@ -142,6 +142,8 @@ class Weapon: NSObject, NSCoding {
         self.weight = weight
     }
     required convenience init?(coder aDecoder: NSCoder) {
+        
+        
         guard let name = aDecoder.decodeObject(forKey: propKeys.name) as? String
             else {
                 os_log("unable to decode name", log: OSLog.default, type: .debug)

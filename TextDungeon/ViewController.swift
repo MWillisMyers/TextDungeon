@@ -10,6 +10,7 @@ import UIKit
 import os.log
 //define variables
 var sentText:String?
+var inventory = inv()
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -17,6 +18,11 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         print("Do stuff here.")
         Debug()
+        if let savedInv = inventory.loadInv() {
+            inventory.SwordArray! += savedInv
+        } else {
+            loadSampleSwords()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,14 +30,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    private func saveInv() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(SwordArray, toFile: Weapon.ArchiveURL.path)
-        if isSuccessfulSave {
-            os_log("inv saved godod", log: OSLog.default, type: .debug)
-        } else {
-            os_log("inv not saved", log: OSLog.default, type: .error)
-        }
-    }
+    
 //At the age of 3, my uncle and I played hide and seek. This was a mistake. Our annual game of "hide and seek", became known as 'Naked and Afraid' instead. I am still scarred from these experiences and now I play Torbjorn on attack to hide my trust issues and pain.
     //outlets
     @IBOutlet weak var commandField: UITextField!
@@ -42,7 +41,7 @@ class ViewController: UIViewController {
         checkCommand()
     }
     @IBAction func saveInvButton(_ sender: UIButton) {
-        saveInv()
+        inventory.saveInv()
     }
     
     
@@ -56,14 +55,22 @@ class ViewController: UIViewController {
     }
     
     func checkCommand() {
-       // switch sentText {
-        //case "inventory"?:]
-        //    let invString:String = ShowInv()
-        //    printOut(text: invString)
-       // default:
-       //     return
-            // inventory() for later >:D
+        switch sentText {
+        case "inventory"?:
+            let invString:String = inventory.ShowInv()
+            printOut(text: invString)
+        default:
+            return
+            //inventory() for later >:D
         }
+    }
+    
+    func loadSampleSwords() {
+        let Sword1 = Sword(material: 0)
+        let Sword2 = Sword(material: 5)
+        inventory.SwordArray! += [Sword1, Sword2]
+    }
+    
     }
 
 
