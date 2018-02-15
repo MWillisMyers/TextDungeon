@@ -118,6 +118,15 @@ class Weapon: NSObject, NSCoding {
     var weight:Double
     var rarity:Int
     var doubleUndeadDamage:Bool = false //dont add in the init script for simplicity, will define later in subclass init
+    
+    init(attack:Int, name:String, rarity:Int, weight:Double) {
+        self.attack = attack
+        self.rarity = rarity
+        self.name = name
+        self.weight = weight
+    }
+    
+    
     // All NSCoder stuff for inventory persistance
     struct propKeys {
         static let attack = "attack"
@@ -135,12 +144,7 @@ class Weapon: NSObject, NSCoding {
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.appendingPathComponent("inventory")
     
-    init(attack:Int, name:String, rarity:Int, weight:Double) {
-        self.attack = attack
-        self.rarity = rarity
-        self.name = name
-        self.weight = weight
-    }
+    
     required convenience init?(coder aDecoder: NSCoder) {
         
         
@@ -149,11 +153,11 @@ class Weapon: NSObject, NSCoding {
                 os_log("unable to decode name", log: OSLog.default, type: .debug)
                 return nil
         }
-        let attack = aDecoder.decodeObject(forKey: propKeys.attack)
-        let weight = aDecoder.decodeObject(forKey: propKeys.weight)
-        let rarity = aDecoder.decodeObject(forKey: propKeys.rarity)
+        let attack = aDecoder.decodeInteger(forKey: propKeys.attack)
+        let weight = aDecoder.decodeDouble(forKey: propKeys.weight)
+        let rarity = aDecoder.decodeInteger(forKey: propKeys.rarity)
         
-        self.init(attack:attack as! Int, name:name, rarity:rarity as! Int, weight:weight as! Double)
+        self.init(attack:attack, name:name, rarity:rarity, weight:weight)
     }
 }
 

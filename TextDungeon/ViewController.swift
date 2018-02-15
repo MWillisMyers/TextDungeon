@@ -19,8 +19,11 @@ class ViewController: UIViewController {
         print("Do stuff here.")
         Debug()
         if let savedInv = inventory.loadInv() {
-            inventory.SwordArray! += savedInv
+            inventory.saveInv()
+            print("loading saved inv")
+            inventory.WeaponArray += savedInv
         } else {
+            print("loading sample swords")
             loadSampleSwords()
         }
     }
@@ -38,10 +41,13 @@ class ViewController: UIViewController {
     @IBAction func sendCommand(_ sender: UIButton) {
         let sentText:String = commandField.text!
         printOut(text: sentText)
-        checkCommand()
+        checkCommand(text: sentText)
     }
     @IBAction func saveInvButton(_ sender: UIButton) {
         inventory.saveInv()
+    }
+    @IBAction func AddWeaponButton(_ sender: UIButton) {
+        addWeapon()
     }
     
     
@@ -54,11 +60,13 @@ class ViewController: UIViewController {
         OutputField.setContentOffset(point, animated: true)
     }
     
-    func checkCommand() {
-        switch sentText {
-        case "inventory"?:
-            let invString:String = inventory.ShowInv()
-            printOut(text: invString)
+    func checkCommand(text:String) {
+        switch text {
+        case "inventory":
+            printOut(text: String(describing: inventory.WeaponArray))
+            for str in inventory.WeaponArray {
+                print(str.attack, str.name, str.weight)
+            }
         default:
             return
             //inventory() for later >:D
@@ -68,10 +76,21 @@ class ViewController: UIViewController {
     func loadSampleSwords() {
         let Sword1 = Sword(material: 0)
         let Sword2 = Sword(material: 5)
-        inventory.SwordArray! += [Sword1, Sword2]
+        inventory.WeaponArray += [Sword1, Sword2]
+    }
+    func addWeapon() {
+        let chooser = getRandomNumber(upper: 3, lower: 1)
+        switch chooser {
+        case 1:
+            inventory.WeaponArray += [randCommonSword()]
+        case 2:
+            inventory.WeaponArray += [randCommonDagger()]
+        default:
+            inventory.WeaponArray += [randUncommonSword()]
+        }
     }
     
-    }
+}
 
 
 

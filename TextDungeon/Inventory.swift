@@ -22,9 +22,9 @@ import os.log
 
 
 struct inv {
-    var SwordArray:[Sword]?
+    var WeaponArray:[Weapon] = []
     mutating func saveInv() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(SwordArray, toFile: Weapon.ArchiveURL.path)
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(WeaponArray, toFile: Weapon.ArchiveURL.path)
         if isSuccessfulSave {
             os_log("inv saved good", log: OSLog.default, type: .debug)
         } else {
@@ -32,12 +32,11 @@ struct inv {
         }
     }
     
-   mutating func loadInv() -> [Sword]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Weapon.ArchiveURL.path) as? [Sword]
+    func loadInv() -> [Weapon]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Weapon.ArchiveURL.path) as? [Weapon]
     }
     func ShowInv() -> String {
-        print(SwordArray)
-        return String(describing: SwordArray)
+        return String(describing: WeaponArray)
     }
     
 }
