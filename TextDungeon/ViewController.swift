@@ -10,14 +10,13 @@ import UIKit
 import os.log
 //define variables
 var sentText:String?
-var inventory = inv()
+var inventory = inv() //define inventory instance
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        print("Do stuff here.")
-        Debug()
+        //Debug()
         if let savedInv = inventory.loadInv() {
             inventory.saveInv()
             print("loading saved inv")
@@ -43,14 +42,15 @@ class ViewController: UIViewController {
         printOut(text: sentText)
         checkCommand(text: sentText)
     }
+    
+    
+    
     @IBAction func saveInvButton(_ sender: UIButton) {
         inventory.saveInv()
     }
     @IBAction func AddWeaponButton(_ sender: UIButton) {
         addWeapon()
     }
-    
-    
     
     
     func printOut(text:String) {

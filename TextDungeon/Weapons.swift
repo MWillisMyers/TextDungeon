@@ -217,7 +217,7 @@ class Arrow: Weapon{
 }
 
 //MARK: Functions
-
+/*
 func Debug() {
     let randomSword1 = randCommonSword()
     let randomSword2 = randUncommonSword()
@@ -228,7 +228,7 @@ func Debug() {
     print(randomDagger1.name, randomDagger1.attack, randomDagger1.doubleUndeadDamage)
     print(silverSword.name, silverSword.attack, silverSword.doubleUndeadDamage)
 }
-
+*/
 func randCommonSword() -> Sword {
     //can limit material of sword by limiting upper material bound
     return Sword(material: getRandomNumber(upper: 3, lower: 1))
