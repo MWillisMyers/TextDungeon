@@ -70,6 +70,30 @@ class barbarian: player {
     }
 }
 
+// Hello Office Phantom.
+//hello random person
+/*
+ You're the one invading my machine.
+ I just need to code
+ Shouldnt you be doing school work?
+ That's ridiculous why would i do that
+ Gee I don't know Logan. Why would you do that, its not like you're at school
+ I mean it's a demo i've already done and i have some free time
+ Uh huh
+ Well GLHF
+ I'm going to code now okay
+ yeah yeah
+ New computers should be here monday or tuesday
+ Monday is presidents day
+ pfunder said friday D:
+ rip
+ they will be here friday "Sometime"
+ okay good talk matt
+ ooooOOOOOOooooooOOOOOOooooOOO
+ Office Phantom out.
+ 
+ */
+
 class ranger: player {
     var hitChance:Double
     var rangedAttack:Double

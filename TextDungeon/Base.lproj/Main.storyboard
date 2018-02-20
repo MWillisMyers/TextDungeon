@@ -24,16 +24,13 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                                <connections>
-                                    <action selector="getCommand:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="KT8-TN-ajh"/>
-                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voz-PB-w7z">
                                 <rect key="frame" x="292" y="357" width="65" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Send"/>
                                 <connections>
-                                    <action selector="sendCommand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YF8-g9-De8"/>
+                                    <action selector="sendCommand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="z94-J9-AMQ"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uFz-U2-IM2">
@@ -59,13 +56,17 @@
                                     <action selector="AddWeaponButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e9h-uA-UP7"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ArcherImage" translatesAutoresizingMaskIntoConstraints="NO" id="wCd-gW-FvG">
+                                <rect key="frame" x="24" y="44" width="137" height="122"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="OutputField" destination="uFz-U2-IM2" id="OMP-eS-Tdp"/>
-                        <outlet property="commandField" destination="KGO-L1-nqL" id="8zJ-Kc-LmF"/>
+                        <outlet property="OutputField" destination="uFz-U2-IM2" id="NmU-e7-PPx"/>
+                        <outlet property="commandField" destination="KGO-L1-nqL" id="yFX-nP-1pZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -73,4 +74,7 @@
             <point key="canvasLocation" x="117.59999999999999" y="89.505247376311857"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ArcherImage" width="32" height="32"/>
+    </resources>
 </document>

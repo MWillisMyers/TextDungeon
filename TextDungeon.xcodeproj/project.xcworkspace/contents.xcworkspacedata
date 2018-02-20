@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../TextDungeon/Assets.xcassets/td_sliced">
+   </FileRef>
+   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

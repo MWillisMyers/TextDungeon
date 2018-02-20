@@ -11,12 +11,14 @@ import os.log
 //define variables
 var sentText:String?
 var inventory = inv() //define inventory instance
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //Debug()
+        enemyDebug()
         if let savedInv = inventory.loadInv() {
             inventory.saveInv()
             print("loading saved inv")
@@ -60,6 +62,7 @@ class ViewController: UIViewController {
         OutputField.setContentOffset(point, animated: true)
     }
     
+    
     func checkCommand(text:String) {
         switch text {
         case "inventory":
@@ -69,7 +72,6 @@ class ViewController: UIViewController {
             }
         default:
             return
-            //inventory() for later >:D
         }
     }
     
