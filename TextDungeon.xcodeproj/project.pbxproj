@@ -70,9 +70,9 @@
 			children = (
 				6E161725203496B600B45B8E /* player.swift */,
 				6E8AFAEB203614F100753C6A /* enemy.swift */,
+				A205D51B201F6BB400618B8E /* ViewController.swift */,
 				6E8AFAED2037356D00753C6A /* battle.swift */,
 				A205D519201F6BB400618B8E /* AppDelegate.swift */,
-				A205D51B201F6BB400618B8E /* ViewController.swift */,
 				BC3907592022180700F50F82 /* Inventory.swift */,
 				6E1B41952024B23E0015E508 /* Weapons.swift */,
 				A205D51D201F6BB400618B8E /* Main.storyboard */,

@@ -26,6 +26,10 @@ class Enemy: entity {
         self.Speed = Speed
     }
     
+    required convenience init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 }
 class Goblin: Enemy {
     convenience init(level:Double) {
@@ -53,5 +57,4 @@ extension ViewController {
         enemyEngaged(enemy: goblin1)
     }
 }
-
 

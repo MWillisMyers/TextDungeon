@@ -20,10 +20,10 @@ import os.log
 
 
 
-
+// code for an instance in the ViewController. Most of these functions will be used in the viewcontroller
 struct inv {
     var WeaponArray:[Weapon] = []
-    mutating func saveInv() {
+    func saveInv() {
         let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(WeaponArray, toFile: Weapon.ArchiveURL.path)
         if isSuccessfulSave {
             os_log("inv saved good", log: OSLog.default, type: .debug)

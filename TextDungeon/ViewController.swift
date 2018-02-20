@@ -11,7 +11,7 @@ import os.log
 //define variables
 var sentText:String?
 var inventory = inv() //define inventory instance
-
+var char = players()
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    //your gay
     
 //At the age of 3, my uncle and I played hide and seek. This was a mistake. Our annual game of "hide and seek", became known as 'Naked and Afraid' instead. I am still scarred from these experiences and now I play Torbjorn on attack to hide my trust issues and pain.
     //outlets
@@ -66,10 +66,12 @@ class ViewController: UIViewController {
     func checkCommand(text:String) {
         switch text {
         case "inventory":
-            printOut(text: String(describing: inventory.WeaponArray))
-            for str in inventory.WeaponArray {
-                print(str.attack, str.name, str.weight)
-            }
+           /* for str in inventory.WeaponArray {
+                printOut(text:str.name + String(describing: str.attack, str.weight))
+            } */
+            let nothing = ""
+        case "characters":
+            printStats()
         default:
             return
         }
