@@ -50,7 +50,7 @@ class Goblin: Enemy {
     //var sprite = ????
 
 
-let goblin1 = Goblin(level: 50)
+let goblin1 = Goblin(level: 1)
 extension ViewController {
     func enemyDebug() {
         print(goblin1.Name, goblin1.Attack, goblin1.Health, goblin1.Speed)

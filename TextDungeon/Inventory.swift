@@ -53,4 +53,10 @@ extension ViewController {
             return
         }
     }
+    func printInventory() {
+        printOut(text: "Name | Attack | Weight") // Inventory header
+        for str in inventory.WeaponArray {
+            printOut(text:str.name + seperator + String(describing: str.attack) + seperator + String(describing: str.weight)) //Prints inventory array
+        }
+    }
 }

@@ -19,11 +19,15 @@ class ViewController: UIViewController {
     var char = players() //player instance
     var state:states = .isInEvironment
     var previousState:states = .isInEvironment
+    //battle properties
+    var currentEnemy:Enemy!
+    var enemyDistance:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //Debug()
+        char.activeCharacter = char.charRanger // for debugging purposes
         enemyDebug() //enemy debug function
         if let savedInv = inventory.loadInv() { //loads inventory, need a way for this to work on characters
             print("loading saved inv")
@@ -72,17 +76,17 @@ class ViewController: UIViewController {
     func checkCommand(text:String) {
         switch state {
         case .isInEvironment:
-            checkEnvironmentCommands(input: text)
             print("current state is environment, sending command over there...")
+            checkEnvironmentCommands(input: text)
         case .isInBattle:
-            //checkBattleCommands(input: text)  to be created... this is gonna be a pain in the ass
             print("current state is battling, sending command over there...")
+            checkBattleCommands(input: text)
         case .isInCharacter:
-            checkCharacterMenuCommands(input: text)
             print("current state is character menu, sending command over there...")
+            checkCharacterMenuCommands(input: text)
         case .isInInventory:
-            checkInventoryCommands(input: text)
             print("current state is inventory menu, sending command over there...")
+            checkInventoryCommands(input: text)
         }
         
     }
@@ -90,10 +94,7 @@ class ViewController: UIViewController {
     func checkEnvironmentCommands(input:String) { // the command written will be passed through here if the player is in the "default environment"
         switch input {
         case "inventory", "inv":
-            printOut(text: "Name | Attack | Weight") // Inventory header
-            for str in inventory.WeaponArray {
-                printOut(text:str.name + seperator + String(describing: str.attack) + seperator + String(describing: str.weight)) //Prints inventory array
-            }
+            printInventory()
             previousState = state //sets the previous state so we can go back to it, this is required for all cases
             state = states.isInInventory //set the state to the inventory, also required for all cases
             print("setting state to inv")
@@ -107,12 +108,18 @@ class ViewController: UIViewController {
         }
     }
     
-    func checkCharacterMenuCommands(input:String) {
+    func checkCharacterMenuCommands(input:String) { //currently can only switch between ranger and barbarian
         switch input {
         case "back", "return":
             state = previousState
             print("previous state:",previousState)
             printOut(text:"Returning from character menu...")
+        case "switch barb", "sw barb", "switch barbarian", "sw barbarian":
+            char.activeCharacter = char.charBarbarian
+            printOut(text: "Your active character is now Barbarian")
+        case "switch ranger", "sw ranger", "sw rang", "switch rang":
+            char.activeCharacter = char.charRanger
+            printOut(text: "Your active character is now Ranger")
         default:
             printOut(text: "Unknown Command. Type 'help' You're in the character menu")
         }

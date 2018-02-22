@@ -56,9 +56,11 @@ class entity: NSObject, NSCoding {
 class player: entity { //simply adds things the characters will have
     var Gold: Int
     var Experience: Int
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int) {
+    var Name: String
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Name:String) {
         self.Gold = Gold //you're broke lmao
         self.Experience = Experience
+        self.Name = Name
         super.init(Health: Health, Attack: Attack, Speed: Speed)
     }
     
@@ -75,15 +77,16 @@ class player: entity { //simply adds things the characters will have
 class sorcerer: player {
     var Mana:Int
     var spAttack:Double
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Mana:Int, spAttack:Double) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Mana:Int, spAttack:Double, Name:String) {
         self.Mana = Mana //value used for magical attacks
         self.spAttack = spAttack //modifier for magical attacks
-        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience) //after initalizing the class values, need to init super class values here
+        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience, Name:Name) //after initalizing the class values, need to init super class values here
         self.Attack = Attack
         self.Experience = Experience
         self.Health = Health
         self.Speed = Speed
         self.Gold = Gold
+        self.Name = "Sorcerer"
     }
     convenience init() { //on initalization, add base values. After initaliazed the values should be loaded by NSCoder instead of this
         self.init(
@@ -93,7 +96,8 @@ class sorcerer: player {
             Gold: 0,
             Experience: 0,
             Mana: 100,
-            spAttack: 1.0
+            spAttack: 1.0,
+            Name: "Sorcerer"
         )
     }
     required convenience init?(coder aDecoder: NSCoder) {
@@ -102,14 +106,15 @@ class sorcerer: player {
 }
 class barbarian: player {
     var Power:Double //since the barbarian has nothing but melee, i'm going to add another base modifier that buffs his damage
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Power:Double) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Power:Double, Name:String) {
         self.Power = Power
-        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience)
+        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience, Name:Name)
         self.Attack = Attack
         self.Experience = Experience
         self.Health = Health
         self.Speed = Speed
         self.Gold = Gold
+        self.Name = "Barbarian"
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -122,7 +127,8 @@ class barbarian: player {
             Speed: 1,
             Gold: 0,
             Experience: 0,
-            Power: 1.0
+            Power: 1.0,
+            Name: "Barbarian"
         )
     }
 }
@@ -154,15 +160,16 @@ class barbarian: player {
 class ranger: player {
     var hitChance:Double
     var rangedAttack:Double
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, hitChance:Double, rangedAttack:Double) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, hitChance:Double, rangedAttack:Double, Name:String) {
         self.hitChance = hitChance
         self.rangedAttack = rangedAttack
-        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience)
+        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience, Name:Name)
         self.Attack = Attack
         self.Experience = Experience
         self.Health = Health
         self.Speed = Speed
         self.Gold = Gold
+        self.Name = "Ranger"
     }
     convenience init() {
         self.init(
@@ -172,7 +179,8 @@ class ranger: player {
             Gold: 0,
             Experience: 0,
             hitChance: 0.5,
-            rangedAttack: 1.0
+            rangedAttack: 1.0,
+            Name: "Ranger"
         )
     }
     
@@ -189,14 +197,15 @@ class ranger: player {
 
 class preist: player {
     var healRate:Int
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, healRate:Int) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, healRate:Int, Name:String) {
         self.healRate = healRate
-        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience)
+        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience, Name:Name)
         self.Attack = Attack
         self.Experience = Experience
         self.Health = Health
         self.Speed = Speed
         self.Gold = Gold
+        self.Name = "Priest"
     }
     convenience init() {
         self.init(
@@ -205,7 +214,8 @@ class preist: player {
             Speed: 1,
             Gold: 0,
             Experience: 0,
-            healRate: 1
+            healRate: 1,
+            Name: "Preist"
         )
     }
     
@@ -221,7 +231,10 @@ struct players {
     let charRanger = ranger()
     let charPriest = preist()
     let charSorcerer = sorcerer()
-    
+    var activeCharacter:player
+    init() {
+        activeCharacter = charBarbarian
+    }
 }
 
 extension ViewController {
@@ -242,5 +255,6 @@ extension ViewController {
                 String(describing: char.charRanger.Attack) + seperator +
                 String(describing: char.charRanger.Speed) + seperator
         )
+        printOut(text: "Your active character is: " + String(describing: char.activeCharacter))
     }
 }
