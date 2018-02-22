@@ -12,6 +12,8 @@
  how about that!
  */
 import Foundation
+
+let seperator = " | " //seperates the numbers when printing them
 // entity superclass
 class entity: NSObject, NSCoding {
     var Health: Int
@@ -223,7 +225,22 @@ struct players {
 }
 
 extension ViewController {
-    func printStats() {
-        printOut(text: String(describing: char.charBarbarian))
+    func printStats() {//print stats of all characters in
+        printOut(text: "Health | Attack | Speed | Experience | Gold") //Line
+        printOut(text: "Barbarian") //Line
+        printOut(text: //Print all of the barbarians stats  //Line
+            String(describing: char.charBarbarian.Health) + seperator +
+            String(describing: char.charBarbarian.Attack) + seperator +
+            String(describing: char.charBarbarian.Speed) + seperator +
+            String(describing: char.charBarbarian.Experience) + seperator +
+            String(describing: char.charBarbarian.Gold) + seperator +
+            "Power:" + String(describing: char.charBarbarian.Power) + seperator
+        )
+        printOut(text: "Ranger") //Line
+        printOut(text: //Print all of the rangers stats     //Line
+            String(describing: char.charRanger.Health) + seperator +
+                String(describing: char.charRanger.Attack) + seperator +
+                String(describing: char.charRanger.Speed) + seperator
+        )
     }
 }

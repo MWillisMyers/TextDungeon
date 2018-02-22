@@ -41,3 +41,16 @@ struct inv {
     
 }
 
+extension ViewController {
+    func checkInventoryCommands(input:String) {
+        switch input {
+        case "back", "return":
+            state = previousState
+            print("previous state:",previousState)
+            printOut(text:"Returning from inventory menu...")
+        default:
+            printOut(text: "Unknown Command. Type 'help'. You're in the inventory.")
+            return
+        }
+    }
+}
