@@ -99,7 +99,7 @@ enum MagicalWeaponMaterials {
         var rarity = getRandomNumber(upper: 2, lower: 0)
     }
     struct IronWood {
-        //all magic converted to physical damage
+        //all magic converted to physical damage, not known what effect this will have. maybe damage reistance modifiers on enemys?
         var attack = getRandomNumber(upper: 66, lower: 33)
         var name = "Ironwood"
         var weight:Double = Double(getRandomNumber(upper: 10, lower: 5))
