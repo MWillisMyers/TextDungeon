@@ -23,6 +23,7 @@ extension ViewController { // this whole thing is just a collection of functions
             printOut(text: "Your \(char.activeCharacter.Name) engaged at a range of \(enemyDistance) meters")
         }
     }
+    
     func checkBattleCommands(input:String) {
         switch input {
         case "atk", "attack":
@@ -136,6 +137,5 @@ extension ViewController { // this whole thing is just a collection of functions
         }
     }
 }
-//chocolate cake mix, german chocolate frosting(coconut pecan), Orange or ?? sprinkles
 
 

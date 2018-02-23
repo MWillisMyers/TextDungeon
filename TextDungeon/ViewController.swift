@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     var char = players() //player instance
     var state:states = .isInEvironment
     var previousState:states = .isInEvironment
+    var isEquippingWeapon = false //for inv 
     //battle properties
     var currentEnemy:Enemy!
     var enemyDistance:Int = 0
@@ -120,6 +121,12 @@ class ViewController: UIViewController {
         case "switch ranger", "sw ranger", "sw rang", "switch rang":
             char.activeCharacter = char.charRanger
             printOut(text: "Your active character is now Ranger")
+        case "switch pr", "sw priest", "sw pr", "switch preist":
+            char.activeCharacter = char.charPriest
+            printOut(text: "Your active character is now Priest")
+        case "switch sorc", "sw sorcerer", "sw sorc", "switch sorcerer":
+            char.activeCharacter = char.charSorcerer
+            printOut(text: "Your active character is now Sorcerer")
         default:
             printOut(text: "Unknown Command. Type 'help' You're in the character menu")
         }
