@@ -39,7 +39,7 @@ class Goblin: Enemy {
         print(levelupper, levellower)
         self.init(
             Health: Int(level),
-            Attack: Double(getRandomNumber(upper: Int(levelupper), lower: Int(levellower))),
+            Attack: Double(getRandomNumber(upper: Int(levelupper), lower: Int(levellower)) + 1),
             Speed: Int(level),
             Name: "Goblin"
         )

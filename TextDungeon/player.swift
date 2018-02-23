@@ -24,7 +24,7 @@ class entity: NSObject, NSCoding {
         self.Attack = Attack
         self.Speed = Speed
     }
-    // NsCOding stuff for player persistance and saving
+    // NsCoding stuff for player persistance and saving
     struct propKeys {
         static let Health = "Health"
         static let Attack = "Attack"
@@ -56,11 +56,23 @@ class entity: NSObject, NSCoding {
 class player: entity { //simply adds things the characters will have
     var Gold: Int
     var Experience: Int
-    var Name: String
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Name:String) {
-        self.Gold = Gold //you're broke lmao
+    let Name: String
+    var isDead: Bool
+    var equippedWeapon: Weapon?
+    init(Health:Int,
+         Attack:Double,
+         Speed:Int,
+         Gold:Int,
+         Experience:Int,
+         Name:String,
+         isDead:Bool,
+         equippedWeapon:Weapon?
+        ) {
+        self.Gold = Gold
         self.Experience = Experience
         self.Name = Name
+        self.isDead = isDead
+        self.equippedWeapon = equippedWeapon
         super.init(Health: Health, Attack: Attack, Speed: Speed)
     }
     
@@ -77,16 +89,18 @@ class player: entity { //simply adds things the characters will have
 class sorcerer: player {
     var Mana:Int
     var spAttack:Double
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Mana:Int, spAttack:Double, Name:String) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Mana:Int, spAttack:Double, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
         self.Mana = Mana //value used for magical attacks
         self.spAttack = spAttack //modifier for magical attacks
-        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience, Name:Name) //after initalizing the class values, need to init super class values here
-        self.Attack = Attack
-        self.Experience = Experience
-        self.Health = Health
-        self.Speed = Speed
-        self.Gold = Gold
-        self.Name = "Sorcerer"
+        super.init(Health: Health,
+                   Attack: Attack,
+                   Speed: Speed,
+                   Gold: Gold,
+                   Experience: Experience,
+                   Name:"Sorcerer",
+                   isDead:isDead,
+                   equippedWeapon:equippedWeapon
+                   ) //after initalizing the class values, need to init super class values here
     }
     convenience init() { //on initalization, add base values. After initaliazed the values should be loaded by NSCoder instead of this
         self.init(
@@ -97,7 +111,9 @@ class sorcerer: player {
             Experience: 0,
             Mana: 100,
             spAttack: 1.0,
-            Name: "Sorcerer"
+            Name: "Sorcerer",
+            isDead: false,
+            equippedWeapon: nil
         )
     }
     required convenience init?(coder aDecoder: NSCoder) {
@@ -106,15 +122,18 @@ class sorcerer: player {
 }
 class barbarian: player {
     var Power:Double //since the barbarian has nothing but melee, i'm going to add another base modifier that buffs his damage
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Power:Double, Name:String) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Power:Double, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
         self.Power = Power
-        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience, Name:Name)
-        self.Attack = Attack
-        self.Experience = Experience
-        self.Health = Health
-        self.Speed = Speed
-        self.Gold = Gold
-        self.Name = "Barbarian"
+        super.init(
+            Health: Health,
+            Attack: Attack,
+            Speed: Speed,
+            Gold: Gold,
+            Experience: Experience,
+            Name:"Barbarian",
+            isDead:isDead,
+            equippedWeapon:equippedWeapon
+        )
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -128,7 +147,9 @@ class barbarian: player {
             Gold: 0,
             Experience: 0,
             Power: 1.0,
-            Name: "Barbarian"
+            Name: "Barbarian",
+            isDead: false,
+            equippedWeapon: nil
         )
     }
 }
@@ -160,16 +181,18 @@ class barbarian: player {
 class ranger: player {
     var hitChance:Double
     var rangedAttack:Double
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, hitChance:Double, rangedAttack:Double, Name:String) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, hitChance:Double, rangedAttack:Double, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
         self.hitChance = hitChance
         self.rangedAttack = rangedAttack
-        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience, Name:Name)
-        self.Attack = Attack
-        self.Experience = Experience
-        self.Health = Health
-        self.Speed = Speed
-        self.Gold = Gold
-        self.Name = "Ranger"
+        super.init(
+            Health: Health,
+            Attack: Attack,
+            Speed: Speed,
+            Gold: Gold,
+            Experience: Experience,
+            Name:Name,
+            isDead:isDead,
+            equippedWeapon:equippedWeapon)
     }
     convenience init() {
         self.init(
@@ -180,7 +203,9 @@ class ranger: player {
             Experience: 0,
             hitChance: 0.5,
             rangedAttack: 1.0,
-            Name: "Ranger"
+            Name: "Ranger",
+            isDead: false,
+            equippedWeapon: nil
         )
     }
     
@@ -197,15 +222,18 @@ class ranger: player {
 
 class preist: player {
     var healRate:Int
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, healRate:Int, Name:String) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, healRate:Int, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
         self.healRate = healRate
-        super.init(Health: Health, Attack: Attack, Speed: Speed, Gold: Gold, Experience: Experience, Name:Name)
-        self.Attack = Attack
-        self.Experience = Experience
-        self.Health = Health
-        self.Speed = Speed
-        self.Gold = Gold
-        self.Name = "Priest"
+        super.init(
+            Health: Health,
+            Attack: Attack,
+            Speed: Speed,
+            Gold: Gold,
+            Experience: Experience,
+            Name:Name,
+            isDead:isDead,
+            equippedWeapon:equippedWeapon
+        )
     }
     convenience init() {
         self.init(
@@ -215,7 +243,9 @@ class preist: player {
             Gold: 0,
             Experience: 0,
             healRate: 1,
-            Name: "Preist"
+            Name: "Preist",
+            isDead: false,
+            equippedWeapon: nil
         )
     }
     
@@ -240,21 +270,32 @@ struct players {
 extension ViewController {
     func printStats() {//print stats of all characters in
         printOut(text: "Health | Attack | Speed | Experience | Gold") //Line
-        printOut(text: "Barbarian") //Line
-        printOut(text: //Print all of the barbarians stats  //Line
-            String(describing: char.charBarbarian.Health) + seperator +
-            String(describing: char.charBarbarian.Attack) + seperator +
-            String(describing: char.charBarbarian.Speed) + seperator +
-            String(describing: char.charBarbarian.Experience) + seperator +
-            String(describing: char.charBarbarian.Gold) + seperator +
-            "Power:" + String(describing: char.charBarbarian.Power) + seperator
-        )
-        printOut(text: "Ranger") //Line
-        printOut(text: //Print all of the rangers stats     //Line
-            String(describing: char.charRanger.Health) + seperator +
+        if char.charBarbarian.isDead == false {
+            printOut(text: "Barbarian") //Line
+            printOut(text: //Print all of the barbarians stats  //Line
+                String(describing: char.charBarbarian.Health) + seperator +
+                String(describing: char.charBarbarian.Attack) + seperator +
+                String(describing: char.charBarbarian.Speed) + seperator +
+                String(describing: char.charBarbarian.Experience) + seperator +
+                String(describing: char.charBarbarian.Gold) + seperator +
+                "Power:" + String(describing: char.charBarbarian.Power) + seperator
+            )
+        } else {
+            printOut(text: "The barbarian has passed away in glorious combat")
+        }
+        if char.charRanger.isDead == false {
+            printOut(text: "Ranger") //Line
+            printOut(text: //Print all of the rangers stats     //Line
+                String(describing: char.charRanger.Health) + seperator +
                 String(describing: char.charRanger.Attack) + seperator +
-                String(describing: char.charRanger.Speed) + seperator
-        )
-        printOut(text: "Your active character is: " + String(describing: char.activeCharacter))
+                String(describing: char.charRanger.Speed) + seperator +
+                String(describing: char.charRanger.Experience) + seperator +
+                String(describing: char.charRanger.Gold) + seperator
+            )
+        } else {
+            printOut(text: "The ranger was killed while sticking arrows into his enemies...")
+        }
+       
+        printOut(text: "Your active character is: \(char.activeCharacter.Name)")
     }
 }
