@@ -12,6 +12,7 @@
  how about that!
  */
 import Foundation
+import os.log
 
 let seperator = " | " //seperates the numbers when printing them
 // entity superclass
@@ -37,7 +38,7 @@ class entity: NSObject, NSCoding {
         aCoder.encode(Speed, forKey: propKeys.Speed)
     }
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("players")
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("entity")
     
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -77,6 +78,7 @@ class player: entity { //simply adds things the characters will have
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
+        
         fatalError("init(coder:) has not been implemented")
     }
 }
@@ -265,6 +267,19 @@ struct players {
     init() {
         activeCharacter = charBarbarian
     }
+    func savePlayers() {
+        let isSuccessfulSaveBarb = NSKeyedArchiver.archiveRootObject(charBarbarian, toFile: entity.ArchiveURL.path)
+        if isSuccessfulSaveBarb {
+            os_log("inv saved good", log: OSLog.default, type: .debug)
+        } else {
+            os_log("inv not saved", log: OSLog.default, type: .error)
+        }
+    }
+    
+    func loadPlayers() -> [players]? {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: entity.ArchiveURL.path) as? [players]
+    }
+    
 }
 
 extension ViewController {

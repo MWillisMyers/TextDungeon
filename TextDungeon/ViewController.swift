@@ -37,6 +37,7 @@ class ViewController: UIViewController {
             print("loading sample swords")
             loadSampleSwords()
         }
+        //if let char = players.load
     }
 
     override func didReceiveMemoryWarning() {
