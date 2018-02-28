@@ -38,7 +38,7 @@ extension ViewController { // this whole thing is just a collection of functions
             previousState = state
             state = states.isInCharacter //set state to character
             print("setting state to char")
-        case "wait", "wait for enemy":
+        case "approach", "get closer", "close in":
             enemyDistance = 0
             printOut(text: "You waited for the enemy to engage you in close range.")
             printOut(text: "Your range is now 0m.")
