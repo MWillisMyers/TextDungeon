@@ -24,6 +24,7 @@ import GameplayKit
 import os.log
 
 //MARK: WeaponMaterials
+//Physical Weapons
 enum PhysicalWeaponMaterials { // this enum holds a bunch of structs that define the weapon materials stats, so we can change later if necissary
     struct Dull {
         var attack = getRandomNumber(upper: 10, lower: 1)
@@ -63,6 +64,7 @@ enum PhysicalWeaponMaterials { // this enum holds a bunch of structs that define
         var rarity = getRandomNumber(upper: 3, lower: 1)
     }
 }
+//Magical Weapons
 enum MagicalWeaponMaterials {
     //Still need to define magical aspects/elemental
     //Attack and weight subject to change
@@ -97,6 +99,7 @@ enum MagicalWeaponMaterials {
         var name = "Silverwood"
         var weight:Double = Double(getRandomNumber(upper: 4, lower: 2))
         var rarity = getRandomNumber(upper: 2, lower: 0)
+        var undeadDoubleDamage = true
     }
     struct IronWood {
         //all magic converted to physical damage, not known what effect this will have. maybe damage reistance modifiers on enemys?
@@ -106,6 +109,46 @@ enum MagicalWeaponMaterials {
         var rarity = getRandomNumber(upper: 2, lower: 0)
     }
     
+}
+//Ranger Weapons
+enum RangerWeaponMaterials { // this enum holds a bunch of structs that define the weapon materials stats, so we can change later if necissary
+    struct Short {
+        var attack = getRandomNumber(upper: 5, lower: 1)
+        var name = "Short Bow"
+        var weight = Double(getRandomNumber(upper: 1, lower: 1))
+        var rarity = 0
+    }
+    struct Long {
+        var attack = getRandomNumber(upper: 20, lower: 1)
+        var name = "Long Bow"
+        var weight:Double = Double(getRandomNumber(upper: 2, lower: 1))
+        var rarity = getRandomNumber(upper: 1, lower: 0)
+    }
+    struct Hunter {
+        var attack = getRandomNumber(upper: 15, lower: 1)
+        var name = "Hunter Bow"
+        var weight:Double = Double(getRandomNumber(upper: 1, lower: 1))
+        var rarity = getRandomNumber(upper: 1, lower: 0)
+        var undeadDoubleDamage = true
+    }
+    struct Crossbow {
+        var attack = getRandomNumber(upper: 60, lower: 15)
+        var name = "Crossbow"
+        var weight:Double = Double(getRandomNumber(upper: 5, lower: 3))
+        var rarity = getRandomNumber(upper: 2, lower: 0)
+    }
+    struct Elven {
+        var attack = getRandomNumber(upper: 70, lower: 35)
+        var name = "Eleven Bow"
+        var weight:Double = Double(getRandomNumber(upper: 1, lower: 1))
+        var rarity = getRandomNumber(upper: 3, lower: 1)
+    }
+    struct Dragon {
+        var attack = getRandomNumber(upper: 100, lower: 50)
+        var name = "Dragon Bow"
+        var weight:Double = Double(getRandomNumber(upper: 7, lower: 5))
+        var rarity = getRandomNumber(upper: 3, lower: 1)
+    }
 }
 
 
@@ -212,9 +255,81 @@ class Dagger: Weapon {
         }
     }
 }
-class Arrow: Weapon{
+
+class Staff: Weapon {
+    convenience init(material:Int) { //integer based material chooser, chooses different material based on integer
+        let matMaple = MagicalWeaponMaterials.Maple(), matOak = MagicalWeaponMaterials.Oak(), matElder = MagicalWeaponMaterials.Elder(), matDarkWood = MagicalWeaponMaterials.DarkWood(), matSilverWood = MagicalWeaponMaterials.SilverWood(), matIronWood = MagicalWeaponMaterials.IronWood()
+        switch material {
+        case 0: //Maple
+            self.init(attack: matMaple.attack, name: "\(matMaple.name) Staff", rarity: matMaple.rarity, weight: matMaple.weight)
+        case 1: //Oak
+            self.init(attack: matOak.attack, name: "\(matOak.name) Staff", rarity: matOak.rarity, weight: matOak.weight)
+        case 2: //Elder
+            self.init(attack: matElder.attack, name: "\(matElder.name) Staff", rarity: matElder.rarity, weight: matElder.weight)
+        case 3: //Darkwood
+            self.init(attack: matDarkWood.attack, name: "\(matDarkWood.name) Staff", rarity: matDarkWood.rarity, weight: matDarkWood.weight)
+        case 4: //Silverwood
+            self.init(attack: matSilverWood.attack, name: "\(matSilverWood.name) Staff", rarity: matSilverWood.rarity, weight: matSilverWood.weight)
+            self.doubleUndeadDamage = matSilverWood.undeadDoubleDamage
+        case 5: //Ironwood
+            self.init(attack: matIronWood.attack, name: "\(matIronWood.name) Staff", rarity: matIronWood.rarity, weight: matIronWood.weight)
+        default: //should never be this
+            self.init(attack: 1, name: "Default", rarity: 0, weight: 1.0)
+        }
+    }
     
 }
+
+class Bow: Weapon {
+    convenience init(material:Int) {
+        let matShort = RangerWeaponMaterials.Short(), matLong = RangerWeaponMaterials.Long(), matHunter = RangerWeaponMaterials.Hunter(), matCrossbow = RangerWeaponMaterials.Crossbow(), matElven = RangerWeaponMaterials.Elven(), matDragon = RangerWeaponMaterials.Dragon()
+        switch material {
+        case 0: //Short
+            self.init(attack: matShort.attack, name: "\(matShort.name) Bow)", rarity: matShort.rarity, weight: matShort.weight)
+        case 1: //Long
+            self.init(attack: matLong.attack, name: "\(matLong.name) Bow", rarity: matLong.rarity, weight: matLong.weight)
+        case 2: //Hunter
+            self.init(attack: matHunter.attack, name: "\(matHunter.name) Bow", rarity: matHunter.rarity, weight: matHunter.weight)
+        case 3: //Crossbow
+            self.init(attack: matCrossbow.attack, name: "\(matCrossbow.name) Bow", rarity: matCrossbow.rarity, weight: matCrossbow.weight)
+        case 4: //Elven
+            self.init(attack: matElven.attack, name: "\(matElven.name) Bow", rarity: matElven.rarity, weight: matElven.weight)
+        case 5: //Dragon
+            self.init(attack: matDragon.attack, name: "\(matDragon.name)Bow", rarity: matDragon.rarity, weight: matDragon.weight)
+        default:
+            self.init(attack: 1, name: "Default", rarity: 0, weight: 1.0)
+        }
+    }
+}
+
+class Arrow: Weapon { //Arrow class taken from dagger class, added self.weight and self.attack
+    override init(attack: Int, name: String, rarity: Int, weight:Double) { //override init that will take weight off because it's a dagger
+        super.init(attack:attack, name:name, rarity:rarity, weight:weight)
+        self.weight = 0
+        self.attack /= 2 + 1
+    }
+    convenience init(material:Int) { //random initalizer
+        let matDull = PhysicalWeaponMaterials.Dull(), matIron = PhysicalWeaponMaterials.Iron(), matSilver = PhysicalWeaponMaterials.Silver(), matCobalt = PhysicalWeaponMaterials.Cobalt(), matElven = PhysicalWeaponMaterials.Elven(), matDragon = PhysicalWeaponMaterials.Dragon()
+        switch material {
+        case 0: //wooden
+            self.init(attack: matDull.attack, name: "Wooden Arrow", rarity: matDull.rarity, weight: matDull.weight)
+        case 1: //iron
+            self.init(attack: matIron.attack, name: "Iron Arrow", rarity: matIron.rarity, weight: matIron.weight)
+        case 2: //silver
+            self.init(attack: matSilver.attack, name: "Silver Arrow", rarity: matSilver.rarity, weight: matSilver.weight)
+            self.doubleUndeadDamage = matSilver.undeadDoubleDamage
+        case 3: //cobalt
+            self.init(attack: matCobalt.attack, name: "Cobalt Arrow", rarity: matCobalt.rarity, weight: matCobalt.weight)
+        case 4: //elven
+            self.init(attack: matElven.attack, name: "Elven Arrow", rarity: matElven.rarity, weight: matElven.weight)
+        case 5: //dragonbone
+            self.init(attack: matDragon.attack, name: "Dragonbone Arrow", rarity: matDragon.rarity, weight: matDragon.weight)
+        default:
+            self.init(attack: 1, name: "Default", rarity: 0, weight: 1.0)
+        }
+    }
+}
+
 
 //MARK: Functions
 /*
