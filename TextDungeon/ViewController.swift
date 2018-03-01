@@ -23,12 +23,14 @@ class ViewController: UIViewController {
     //battle properties
     var currentEnemy:Enemy!
     var enemyDistance:Int = 0
+    //player encodable persistance
+    let jsonEncoder = JSONEncoder()
+    let jsonDecoder = JSONDecoder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //Debug()
-        char.activeCharacter = char.charRanger // for debugging purposes
         enemyDebug() //enemy debug function
         if let savedInv = inventory.loadInv() { //loads inventory, need a way for this to work on characters
             print("loading saved inv")

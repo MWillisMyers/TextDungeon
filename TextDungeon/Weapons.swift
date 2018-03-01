@@ -155,7 +155,7 @@ enum RangerWeaponMaterials { // this enum holds a bunch of structs that define t
 
 //MARK: Classes
 //weapon superclass
-class Weapon: NSObject, NSCoding {
+class Weapon: Codable {
     var attack:Int
     var name:String
     var weight:Double
@@ -170,38 +170,10 @@ class Weapon: NSObject, NSCoding {
     }
     
     
-    // All NSCoder stuff for inventory persistance
-    struct propKeys {
-        static let attack = "attack"
-        static let name = "name"
-        static let weight = "weight"
-        static let rarity = "rarity"
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(attack, forKey: propKeys.attack)
-        aCoder.encode(name, forKey: propKeys.name)
-        aCoder.encode(weight, forKey: propKeys.weight)
-        aCoder.encode(rarity, forKey: propKeys.rarity)
-    }
+    // All Codable stuff for inventory persistance
+    //Migrating to codable auto generates encoding keys and such
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("inventory")
-    
-    
-    required convenience init?(coder aDecoder: NSCoder) {
-        
-        
-        guard let name = aDecoder.decodeObject(forKey: propKeys.name) as? String
-            else {
-                os_log("unable to decode name", log: OSLog.default, type: .debug)
-                return nil
-        }
-        let attack = aDecoder.decodeInteger(forKey: propKeys.attack)
-        let weight = aDecoder.decodeDouble(forKey: propKeys.weight)
-        let rarity = aDecoder.decodeInteger(forKey: propKeys.rarity)
-        
-        self.init(attack:attack, name:name, rarity:rarity, weight:weight)
-    }
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("weapons")
 }
 
 //Weapon Subclasses
@@ -253,6 +225,14 @@ class Dagger: Weapon {
         default:
             self.init(attack: 1, name: "Default", rarity: 0, weight: 1.0)
         }
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
     }
 }
 
@@ -327,6 +307,10 @@ class Arrow: Weapon { //Arrow class taken from dagger class, added self.weight a
         default:
             self.init(attack: 1, name: "Default", rarity: 0, weight: 1.0)
         }
+    }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
     }
 }
 

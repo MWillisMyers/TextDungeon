@@ -28,16 +28,24 @@ import os.log
 struct inv {
     var WeaponArray:[Weapon] = []
     func saveInv() {
-        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(WeaponArray, toFile: Weapon.ArchiveURL.path)
-        if isSuccessfulSave {
-            os_log("inv saved good", log: OSLog.default, type: .debug)
-        } else {
-            os_log("inv not saved", log: OSLog.default, type: .error)
+        do {
+            let codedData = try PropertyListEncoder().encode(WeaponArray) //codes the data using Codable
+            let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(codedData, toFile: Weapon.ArchiveURL.path) //archives it using NSArchiver
+            print(isSuccessfulSave ? "save good" : "save not good")
+        } catch {
+            print("Save Failed")
         }
     }
     
     func loadInv() -> [Weapon]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Weapon.ArchiveURL.path) as? [Weapon]
+        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: Weapon.ArchiveURL.path) as? Data else { return nil } //gets coded data from NSUnarchiver
+        do {
+            let uncodedData = try PropertyListDecoder().decode([Weapon].self, from: data) //decodes it using Codable
+            return uncodedData
+        } catch {
+            print("retrieve failed")
+            return nil
+        }
     }
     func ShowInv() -> String {
         return String(describing: WeaponArray)

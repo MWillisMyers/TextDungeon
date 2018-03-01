@@ -14,9 +14,9 @@ extension ViewController { // this whole thing is just a collection of functions
         printOut(text: "A \(enemy.Name) has engaged you!")
         state = states.isInBattle
         currentEnemy = enemy
-        if char.activeCharacter == char.charBarbarian || char.activeCharacter == char.charPriest {
+        if char.getActiveCharacterString() == "Barbarian" || char.getActiveCharacterString() == "Preist" {
             enemyDistance = 0
-            printOut(text: "Your \(char.activeCharacter) engaged at close range!")
+            printOut(text: "Your \(char.activeCharacter.Name) engaged at close range!")
         } else {
             //enemyDistance = char.activeCharacter.skilltree.engagedistance //need a skill tree to do that one, hehe
             enemyDistance = 50
