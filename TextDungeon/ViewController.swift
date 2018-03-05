@@ -65,7 +65,9 @@ class ViewController: UIViewController {
     @IBAction func AddWeaponButton(_ sender: UIButton) {
         addWeapon()
     }
-    
+    @IBAction func SaveCharacterButton(_ sender: UIButton) {
+        
+    }
     //Regular Functions
     
     //Prints to the output UITextField

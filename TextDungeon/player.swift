@@ -16,7 +16,7 @@ import os.log
 
 let seperator = " | " //seperates the numbers when printing them
 // entity superclass
-class entity {
+class entity: Codable {
     var Health: Int
     var Attack: Double
     var Speed: Int
@@ -78,6 +78,11 @@ class player: entity { //simply adds things the characters will have
         super.init(Health: Health, Attack: Attack, Speed: Speed)
     }
     
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("players")
 }
 
  
@@ -86,7 +91,7 @@ class player: entity { //simply adds things the characters will have
 
 
 //subclasses of each of the characters
-class sorcerer: player, Encodable {
+class sorcerer: player {
     var Mana:Int
     var spAttack:Double
     init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Mana:Int, spAttack:Double, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
@@ -116,11 +121,8 @@ class sorcerer: player, Encodable {
             equippedWeapon: nil
         )
     }
-    required convenience init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
-class barbarian: player, Encodable {
+class barbarian: player {
     var Power:Double //since the barbarian has nothing but melee, i'm going to add another base modifier that buffs his damage
     init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Power:Double, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
         self.Power = Power
@@ -178,7 +180,7 @@ class barbarian: player, Encodable {
  
  */
 
-class ranger: player, Encodable {
+class ranger: player {
     var hitChance:Double
     var rangedAttack:Double
     init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, hitChance:Double, rangedAttack:Double, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
@@ -209,6 +211,10 @@ class ranger: player, Encodable {
         )
     }
     
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+    
     /*
      the archer will be based on hit chance, so that when the player engages on an enemy farther away
      you have to spend points on your chance to hit that enemy. If the enemy is a Melee only, he will
@@ -217,7 +223,7 @@ class ranger: player, Encodable {
      a hit chance. */
 }
 
-class preist: player, Encodable {
+class preist: player {
     var healRate:Int
     init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, healRate:Int, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
         self.healRate = healRate
@@ -249,7 +255,7 @@ class preist: player, Encodable {
         fatalError("init(coder:) has not been implemented")
     }
 }
-struct players {
+struct players: Codable {
     let charBarbarian = barbarian()
     let charRanger = ranger()
     let charPriest = preist()
@@ -272,6 +278,24 @@ struct players {
             return "Game broke"
         }
     }
+   /* func savePlayers() {
+        do {
+            let codedDataB = try PropertyListEncoder().encode(charBarbarian) //codes the data using Codable
+            let codedDataR = try PropertyListEncoder().encode(charRanger)
+            let codedDataP = try PropertyListEncoder().encode(charPriest)
+            let codedDataS = try PropertyListEncoder().encode(charSorcerer)
+            let saveB = NSKeyedArchiver.archiveRootObject(codedDataB, toFile: player.ArchiveURL.path) //archives it using NSArchiver
+            let saveR = NSKeyedArchiver.archiveRootObject(codedDataR, toFile: player.ArchiveURL.path)
+            let saveP = NSKeyedArchiver.archiveRootObject(codedDataP, toFile: player.ArchiveURL.path)
+            let saveS = NSKeyedArchiver.archiveRootObject(codedDataS, toFile: player.ArchiveURL.path)
+            print(saveB ? "save good" : "save not good")
+        } catch {
+            print("Save Failed")
+        }
+    }
+    */
+    
+    
 }
 extension ViewController {
     func printStats() {//print stats of all characters in
@@ -304,7 +328,24 @@ extension ViewController {
        
         printOut(text: "Your active character is: \(char.activeCharacter.Name)")
     }
+    // save and load functions for players
     func savePlayers() {
-        
+        do {
+            let codedData = try PropertyListEncoder().encode(char) //codes the data using Codable
+            let save = NSKeyedArchiver.archiveRootObject(codedData, toFile: player.ArchiveURL.path) //archives it using NSArchiver
+            print(save ? "save good" : "save not good")
+        } catch {
+            print("Save Failed")
+        }
+    }
+    func loadPlayers() -> [players]? {
+        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: player.ArchiveURL.path) as? Data else { return nil } //gets coded data from NSUnarchiver
+        do {
+            let uncodedData = try PropertyListDecoder().decode([players].self, from: data) //decodes it using Codable
+            return uncodedData
+        } catch {
+            print("retrieve failed")
+            return nil
+        }
     }
 }

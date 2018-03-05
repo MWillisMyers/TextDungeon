@@ -25,11 +25,9 @@ class Enemy: entity {
         self.Attack = Attack
         self.Speed = Speed
     }
-    
-    required convenience init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
     }
-    
 }
 class Goblin: Enemy {
     convenience init(level:Double) {
