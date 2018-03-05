@@ -77,13 +77,29 @@ class player: entity { //simply adds things the characters will have
         self.equippedWeapon = equippedWeapon
         super.init(Health: Health, Attack: Attack, Speed: Speed)
     }
-    
-    required init(from decoder: Decoder) throws {
-        fatalError("init(from:) has not been implemented")
+    private enum CodingKeys: String, CodingKey {
+        case Health
+        case Attack
+        case Speed
+        case Gold
+        case Experience
+        case Name
+        case isDead
+        case equippedWeapon
     }
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        Gold = try values.decode(Int.self, forKey: .Gold)
+        Experience = try values.decode(Int.self, forKey: .Experience)
+        Name = try values.decode(String.self, forKey: .Name)
+        isDead = try values.decode(Bool.self, forKey: .isDead)
+        equippedWeapon = try values.decode(Weapon.self, forKey: .equippedWeapon)
+        try super.init(from: Decoder.self as! Decoder)
+        }
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.appendingPathComponent("players")
 }
+
 
  
 
@@ -121,6 +137,16 @@ class sorcerer: player {
             equippedWeapon: nil
         )
     }
+    private enum CodingKeys: String, CodingKey {
+        case Mana
+        case spAttack
+    }
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        Mana = try values.decode(Int.self, forKey: .Mana)
+        spAttack = try values.decode(Double.self, forKey: .spAttack)
+        try super.init(from: Decoder.self as! Decoder)
+    }
 }
 class barbarian: player {
     var Power:Double //since the barbarian has nothing but melee, i'm going to add another base modifier that buffs his damage
@@ -138,9 +164,7 @@ class barbarian: player {
         )
     }
     
-    required convenience init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
     convenience init() {
         self.init(
             Health: 10,
@@ -251,9 +275,6 @@ class preist: player {
             equippedWeapon: nil
         )
     }
-    required convenience init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 struct players: Codable {
     let charBarbarian = barbarian()
@@ -338,10 +359,10 @@ extension ViewController {
             print("Save Failed")
         }
     }
-    func loadPlayers() -> [players]? {
+    func loadPlayers() -> players? {
         guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: player.ArchiveURL.path) as? Data else { return nil } //gets coded data from NSUnarchiver
         do {
-            let uncodedData = try PropertyListDecoder().decode([players].self, from: data) //decodes it using Codable
+            let uncodedData = try PropertyListDecoder().decode(players.self, from: data) //decodes it using Codable
             return uncodedData
         } catch {
             print("retrieve failed")

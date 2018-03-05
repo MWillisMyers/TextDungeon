@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     //define stored properties
     var sentText:String?
     var inventory = inv() //define inventory instance
-    var char = players() //player instance
+    var char = players()
     var state:states = .isInEvironment
     var previousState:states = .isInEvironment
     var isEquippingWeapon = false //for inv 
@@ -32,14 +32,19 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         //Debug()
         enemyDebug() //enemy debug function
-        if let savedInv = inventory.loadInv() { //loads inventory, need a way for this to work on characters
+        if let savedInv = inventory.loadInv() { //loads inventory
             print("loading saved inv")
             inventory.WeaponArray += savedInv
         } else {
             print("loading sample swords")
             loadSampleSwords()
         }
-        //if let char = players.load
+        let loadedPlayers = loadPlayers() // loads players into an instance
+        if loadedPlayers == nil {
+            print("players not loaded")
+        } else {
+            char = loadedPlayers!
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,7 +71,7 @@ class ViewController: UIViewController {
         addWeapon()
     }
     @IBAction func SaveCharacterButton(_ sender: UIButton) {
-        
+        savePlayers()
     }
     //Regular Functions
     
@@ -132,6 +137,8 @@ class ViewController: UIViewController {
         case "switch sorc", "sw sorcerer", "sw sorc", "switch sorcerer":
             char.activeCharacter = char.charSorcerer
             printOut(text: "Your active character is now Sorcerer")
+        case "save":
+            savePlayers()
         default:
             printOut(text: "Unknown Command. Type 'help' You're in the character menu")
         }
