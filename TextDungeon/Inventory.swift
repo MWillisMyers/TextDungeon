@@ -43,7 +43,7 @@ struct inv {
             let uncodedData = try PropertyListDecoder().decode([Weapon].self, from: data) //decodes it using Codable
             return uncodedData
         } catch {
-            print("retrieve failed")
+            print("inv retrieve failed")
             return nil
         }
     }

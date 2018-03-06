@@ -43,10 +43,6 @@ class Goblin: Enemy {
         )
     }
 }
-    
-
-    //var sprite = ????
-
 
 let goblin1 = Goblin(level: 1)
 extension ViewController {

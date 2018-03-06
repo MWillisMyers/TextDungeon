@@ -350,9 +350,9 @@ extension ViewController {
         printOut(text: "Your active character is: \(char.activeCharacter.Name)")
     }
     // save and load functions for players
-    func savePlayers() {
+    func savePlayers(toBeSaved:players) {
         do {
-            let codedData = try PropertyListEncoder().encode(char) //codes the data using Codable
+            let codedData = try PropertyListEncoder().encode(toBeSaved) //codes the data using Codable
             let save = NSKeyedArchiver.archiveRootObject(codedData, toFile: player.ArchiveURL.path) //archives it using NSArchiver
             print(save ? "save good" : "save not good")
         } catch {

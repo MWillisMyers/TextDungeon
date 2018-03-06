@@ -49,7 +49,7 @@ extension ViewController { // this whole thing is just a collection of functions
     func attackEnemy() {
         if currentEnemy.Speed >= char.activeCharacter.Speed {
             doTurn()
-            calculateDamage()
+            //calculateDamage()
         } else {
             calculateDamage()
             doTurn()
@@ -58,13 +58,13 @@ extension ViewController { // this whole thing is just a collection of functions
     }
     func doTurn() { //what happens in a turn? the enemy attacks + gets closer
         if enemyDistance == 0 {
-            char.activeCharacter.Health -= Int(currentEnemy.Attack)
             checkCharDeath()
+            char.activeCharacter.Health -= Int(currentEnemy.Attack)
             printOut(text: "The enemy hit you for \(Int(currentEnemy.Attack)), your \(char.activeCharacter.Name)'s health is \(char.activeCharacter.Health)")
         } else if enemyDistance > 0 {
+            checkCharDeath()
             enemyDistance -= currentEnemy.Speed
             printOut(text: "The enemy distance is \(enemyDistance)m.")
-            checkCharDeath()
         } else {
             print("This if statement did jack shit...")
         }
@@ -122,7 +122,8 @@ extension ViewController { // this whole thing is just a collection of functions
     func calculateDamage() { //currently only has barbarian damage model...
         //check for an equipped weapon if not then just punch the enemy
         if char.activeCharacter.equippedWeapon == nil, enemyDistance <= 0 {
-            currentEnemy.Health -= Int(char.activeCharacter.Attack * Double(char.activeCharacter.Experience) + 1)
+            //currentEnemy.Health -= Int(char.activeCharacter.Attack * Double(char.activeCharacter.Experience) + 1) //char.activeCharacter.Experience seems to be the problem
+            currentEnemy.Health -= Int(char.activeCharacter.Attack)
             printOut(text: "You don't have a weapon equipped, so you engage with your fists!")
             printOut(text: "You hit the enemy for \(Int(char.activeCharacter.Attack * Double(char.activeCharacter.Experience) + 1))")
         } else if char.activeCharacter.equippedWeapon == nil, enemyDistance > 0 {

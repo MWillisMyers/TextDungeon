@@ -23,9 +23,6 @@ class ViewController: UIViewController {
     //battle properties
     var currentEnemy:Enemy!
     var enemyDistance:Int = 0
-    //player encodable persistance
-    let jsonEncoder = JSONEncoder()
-    let jsonDecoder = JSONDecoder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +36,14 @@ class ViewController: UIViewController {
             print("loading sample swords")
             loadSampleSwords()
         }
-        let loadedPlayers = loadPlayers() // loads players into an instance
-        if loadedPlayers == nil {
-            print("players not loaded")
+        if let loadedPlayers = loadPlayers() { // loads players into an instance
+            print("players loaded")
+            char = loadedPlayers
         } else {
-            char = loadedPlayers!
+            return
         }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,7 +70,7 @@ class ViewController: UIViewController {
         addWeapon()
     }
     @IBAction func SaveCharacterButton(_ sender: UIButton) {
-        savePlayers()
+        savePlayers(toBeSaved: char)
     }
     //Regular Functions
     
@@ -138,7 +137,7 @@ class ViewController: UIViewController {
             char.activeCharacter = char.charSorcerer
             printOut(text: "Your active character is now Sorcerer")
         case "save":
-            savePlayers()
+            savePlayers(toBeSaved: char)
         default:
             printOut(text: "Unknown Command. Type 'help' You're in the character menu")
         }
