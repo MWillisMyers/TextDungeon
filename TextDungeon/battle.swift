@@ -122,7 +122,7 @@ extension ViewController { // this whole thing is just a collection of functions
     func calculateDamage() { //currently only has barbarian damage model...
         //check for an equipped weapon if not then just punch the enemy
         if char.activeCharacter.equippedWeapon == nil, enemyDistance <= 0 {
-            //currentEnemy.Health -= Int(char.activeCharacter.Attack * Double(char.activeCharacter.Experience) + 1) //char.activeCharacter.Experience seems to be the problem
+            currentEnemy.Health -= Int(char.activeCharacter.Attack * Double(char.activeCharacter.Experience) + 1) //char.activeCharacter.Experience seems to be the problem
             currentEnemy.Health -= Int(char.activeCharacter.Attack)
             printOut(text: "You don't have a weapon equipped, so you engage with your fists!")
             printOut(text: "You hit the enemy for \(Int(char.activeCharacter.Attack * Double(char.activeCharacter.Experience) + 1))")
@@ -130,8 +130,8 @@ extension ViewController { // this whole thing is just a collection of functions
             printOut(text: "You don't have a ranged weapon, so you simply wait for the enemy to approach.")
         } else if char.activeCharacter.equippedWeapon != nil {
             switch char.activeCharacter.Name {
-            case "Barbarian":
-                barbarianDamageModel()
+            //case "Barbarian":
+                //barbarianDamageModel()
             default:
                 printOut(text: "You just broke my game you asshole -.-")
             }

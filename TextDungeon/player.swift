@@ -25,6 +25,12 @@ class entity: Codable {
         self.Attack = Attack
         self.Speed = Speed
     }
+    private enum CodingKeys: String, CodingKey {
+        case Health
+        case Attack
+        case Speed
+    }
+    
 }
     // NsCoding stuff for player persistance and saving
   /*   struct propKeys {
@@ -96,6 +102,16 @@ class player: entity { //simply adds things the characters will have
         equippedWeapon = try values.decode(Weapon.self, forKey: .equippedWeapon)
         try super.init(from: Decoder.self as! Decoder)
         }
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(Gold, forKey: .Gold)
+        try container.encode(Experience, forKey: .Experience)
+        try container.encode(Name, forKey: .Name)
+        try container.encode(isDead, forKey: .isDead)
+        try container.encode(equippedWeapon, forKey: .equippedWeapon)
+        
+    }
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.appendingPathComponent("players")
 }
@@ -163,8 +179,6 @@ class barbarian: player {
             equippedWeapon:equippedWeapon
         )
     }
-    
-
     convenience init() {
         self.init(
             Health: 10,
@@ -177,6 +191,21 @@ class barbarian: player {
             isDead: false,
             equippedWeapon: nil
         )
+    }
+    private enum CodingKeys: String, CodingKey {
+        case Power
+        case Health
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        Power = try values.decode(Double.self, forKey: .Power)
+        try super.init(from: decoder)
+    }
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try super.encode(to: encoder)
+        try container.encode(Power, forKey: .Power)
     }
 }
 
@@ -218,7 +247,8 @@ class ranger: player {
             Experience: Experience,
             Name:Name,
             isDead:isDead,
-            equippedWeapon:equippedWeapon)
+            equippedWeapon:equippedWeapon
+        )
     }
     convenience init() {
         self.init(
@@ -275,12 +305,16 @@ class preist: player {
             equippedWeapon: nil
         )
     }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
 }
-struct players: Codable {
-    let charBarbarian = barbarian()
-    let charRanger = ranger()
-    let charPriest = preist()
-    let charSorcerer = sorcerer()
+struct players {
+    var charBarbarian = barbarian()
+    var charRanger = ranger()
+    var charPriest = preist()
+    var charSorcerer = sorcerer()
     var activeCharacter:player
     init() {
         activeCharacter = charBarbarian
@@ -299,22 +333,39 @@ struct players: Codable {
             return "Game broke"
         }
     }
-   /* func savePlayers() {
+   func savePlayers() {
         do {
             let codedDataB = try PropertyListEncoder().encode(charBarbarian) //codes the data using Codable
-            let codedDataR = try PropertyListEncoder().encode(charRanger)
-            let codedDataP = try PropertyListEncoder().encode(charPriest)
-            let codedDataS = try PropertyListEncoder().encode(charSorcerer)
+            //let codedDataR = try PropertyListEncoder().encode(charRanger)
+           // let codedDataP = try PropertyListEncoder().encode(charPriest)
+            //let codedDataS = try PropertyListEncoder().encode(charSorcerer)
             let saveB = NSKeyedArchiver.archiveRootObject(codedDataB, toFile: player.ArchiveURL.path) //archives it using NSArchiver
-            let saveR = NSKeyedArchiver.archiveRootObject(codedDataR, toFile: player.ArchiveURL.path)
-            let saveP = NSKeyedArchiver.archiveRootObject(codedDataP, toFile: player.ArchiveURL.path)
-            let saveS = NSKeyedArchiver.archiveRootObject(codedDataS, toFile: player.ArchiveURL.path)
-            print(saveB ? "save good" : "save not good")
+            //let saveR = NSKeyedArchiver.archiveRootObject(codedDataR, toFile: player.ArchiveURL.path)
+            //let saveP = NSKeyedArchiver.archiveRootObject(codedDataP, toFile: player.ArchiveURL.path)
+           // let saveS = NSKeyedArchiver.archiveRootObject(codedDataS, toFile: player.ArchiveURL.path)
+            print(saveB ? "save good Barbarian" : "save not good")
+            //print(saveR ? "save good Ranger" : "save not good")
+            //print(saveP ? "save good Priest" : "save not good")
+           // print(saveS ? "save good Sorcerer" : "save not good")
         } catch {
             print("Save Failed")
         }
     }
-    */
+    func loadPlayers() -> [Any]? {
+        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: player.ArchiveURL.path) as? Data else { return nil } //gets coded data from NSUnarchiver
+        do {
+            let uncodedDataB = try PropertyListDecoder().decode(barbarian.self, from: data) //decodes it using Codable
+            //let uncodedDataR = try PropertyListDecoder().decode(ranger.self, from: data)
+            //let uncodedDataP = try PropertyListDecoder().decode(preist.self, from: data)
+            //let uncodedDataS = try PropertyListDecoder().decode(sorcerer.self, from: data)
+            let retArray = [uncodedDataB]// uncodedDataR, uncodedDataP, uncodedDataS]
+            return retArray
+        } catch {
+            print("retrieve failed")
+            print(error)
+            return nil
+        }
+    }
     
     
 }
@@ -350,23 +401,5 @@ extension ViewController {
         printOut(text: "Your active character is: \(char.activeCharacter.Name)")
     }
     // save and load functions for players
-    func savePlayers(toBeSaved:players) {
-        do {
-            let codedData = try PropertyListEncoder().encode(toBeSaved) //codes the data using Codable
-            let save = NSKeyedArchiver.archiveRootObject(codedData, toFile: player.ArchiveURL.path) //archives it using NSArchiver
-            print(save ? "save good" : "save not good")
-        } catch {
-            print("Save Failed")
-        }
-    }
-    func loadPlayers() -> players? {
-        guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: player.ArchiveURL.path) as? Data else { return nil } //gets coded data from NSUnarchiver
-        do {
-            let uncodedData = try PropertyListDecoder().decode(players.self, from: data) //decodes it using Codable
-            return uncodedData
-        } catch {
-            print("retrieve failed")
-            return nil
-        }
-    }
+    
 }

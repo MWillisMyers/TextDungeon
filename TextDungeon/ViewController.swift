@@ -36,12 +36,27 @@ class ViewController: UIViewController {
             print("loading sample swords")
             loadSampleSwords()
         }
-        if let loadedPlayers = loadPlayers() { // loads players into an instance
+        if let loadedPlayers = char.loadPlayers() { // loads players into an instance
+            let loadB:barbarian = loadedPlayers[0] as! barbarian
+            let loadR:ranger = loadedPlayers[1] as! ranger
+            let loadP:preist = loadedPlayers[2] as! preist
+            let loadS:sorcerer = loadedPlayers[3] as! sorcerer
+            char.charBarbarian = loadB
+            char.charRanger = loadR
+            char.charPriest = loadP
+            char.charSorcerer = loadS
             print("players loaded")
-            char = loadedPlayers
         } else {
             return
         }
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(barbarian())
+            print(String(data: data, encoding: .utf8)!)
+        } catch {
+            print(error)
+        }
+        
         
         
     }
@@ -70,7 +85,7 @@ class ViewController: UIViewController {
         addWeapon()
     }
     @IBAction func SaveCharacterButton(_ sender: UIButton) {
-        savePlayers(toBeSaved: char)
+        char.savePlayers()
     }
     //Regular Functions
     
@@ -137,7 +152,7 @@ class ViewController: UIViewController {
             char.activeCharacter = char.charSorcerer
             printOut(text: "Your active character is now Sorcerer")
         case "save":
-            savePlayers(toBeSaved: char)
+            char.savePlayers()
         default:
             printOut(text: "Unknown Command. Type 'help' You're in the character menu")
         }
