@@ -36,6 +36,7 @@ class ViewController: UIViewController {
             print("loading sample swords")
             loadSampleSwords()
         }
+        char.savePlayers()
         if let loadedPlayers = char.loadPlayers() { // loads players into an instance
             let loadB:barbarian = loadedPlayers[0] as! barbarian
             let loadR:ranger = loadedPlayers[1] as! ranger

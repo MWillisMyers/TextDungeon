@@ -100,7 +100,7 @@ class player: entity { //simply adds things the characters will have
         Name = try values.decode(String.self, forKey: .Name)
         isDead = try values.decode(Bool.self, forKey: .isDead)
         equippedWeapon = try values.decode(Weapon.self, forKey: .equippedWeapon)
-        try super.init(from: Decoder.self as! Decoder)
+        try super.init(from: decoder)
         }
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
@@ -161,7 +161,7 @@ class sorcerer: player {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         Mana = try values.decode(Int.self, forKey: .Mana)
         spAttack = try values.decode(Double.self, forKey: .spAttack)
-        try super.init(from: Decoder.self as! Decoder)
+        try super.init(from: decoder)
     }
 }
 class barbarian: player {
@@ -193,8 +193,15 @@ class barbarian: player {
         )
     }
     private enum CodingKeys: String, CodingKey {
-        case Power
         case Health
+        case Attack
+        case Speed
+        case Gold
+        case Experience
+        case Name
+        case isDead
+        case equippedWeapon
+        case Power
     }
     
     required init(from decoder: Decoder) throws {
@@ -264,9 +271,16 @@ class ranger: player {
             equippedWeapon: nil
         )
     }
+    private enum CodingKeys: String, CodingKey {
+        case rangedAttack
+        case hitChance
+    }
     
     required init(from decoder: Decoder) throws {
-        fatalError("init(from:) has not been implemented")
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        rangedAttack = try values.decode(Double.self, forKey: .rangedAttack)
+        hitChance = try values.decode(Double.self, forKey: .hitChance)
+        try super.init(from: decoder)
     }
     
     /*
