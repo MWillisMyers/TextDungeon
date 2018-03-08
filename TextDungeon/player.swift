@@ -336,15 +336,15 @@ struct players {
    func savePlayers() {
         do {
             let codedDataB = try PropertyListEncoder().encode(charBarbarian) //codes the data using Codable
-            //let codedDataR = try PropertyListEncoder().encode(charRanger)
+            let codedDataR = try PropertyListEncoder().encode(charRanger)
            // let codedDataP = try PropertyListEncoder().encode(charPriest)
             //let codedDataS = try PropertyListEncoder().encode(charSorcerer)
             let saveB = NSKeyedArchiver.archiveRootObject(codedDataB, toFile: player.ArchiveURL.path) //archives it using NSArchiver
-            //let saveR = NSKeyedArchiver.archiveRootObject(codedDataR, toFile: player.ArchiveURL.path)
+            let saveR = NSKeyedArchiver.archiveRootObject(codedDataR, toFile: player.ArchiveURL.path)
             //let saveP = NSKeyedArchiver.archiveRootObject(codedDataP, toFile: player.ArchiveURL.path)
            // let saveS = NSKeyedArchiver.archiveRootObject(codedDataS, toFile: player.ArchiveURL.path)
             print(saveB ? "save good Barbarian" : "save not good")
-            //print(saveR ? "save good Ranger" : "save not good")
+            print(saveR ? "save good Ranger" : "save not good")
             //print(saveP ? "save good Priest" : "save not good")
            // print(saveS ? "save good Sorcerer" : "save not good")
         } catch {
@@ -355,10 +355,11 @@ struct players {
         guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: player.ArchiveURL.path) as? Data else { return nil } //gets coded data from NSUnarchiver
         do {
             let uncodedDataB = try PropertyListDecoder().decode(barbarian.self, from: data) //decodes it using Codable
-            //let uncodedDataR = try PropertyListDecoder().decode(ranger.self, from: data)
+            let uncodedDataR = try PropertyListDecoder().decode(ranger.self, from: data)
             //let uncodedDataP = try PropertyListDecoder().decode(preist.self, from: data)
             //let uncodedDataS = try PropertyListDecoder().decode(sorcerer.self, from: data)
-            let retArray = [uncodedDataB]// uncodedDataR, uncodedDataP, uncodedDataS]
+            let retArray = [uncodedDataB, uncodedDataR] //uncodedDataP, uncodedDataS]
+            print("Load Successful")
             return retArray
         } catch {
             print("retrieve failed")
