@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     //define stored properties
     var sentText:String?
     var inventory = inv() //define inventory instance
+    var charSave = playerPersistance()
     var char = players()
     var state:states = .isInEvironment
     var previousState:states = .isInEvironment
@@ -36,30 +37,12 @@ class ViewController: UIViewController {
             print("loading sample swords")
             loadSampleSwords()
         }
-        char.savePlayers()
-        if let loadedPlayers = char.loadPlayers() { // loads players into an instance
-            let loadB:barbarian = loadedPlayers[0] as! barbarian
-            let loadR:ranger = loadedPlayers[1] as! ranger
-            let loadP:preist = loadedPlayers[2] as! preist
-            let loadS:sorcerer = loadedPlayers[3] as! sorcerer
-            char.charBarbarian = loadB
-            char.charRanger = loadR
-            char.charPriest = loadP
-            char.charSorcerer = loadS
+        if let loadedPlayers = charSave.loadPlayers() { // loads players into an instance
+            char = loadedPlayers
             print("players loaded")
         } else {
             return
         }
-        do {
-            let encoder = JSONEncoder()
-            let data = try encoder.encode(barbarian())
-            print(String(data: data, encoding: .utf8)!)
-        } catch {
-            print(error)
-        }
-        
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,6 +53,7 @@ class ViewController: UIViewController {
     //outlets
     @IBOutlet weak var commandField: UITextField!
     @IBOutlet weak var OutputField: UITextView!
+    @IBOutlet weak var CommandView: UICollectionView!
     
     
     //IBAction Funcs
@@ -86,7 +70,7 @@ class ViewController: UIViewController {
         addWeapon()
     }
     @IBAction func SaveCharacterButton(_ sender: UIButton) {
-        char.savePlayers()
+        charSave.savePlayers()
     }
     //Regular Functions
     
@@ -153,7 +137,7 @@ class ViewController: UIViewController {
             char.activeCharacter = char.charSorcerer
             printOut(text: "Your active character is now Sorcerer")
         case "save":
-            char.savePlayers()
+            charSave.savePlayers()
         default:
             printOut(text: "Unknown Command. Type 'help' You're in the character menu")
         }
@@ -178,6 +162,8 @@ class ViewController: UIViewController {
             inventory.WeaponArray += [randUncommonSword()]
         }
     }
+    //command handling
+    
     
     //define states of play, that allow certain commands that only run in a state, such as delete item or attack. You can't attack unless you're battling
     enum states {

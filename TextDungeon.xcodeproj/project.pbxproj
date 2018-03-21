@@ -75,12 +75,12 @@
 				A205D519201F6BB400618B8E /* AppDelegate.swift */,
 				BC3907592022180700F50F82 /* Inventory.swift */,
 				6E1B41952024B23E0015E508 /* Weapons.swift */,
+				BCD85D172031E78600E35DA0 /* Items.swift */,
 				A205D51D201F6BB400618B8E /* Main.storyboard */,
 				A205D523201F6BB400618B8E /* Assets.xcassets */,
 				A205D525201F6BB400618B8E /* LaunchScreen.storyboard */,
 				A205D528201F6BB400618B8E /* Info.plist */,
 				A205D520201F6BB400618B8E /* TextDungeon.xcdatamodeld */,
-				BCD85D172031E78600E35DA0 /* Items.swift */,
 			);
 			path = TextDungeon;
 			sourceTree = "<group>";

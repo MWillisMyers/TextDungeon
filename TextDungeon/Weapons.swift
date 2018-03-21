@@ -150,7 +150,14 @@ enum RangerWeaponMaterials { // this enum holds a bunch of structs that define t
         var rarity = getRandomNumber(upper: 3, lower: 1)
     }
 }
-
+enum weaponTypes:String, Codable {
+    case Sword
+    case Dagger
+    case Staff
+    case Bow
+    case Arrow
+    
+}
 
 
 //MARK: Classes
@@ -161,14 +168,15 @@ class Weapon: Codable {
     var weight:Double
     var rarity:Int
     var doubleUndeadDamage:Bool = false //dont add in the init script for simplicity, will define later in subclass init
+    var weaponType:weaponTypes
     
-    init(attack:Int, name:String, rarity:Int, weight:Double) {
+    init(attack:Int, name:String, rarity:Int, weight:Double, weaponType:weaponTypes) {
         self.attack = attack
         self.rarity = rarity
         self.name = name
         self.weight = weight
+        self.weaponType = weaponType
     }
-    
     
     // All Codable stuff for inventory persistance
     //Migrating to codable auto generates encoding keys and such
@@ -179,7 +187,11 @@ class Weapon: Codable {
 //Weapon Subclasses
 
 class Sword: Weapon {
-    convenience init(material:Int) { //integer based material chooser, chooses different material based on integer
+    init(attack: Int, name: String, rarity: Int, weight: Double) { //integer based material chooser, chooses different material based on integer
+        super.init(attack: attack, name: name, rarity: rarity, weight: weight, weaponType: .Sword)
+    }
+    
+    convenience init(material:Int) {
         let matDull = PhysicalWeaponMaterials.Dull(), matIron = PhysicalWeaponMaterials.Iron(), matSilver = PhysicalWeaponMaterials.Silver(), matCobalt = PhysicalWeaponMaterials.Cobalt(), matElven = PhysicalWeaponMaterials.Elven(), matDragon = PhysicalWeaponMaterials.Dragon()
         switch material {
         case 0: //dull
@@ -199,13 +211,17 @@ class Sword: Weapon {
             self.init(attack: 1, name: "Default", rarity: 0, weight: 1.0)
         }
     }
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
 }
 
 class Dagger: Weapon {
-    override init(attack: Int, name: String, rarity: Int, weight:Double) { //override init that will take weight off because it's a dagger
-        super.init(attack:attack, name:name, rarity:rarity, weight:weight)
-        self.weight = weight / 2.0
+    init(attack: Int, name: String, rarity: Int, weight: Double) {
+        super.init(attack: attack, name: name, rarity: rarity, weight: weight, weaponType: .Dagger)
+        super.weight /= 2
     }
+    
     convenience init(material:Int) { //random initalizer
         let matDull = PhysicalWeaponMaterials.Dull(), matIron = PhysicalWeaponMaterials.Iron(), matSilver = PhysicalWeaponMaterials.Silver(), matCobalt = PhysicalWeaponMaterials.Cobalt(), matElven = PhysicalWeaponMaterials.Elven(), matDragon = PhysicalWeaponMaterials.Dragon()
         switch material {
@@ -233,6 +249,10 @@ class Dagger: Weapon {
 }
 
 class Staff: Weapon {
+    init(attack: Int, name: String, rarity: Int, weight: Double) {
+        super.init(attack: attack, name: name, rarity: rarity, weight: weight, weaponType: .Staff)
+    }
+    
     convenience init(material:Int) { //integer based material chooser, chooses different material based on integer
         let matMaple = MagicalWeaponMaterials.Maple(), matOak = MagicalWeaponMaterials.Oak(), matElder = MagicalWeaponMaterials.Elder(), matDarkWood = MagicalWeaponMaterials.DarkWood(), matSilverWood = MagicalWeaponMaterials.SilverWood(), matIronWood = MagicalWeaponMaterials.IronWood()
         switch material {
@@ -254,9 +274,18 @@ class Staff: Weapon {
         }
     }
     
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+    
 }
 
 class Bow: Weapon {
+    init(attack: Int, name: String, rarity: Int, weight: Double) {
+        super.init(attack: attack, name: name, rarity: rarity, weight: weight, weaponType: .Dagger)
+        super.weight /= 2
+    }
+    
     convenience init(material:Int) {
         let matShort = RangerWeaponMaterials.Short(), matLong = RangerWeaponMaterials.Long(), matHunter = RangerWeaponMaterials.Hunter(), matCrossbow = RangerWeaponMaterials.Crossbow(), matElven = RangerWeaponMaterials.Elven(), matDragon = RangerWeaponMaterials.Dragon()
         switch material {
@@ -276,14 +305,19 @@ class Bow: Weapon {
             self.init(attack: 1, name: "Default", rarity: 0, weight: 1.0)
         }
     }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
 }
 
 class Arrow: Weapon { //Arrow class taken from dagger class, added self.weight and self.attack
-    override init(attack: Int, name: String, rarity: Int, weight:Double) { //override init that will take weight off because it's a dagger
-        super.init(attack:attack, name:name, rarity:rarity, weight:weight)
-        self.weight = 0
-        self.attack /= 2 + 1
+    init(attack: Int, name: String, rarity: Int, weight: Double) {
+        super.init(attack: attack, name: name, rarity: rarity, weight: weight, weaponType: .Dagger)
+        super.weight = 0
+        super.attack /= 2 + 1
     }
+    
     convenience init(material:Int) { //random initalizer
         let matDull = PhysicalWeaponMaterials.Dull(), matIron = PhysicalWeaponMaterials.Iron(), matSilver = PhysicalWeaponMaterials.Silver(), matCobalt = PhysicalWeaponMaterials.Cobalt(), matElven = PhysicalWeaponMaterials.Elven(), matDragon = PhysicalWeaponMaterials.Dragon()
         switch material {
@@ -310,7 +344,6 @@ class Arrow: Weapon { //Arrow class taken from dagger class, added self.weight a
     }
 }
 
-
 //MARK: Functions
 /*
 func Debug() {
@@ -324,22 +357,21 @@ func Debug() {
     print(silverSword.name, silverSword.attack, silverSword.doubleUndeadDamage)
 }
 */
+
 func randCommonSword() -> Sword {
     //can limit material of sword by limiting upper material bound
     return Sword(material: getRandomNumber(upper: 3, lower: 1))
-    }
+}
+
 func randUncommonSword() -> Sword {
     return Sword(material: getRandomNumber(upper: 4, lower: 1))
 }
+
 func randCommonDagger() -> Dagger {
     return Dagger(material: getRandomNumber(upper: 3, lower: 1))
 }
-
-
 
 //random number generator
 func getRandomNumber (upper: Int, lower: Int) -> Int {
     return lower + Int(arc4random_uniform(UInt32(upper - lower + 1)))
 }
-
-

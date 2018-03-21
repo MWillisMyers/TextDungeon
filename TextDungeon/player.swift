@@ -84,24 +84,23 @@ class player: entity { //simply adds things the characters will have
         super.init(Health: Health, Attack: Attack, Speed: Speed)
     }
     private enum CodingKeys: String, CodingKey {
-        case Health
-        case Attack
-        case Speed
         case Gold
         case Experience
         case Name
         case isDead
         case equippedWeapon
     }
+    
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         Gold = try values.decode(Int.self, forKey: .Gold)
         Experience = try values.decode(Int.self, forKey: .Experience)
         Name = try values.decode(String.self, forKey: .Name)
         isDead = try values.decode(Bool.self, forKey: .isDead)
-        equippedWeapon = try values.decode(Weapon.self, forKey: .equippedWeapon)
+        equippedWeapon = try values.decodeIfPresent(Weapon.self, forKey: .equippedWeapon)
         try super.init(from: decoder)
         }
+    
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -109,7 +108,7 @@ class player: entity { //simply adds things the characters will have
         try container.encode(Experience, forKey: .Experience)
         try container.encode(Name, forKey: .Name)
         try container.encode(isDead, forKey: .isDead)
-        try container.encode(equippedWeapon, forKey: .equippedWeapon)
+        try container.encodeIfPresent(equippedWeapon, forKey: .equippedWeapon)
         
     }
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -163,6 +162,12 @@ class sorcerer: player {
         spAttack = try values.decode(Double.self, forKey: .spAttack)
         try super.init(from: decoder)
     }
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try super.encode(to: encoder)
+        try container.encode(Mana, forKey: .Mana)
+        try container.encode(spAttack, forKey: .spAttack)
+    }
 }
 class barbarian: player {
     var Power:Double //since the barbarian has nothing but melee, i'm going to add another base modifier that buffs his damage
@@ -193,14 +198,6 @@ class barbarian: player {
         )
     }
     private enum CodingKeys: String, CodingKey {
-        case Health
-        case Attack
-        case Speed
-        case Gold
-        case Experience
-        case Name
-        case isDead
-        case equippedWeapon
         case Power
     }
     
@@ -209,6 +206,7 @@ class barbarian: player {
         Power = try values.decode(Double.self, forKey: .Power)
         try super.init(from: decoder)
     }
+    
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try super.encode(to: encoder)
@@ -283,6 +281,12 @@ class ranger: player {
         try super.init(from: decoder)
     }
     
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try super.encode(to: encoder)
+        try container.encode(rangedAttack, forKey: .rangedAttack)
+        try container.encode(hitChance, forKey: .hitChance)
+    }
     /*
      the archer will be based on hit chance, so that when the player engages on an enemy farther away
      you have to spend points on your chance to hit that enemy. If the enemy is a Melee only, he will
@@ -320,11 +324,23 @@ class preist: player {
         )
     }
     
+    enum CodingKeys: String, CodingKey {
+        case healRate
+    }
+    
     required init(from decoder: Decoder) throws {
-        fatalError("init(from:) has not been implemented")
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        healRate = try values.decode(Int.self, forKey: .healRate)
+        try super.init(from: decoder)
+    }
+    
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try super.encode(to: encoder)
+        try container.encode(healRate, forKey: .healRate)
     }
 }
-struct players {
+struct players: Codable {
     var charBarbarian = barbarian()
     var charRanger = ranger()
     var charPriest = preist()
@@ -333,6 +349,7 @@ struct players {
     init() {
         activeCharacter = charBarbarian
     }
+    
     func getActiveCharacterString() -> String {
         switch activeCharacter {
         case is barbarian:
@@ -347,41 +364,55 @@ struct players {
             return "Game broke"
         }
     }
-   func savePlayers() {
+    enum CodingKeys: String, CodingKey {
+        case barbarian
+        case ranger
+        case priest
+        case sorcerer
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(charSorcerer, forKey: .sorcerer)
+        try container.encode(charPriest, forKey: .priest)
+        try container.encode(charRanger, forKey: .ranger)
+        try container.encode(charBarbarian, forKey: .barbarian)
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        charBarbarian = try container.decode(barbarian.self, forKey: .barbarian)
+        charRanger = try container.decode(ranger.self, forKey: .ranger)
+        charPriest = try container.decode(preist.self, forKey: .priest)
+        charSorcerer = try container.decode(sorcerer.self, forKey: .sorcerer)
+        activeCharacter = charBarbarian
+    }
+}
+struct playerPersistance {
+    let playerSave = players()
+    func savePlayers() {
         do {
-            let codedDataB = try PropertyListEncoder().encode(charBarbarian) //codes the data using Codable
-            let codedDataR = try PropertyListEncoder().encode(charRanger)
-           // let codedDataP = try PropertyListEncoder().encode(charPriest)
-            //let codedDataS = try PropertyListEncoder().encode(charSorcerer)
-            let saveB = NSKeyedArchiver.archiveRootObject(codedDataB, toFile: player.ArchiveURL.path) //archives it using NSArchiver
-            let saveR = NSKeyedArchiver.archiveRootObject(codedDataR, toFile: player.ArchiveURL.path)
-            //let saveP = NSKeyedArchiver.archiveRootObject(codedDataP, toFile: player.ArchiveURL.path)
-           // let saveS = NSKeyedArchiver.archiveRootObject(codedDataS, toFile: player.ArchiveURL.path)
-            print(saveB ? "save good Barbarian" : "save not good")
-            print(saveR ? "save good Ranger" : "save not good")
-            //print(saveP ? "save good Priest" : "save not good")
-           // print(saveS ? "save good Sorcerer" : "save not good")
+            let codedData = try PropertyListEncoder().encode(playerSave) //codes the data using Codable
+            let save = NSKeyedArchiver.archiveRootObject(codedData, toFile: player.ArchiveURL.path) //archives it using NSArchiver
+            print(save ? "save good" : "save not good")
         } catch {
             print("Save Failed")
+            print(error)
         }
     }
-    func loadPlayers() -> [Any]? {
+    func loadPlayers() -> players? {
         guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: player.ArchiveURL.path) as? Data else { return nil } //gets coded data from NSUnarchiver
         do {
-            let uncodedDataB = try PropertyListDecoder().decode(barbarian.self, from: data) //decodes it using Codable
-            let uncodedDataR = try PropertyListDecoder().decode(ranger.self, from: data)
-            //let uncodedDataP = try PropertyListDecoder().decode(preist.self, from: data)
-            //let uncodedDataS = try PropertyListDecoder().decode(sorcerer.self, from: data)
-            let retArray = [uncodedDataB, uncodedDataR] //uncodedDataP, uncodedDataS]
+            let uncodedData = try PropertyListDecoder().decode(players.self, from: data)
+            let ret = uncodedData
             print("Load Successful")
-            return retArray
+            return ret
         } catch {
             print("retrieve failed")
             print(error)
             return nil
         }
     }
-    
     
 }
 extension ViewController {
@@ -415,6 +446,5 @@ extension ViewController {
        
         printOut(text: "Your active character is: \(char.activeCharacter.Name)")
     }
-    // save and load functions for players
-    
 }
+
