@@ -30,13 +30,13 @@ extension ViewController { // this whole thing is just a collection of functions
             attackEnemy()
         case "inventory", "inv":
             printInventory()
-            previousState = state //sets the previous state so we can go back to it, this is required for all cases
-            state = states.isInInventory //set the state to the inventory, also required for all cases
+            previousState = state
+            state = states.isInInventory
             print("setting state to inv")
         case "characters", "char":
             printStats()
             previousState = state
-            state = states.isInCharacter //set state to character
+            state = states.isInCharacter
             print("setting state to char")
         case "approach", "get closer", "close in":
             enemyDistance = 0
@@ -49,7 +49,7 @@ extension ViewController { // this whole thing is just a collection of functions
     func attackEnemy() {
         if currentEnemy.Speed >= char.playerVar.activeCharacter.Speed {
             doTurn()
-            //calculateDamage()
+            calculateDamage()
         } else {
             calculateDamage()
             doTurn()
@@ -66,7 +66,7 @@ extension ViewController { // this whole thing is just a collection of functions
             enemyDistance -= currentEnemy.Speed
             printOut(text: "The enemy distance is \(enemyDistance)m.")
         } else {
-            print("This if statement did jack shit...")
+            print("if statement broke. enemy distance is \(enemyDistance)")
         }
     }
     func checkCharDeath() { //you okay bro?
@@ -104,7 +104,7 @@ extension ViewController { // this whole thing is just a collection of functions
                     checkCharDeath()
                 }
             default:
-                print("game machine br0ke")
+                print("Random Character to switch to broke")
             }
             
         }
@@ -133,7 +133,7 @@ extension ViewController { // this whole thing is just a collection of functions
             //case "Barbarian":
                 //barbarianDamageModel()
             default:
-                printOut(text: "You just broke my game you asshole -.-")
+                printOut(text: "Somehow weapon equipped states broke")
             }
         }
     }

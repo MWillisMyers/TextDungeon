@@ -22,21 +22,22 @@
  heavier attacks will use more energy.
  
  We REALLY need a plan for the sorcerer. Books especially.
- 
- Planned Features:
- Skill Tree / points / experience
- Character Attacks
- Ranger's Doggo
- Priest and Sorcerer Functionality
- 
- */
 
+
+
+ */
+/*
+ the archer will be based on hit chance, so that when the player engages on an enemy farther away
+ you have to spend points on your chance to hit that enemy. If the enemy is a Melee only, he will
+ come closer to you over a few turns and try to hit you. If he does come close enough the ranger
+ will have to resort to his knife. Enemys that have ranged/magic attacks will stay far and also have
+ a hit chance. */
 
 import Foundation
 import os.log
 
 let seperator = " | " //seperates the numbers when printing them
-// entity superclass
+//MARK:Entity superclass
 class entity: Codable {
     var Health: Int
     var Attack: Double
@@ -53,36 +54,9 @@ class entity: Codable {
     }
     
 }
-    // NsCoding stuff for player persistance and saving
-  /*   struct propKeys {
-        static let Health = "Health"
-        static let Attack = "Attack"
-        static let Speed = "Speed"
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(Health, forKey: propKeys.Health)
-        aCoder.encode(Attack, forKey: propKeys.Attack)
-        aCoder.encode(Speed, forKey: propKeys.Speed)
-    }
-    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("entity")
-    
-    
-    required convenience init?(coder aDecoder: NSCoder) {
-        
-        let Health = aDecoder.decodeInteger(forKey: propKeys.Health)
-        let Attack = aDecoder.decodeDouble(forKey: propKeys.Attack)
-        let Speed = aDecoder.decodeInteger(forKey: propKeys.Speed)
-        
-        self.init(Health:Health,Attack:Attack,Speed:Speed)
-    }
-}
-*/
 
-//base player class
-
-class player: entity { //simply adds things the characters will have
+//MARK: Base Player Class
+class player: entity {
     var Gold: Int
     var Experience: Int
     let Name: String
@@ -155,7 +129,7 @@ class sorcerer: player {
                    equippedWeapon:equippedWeapon
                    ) //after initalizing the class values, need to init super class values here
     }
-    convenience init() { //on initalization, add base values. After initaliazed the values should be loaded by NSCoder instead of this
+    convenience init() { //base values init. After initaliazed the values should be loaded by Codable instead of this
         self.init(
             Health: 10,
             Attack: 1.0,
@@ -281,12 +255,6 @@ class ranger: player {
         try container.encode(rangedAttack, forKey: .rangedAttack)
         try container.encode(hitChance, forKey: .hitChance)
     }
-    /*
-     the archer will be based on hit chance, so that when the player engages on an enemy farther away
-     you have to spend points on your chance to hit that enemy. If the enemy is a Melee only, he will
-     come closer to you over a few turns and try to hit you. If he does come close enough the ranger 
-     will have to resort to his knife. Enemys that have ranged/magic attacks will stay far and also have
-     a hit chance. */
 }
 //MARK:Priest
 class preist: player {
@@ -412,6 +380,7 @@ struct playerWrapper {
     }
     
 }
+//MARK: Print Stats function
 extension ViewController {
     func printStats() {//print stats of all characters in
         printOut(text: "Health | Attack | Speed | Experience | Gold") //Line

@@ -8,9 +8,6 @@
 
 /*
  We do inventory stuff here.
- TODO: Finish damage models for all characters.
- add weapons for all characters
- add weapon equpping for all characters.
  
 */
 

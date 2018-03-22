@@ -5,17 +5,9 @@
 //  Created by Metalface on 2/15/18.
 //  Copyright © 2018 Matt Myers. All rights reserved.
 //
-/*
- ToDo:
- define each enemy type
- GET SPRITEKIT!!
- add enemy identifers and the sprites to go with them - UIImage probably
- Maybe make boss subclass...
- */
 import Foundation
 import os.log
 
-// attack formula
 class Enemy: entity {
     var Name:String
     init(Health: Int, Attack: Double, Speed: Int, Name:String) {

@@ -5,7 +5,22 @@
 //  Created by Matt Myers on 1/29/18.
 //  Copyright © 2018 Matt Myers. All rights reserved.
 //
-
+/*
+ Full Todo:
+ Finish damage models for all characters.
+ add weapons for all characters
+ add weapon equpping for all characters.
+ Skill Tree / points / experience
+ Character Attacks
+ Ranger's Doggo
+ Priest and Sorcerer Functionality - such as add them to printstats
+ define each enemy type
+ add enemy identifers and the sprites to go with them - UIImage probably
+ Maybe make boss subclass...
+ durability
+ magical weapons, like staffs, books.
+ Items, potions, etc...
+*/
 import UIKit
 import os.log
 
@@ -17,7 +32,6 @@ class ViewController: UIViewController {
     var sentText:String?
     var inventory = inv() //define inventory instance
     var char = playerWrapper()
-    //var char = players()
     var state:states = .isInEvironment
     var previousState:states = .isInEvironment
     var isEquippingWeapon = false //for inv 
@@ -28,7 +42,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        //Debug()
         enemyDebug() //enemy debug function
         if let savedInv = inventory.loadInv() { //loads inventory
             print("loading saved inv")
@@ -37,7 +50,7 @@ class ViewController: UIViewController {
             print("loading sample swords")
             loadSampleSwords()
         }
-        if let loadedPlayers = char.loadPlayers() { // loads players into an instance
+        if let loadedPlayers = char.loadPlayers() { // loads players
             print("loadedHealth = \(loadedPlayers.charBarbarian.Health)")
             print("loadedAttack = \(loadedPlayers.charBarbarian.Attack)")
             char.playerVar = loadedPlayers
@@ -119,7 +132,7 @@ class ViewController: UIViewController {
         }
     }
     
-    func checkCharacterMenuCommands(input:String) { //currently can only switch between ranger and barbarian
+    func checkCharacterMenuCommands(input:String) {
         switch input {
         case "back", "return":
             state = previousState
@@ -144,8 +157,6 @@ class ViewController: UIViewController {
         }
     }
     
-    // check inventory commands is in the inventory.swift file, look over there
-    
     func loadSampleSwords() {
         let Sword1 = Sword(material: 0)
         let Sword2 = Sword(material: 5)
@@ -163,9 +174,7 @@ class ViewController: UIViewController {
             inventory.WeaponArray += [randUncommonSword()]
         }
     }
-    //command handling
-    
-    
+
     //define states of play, that allow certain commands that only run in a state, such as delete item or attack. You can't attack unless you're battling
     enum states {
         case isInBattle
