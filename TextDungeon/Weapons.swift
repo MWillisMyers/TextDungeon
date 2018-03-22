@@ -16,6 +16,7 @@
  
  in progress: magical items, like staffs, books.
  staff has all properties of physical item, except is also ranged.
+ M A G I C
  */
 
 import Foundation
@@ -111,7 +112,7 @@ enum MagicalWeaponMaterials {
     
 }
 //Ranger Weapons
-enum RangerWeaponMaterials { // this enum holds a bunch of structs that define the weapon materials stats, so we can change later if necissary
+enum RangerWeaponMaterials {
     struct Short {
         var attack = getRandomNumber(upper: 5, lower: 1)
         var name = "Short Bow"

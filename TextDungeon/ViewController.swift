@@ -16,8 +16,8 @@ class ViewController: UIViewController {
     //define stored properties
     var sentText:String?
     var inventory = inv() //define inventory instance
-    var charSave = playerPersistance()
-    var char = players()
+    var char = playerWrapper()
+    //var char = players()
     var state:states = .isInEvironment
     var previousState:states = .isInEvironment
     var isEquippingWeapon = false //for inv 
@@ -37,9 +37,10 @@ class ViewController: UIViewController {
             print("loading sample swords")
             loadSampleSwords()
         }
-        if let loadedPlayers = charSave.loadPlayers() { // loads players into an instance
-            char = loadedPlayers
-            print("players loaded")
+        if let loadedPlayers = char.loadPlayers() { // loads players into an instance
+            print("loadedHealth = \(loadedPlayers.charBarbarian.Health)")
+            print("loadedAttack = \(loadedPlayers.charBarbarian.Attack)")
+            char.playerVar = loadedPlayers
         } else {
             return
         }
@@ -70,7 +71,7 @@ class ViewController: UIViewController {
         addWeapon()
     }
     @IBAction func SaveCharacterButton(_ sender: UIButton) {
-        charSave.savePlayers()
+        char.savePlayers()
     }
     //Regular Functions
     
@@ -125,19 +126,19 @@ class ViewController: UIViewController {
             print("previous state:",previousState)
             printOut(text:"Returning from character menu...")
         case "switch barb", "sw barb", "switch barbarian", "sw barbarian":
-            char.activeCharacter = char.charBarbarian
+            char.playerVar.activeCharacter = char.playerVar.charBarbarian
             printOut(text: "Your active character is now Barbarian")
         case "switch ranger", "sw ranger", "sw rang", "switch rang":
-            char.activeCharacter = char.charRanger
+            char.playerVar.activeCharacter = char.playerVar.charRanger
             printOut(text: "Your active character is now Ranger")
         case "switch pr", "sw priest", "sw pr", "switch preist":
-            char.activeCharacter = char.charPriest
+            char.playerVar.activeCharacter = char.playerVar.charPriest
             printOut(text: "Your active character is now Priest")
         case "switch sorc", "sw sorcerer", "sw sorc", "switch sorcerer":
-            char.activeCharacter = char.charSorcerer
+            char.playerVar.activeCharacter = char.playerVar.charSorcerer
             printOut(text: "Your active character is now Sorcerer")
         case "save":
-            charSave.savePlayers()
+            char.savePlayers()
         default:
             printOut(text: "Unknown Command. Type 'help' You're in the character menu")
         }

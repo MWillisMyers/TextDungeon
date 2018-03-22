@@ -94,7 +94,7 @@ extension ViewController {
             let ret:Bool = switchWeaponBarbarian(weap:weapn!) // func returns true or false if it worked, if it did then equip the weapon
             if ret == true {
                 inventory.WeaponArray.remove(at:Int(command[1])!)// if it did work, remove the weapon from the inventory
-                printOut(text: "Weapon sucessfully switched to \(char.charBarbarian.equippedWeapon!)")
+                printOut(text: "Weapon sucessfully switched to \(char.playerVar.charBarbarian.equippedWeapon!)")
             } else {
                 printOut(text: "Weapon not switched")
             }
@@ -102,7 +102,7 @@ extension ViewController {
             let ret:Bool = switchWeaponRanger(weap:weapn!)
             if ret == true {
                 inventory.WeaponArray.remove(at:Int(command[1])!)// if it did work, remove the weapon from the inventory
-                printOut(text: "Weapon sucessfully switched to \(char.charRanger.equippedWeapon!)")
+                printOut(text: "Weapon sucessfully switched to \(char.playerVar.charRanger.equippedWeapon!)")
             } else {
                 printOut(text: "Weapon not switched")
             }
@@ -123,11 +123,11 @@ extension ViewController {
     //first ive got to append his existing equipped weapon into the inv, then take the weapon specified out of the inv.
     func switchWeaponBarbarian(weap:Weapon) -> Bool {
         if weap.weaponType == weaponTypes.Sword { // || weap is Mace for later
-            if char.charBarbarian.equippedWeapon != nil {
-                inventory.WeaponArray.append(char.charBarbarian.equippedWeapon!)
-                char.charBarbarian.equippedWeapon = weap
+            if char.playerVar.charBarbarian.equippedWeapon != nil {
+                inventory.WeaponArray.append(char.playerVar.charBarbarian.equippedWeapon!)
+                char.playerVar.charBarbarian.equippedWeapon = weap
             } else {
-                char.charBarbarian.equippedWeapon = weap
+                char.playerVar.charBarbarian.equippedWeapon = weap
             }
             return true
         } else {
@@ -138,11 +138,11 @@ extension ViewController {
     
     func switchWeaponRanger(weap:Weapon) -> Bool {
         if weap.weaponType == weaponTypes.Dagger { // || weap is Mace for later
-            if char.charRanger.equippedWeapon != nil {
-                inventory.WeaponArray.append(char.charRanger.equippedWeapon!)
-                char.charRanger.equippedWeapon = weap
+            if char.playerVar.charRanger.equippedWeapon != nil {
+                inventory.WeaponArray.append(char.playerVar.charRanger.equippedWeapon!)
+                char.playerVar.charRanger.equippedWeapon = weap
             } else {
-                char.charRanger.equippedWeapon = weap
+                char.playerVar.charRanger.equippedWeapon = weap
             }
             return true //will return a true or false value to specify if the switchWeapon worked or not
         } else {

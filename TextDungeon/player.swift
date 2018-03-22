@@ -10,7 +10,28 @@
 /*
  So this is the file we're doing player stuff in...
  how about that!
+ 
+ Battle Plan:
+ Each character has 4 attacks.
+ Barbarian: Light Attack, Heavy Attack, Charged Blow, Block
+ Ranger: Light Draw, Full Draw, Throw Knife, Pet
+ Priest: Light Heal, Full Heal, Shield Team, Attack
+ Sorcerer: Spell 1, Spell 2, Spell 3 (special), Melee Strike
+ Most of these are subject to change functionality and name.
+ there will be a bar with energy used to attack, and this energy regens every turn.
+ heavier attacks will use more energy.
+ 
+ We REALLY need a plan for the sorcerer. Books especially.
+ 
+ Planned Features:
+ Skill Tree / points / experience
+ Character Attacks
+ Ranger's Doggo
+ Priest and Sorcerer Functionality
+ 
  */
+
+
 import Foundation
 import os.log
 
@@ -116,12 +137,8 @@ class player: entity { //simply adds things the characters will have
 }
 
 
- 
-
-
-
-
 //subclasses of each of the characters
+//MARK: Sorcerer
 class sorcerer: player {
     var Mana:Int
     var spAttack:Double
@@ -169,6 +186,7 @@ class sorcerer: player {
         try container.encode(spAttack, forKey: .spAttack)
     }
 }
+//MARK:Barbarian
 class barbarian: player {
     var Power:Double //since the barbarian has nothing but melee, i'm going to add another base modifier that buffs his damage
     init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Power:Double, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
@@ -213,31 +231,7 @@ class barbarian: player {
         try container.encode(Power, forKey: .Power)
     }
 }
-
-// Hello Office Phantom.
-//hello random person
-/*
- You're the one invading my machine.
- I just need to code
- Shouldnt you be doing school work?
- That's ridiculous why would i do that
- Gee I don't know Logan. Why would you do that, its not like you're at school
- I mean it's a demo i've already done and i have some free time
- Uh huh
- Well GLHF
- I'm going to code now okay
- yeah yeah
- New computers should be here monday or tuesday
- Monday is presidents day
- pfunder said friday D:
- rip
- they will be here friday "Sometime"
- okay good talk matt
- ooooOOOOOOooooooOOOOOOooooOOO
- Office Phantom out.
- 
- */
-
+//MARK:Ranger
 class ranger: player {
     var hitChance:Double
     var rangedAttack:Double
@@ -294,7 +288,7 @@ class ranger: player {
      will have to resort to his knife. Enemys that have ranged/magic attacks will stay far and also have
      a hit chance. */
 }
-
+//MARK:Priest
 class preist: player {
     var healRate:Int
     init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, healRate:Int, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
@@ -340,7 +334,8 @@ class preist: player {
         try container.encode(healRate, forKey: .healRate)
     }
 }
-struct players: Codable {
+//MARK:Player Struct
+struct Players: Codable {
     var charBarbarian = barbarian()
     var charRanger = ranger()
     var charPriest = preist()
@@ -388,11 +383,13 @@ struct players: Codable {
         activeCharacter = charBarbarian
     }
 }
-struct playerPersistance {
-    let playerSave = players()
+
+//MARK:Player Wrapper
+struct playerWrapper {
+    var playerVar = Players()
     func savePlayers() {
         do {
-            let codedData = try PropertyListEncoder().encode(playerSave) //codes the data using Codable
+            let codedData = try PropertyListEncoder().encode(playerVar) //codes the data using Codable
             let save = NSKeyedArchiver.archiveRootObject(codedData, toFile: player.ArchiveURL.path) //archives it using NSArchiver
             print(save ? "save good" : "save not good")
         } catch {
@@ -400,10 +397,10 @@ struct playerPersistance {
             print(error)
         }
     }
-    func loadPlayers() -> players? {
+    func loadPlayers() -> Players? {
         guard let data = NSKeyedUnarchiver.unarchiveObject(withFile: player.ArchiveURL.path) as? Data else { return nil } //gets coded data from NSUnarchiver
         do {
-            let uncodedData = try PropertyListDecoder().decode(players.self, from: data)
+            let uncodedData = try PropertyListDecoder().decode(Players.self, from: data)
             let ret = uncodedData
             print("Load Successful")
             return ret
@@ -418,33 +415,33 @@ struct playerPersistance {
 extension ViewController {
     func printStats() {//print stats of all characters in
         printOut(text: "Health | Attack | Speed | Experience | Gold") //Line
-        if char.charBarbarian.isDead == false {
+        if char.playerVar.charBarbarian.isDead == false {
             printOut(text: "Barbarian") //Line
             printOut(text: //Print all of the barbarians stats  //Line
-                String(describing: char.charBarbarian.Health) + seperator +
-                String(describing: char.charBarbarian.Attack) + seperator +
-                String(describing: char.charBarbarian.Speed) + seperator +
-                String(describing: char.charBarbarian.Experience) + seperator +
-                String(describing: char.charBarbarian.Gold) + seperator +
-                "Power:" + String(describing: char.charBarbarian.Power) + seperator
+                String(describing: char.playerVar.charBarbarian.Health) + seperator +
+                String(describing: char.playerVar.charBarbarian.Attack) + seperator +
+                String(describing: char.playerVar.charBarbarian.Speed) + seperator +
+                String(describing: char.playerVar.charBarbarian.Experience) + seperator +
+                String(describing: char.playerVar.charBarbarian.Gold) + seperator +
+                "Power:" + String(describing: char.playerVar.charBarbarian.Power) + seperator
             )
         } else {
             printOut(text: "The barbarian has passed away in glorious combat")
         }
-        if char.charRanger.isDead == false {
+        if char.playerVar.charRanger.isDead == false {
             printOut(text: "Ranger") //Line
             printOut(text: //Print all of the rangers stats     //Line
-                String(describing: char.charRanger.Health) + seperator +
-                String(describing: char.charRanger.Attack) + seperator +
-                String(describing: char.charRanger.Speed) + seperator +
-                String(describing: char.charRanger.Experience) + seperator +
-                String(describing: char.charRanger.Gold) + seperator
+                String(describing: char.playerVar.charRanger.Health) + seperator +
+                String(describing: char.playerVar.charRanger.Attack) + seperator +
+                String(describing: char.playerVar.charRanger.Speed) + seperator +
+                String(describing: char.playerVar.charRanger.Experience) + seperator +
+                String(describing: char.playerVar.charRanger.Gold) + seperator
             )
         } else {
             printOut(text: "The ranger was killed while sticking arrows into his enemies...")
         }
        
-        printOut(text: "Your active character is: \(char.activeCharacter.Name)")
+        printOut(text: "Your active character is: \(char.playerVar.activeCharacter.Name)")
     }
 }
 

@@ -14,13 +14,13 @@ extension ViewController { // this whole thing is just a collection of functions
         printOut(text: "A \(enemy.Name) has engaged you!")
         state = states.isInBattle
         currentEnemy = enemy
-        if char.getActiveCharacterString() == "Barbarian" || char.getActiveCharacterString() == "Preist" {
+        if char.playerVar.getActiveCharacterString() == "Barbarian" || char.playerVar.getActiveCharacterString() == "Preist" {
             enemyDistance = 0
-            printOut(text: "Your \(char.activeCharacter.Name) engaged at close range!")
+            printOut(text: "Your \(char.playerVar.activeCharacter.Name) engaged at close range!")
         } else {
-            //enemyDistance = char.activeCharacter.skilltree.engagedistance //need a skill tree to do that one, hehe
+            //enemyDistance = char.playerVar.activeCharacter.skilltree.engagedistance //need a skill tree to do that one, hehe
             enemyDistance = 50
-            printOut(text: "Your \(char.activeCharacter.Name) engaged at a range of \(enemyDistance) meters")
+            printOut(text: "Your \(char.playerVar.activeCharacter.Name) engaged at a range of \(enemyDistance) meters")
         }
     }
     
@@ -47,7 +47,7 @@ extension ViewController { // this whole thing is just a collection of functions
         }
     }
     func attackEnemy() {
-        if currentEnemy.Speed >= char.activeCharacter.Speed {
+        if currentEnemy.Speed >= char.playerVar.activeCharacter.Speed {
             doTurn()
             //calculateDamage()
         } else {
@@ -59,8 +59,8 @@ extension ViewController { // this whole thing is just a collection of functions
     func doTurn() { //what happens in a turn? the enemy attacks + gets closer
         if enemyDistance == 0 {
             checkCharDeath()
-            char.activeCharacter.Health -= Int(currentEnemy.Attack)
-            printOut(text: "The enemy hit you for \(Int(currentEnemy.Attack)), your \(char.activeCharacter.Name)'s health is \(char.activeCharacter.Health)")
+            char.playerVar.activeCharacter.Health -= Int(currentEnemy.Attack)
+            printOut(text: "The enemy hit you for \(Int(currentEnemy.Attack)), your \(char.playerVar.activeCharacter.Name)'s health is \(char.playerVar.activeCharacter.Health)")
         } else if enemyDistance > 0 {
             checkCharDeath()
             enemyDistance -= currentEnemy.Speed
@@ -70,37 +70,37 @@ extension ViewController { // this whole thing is just a collection of functions
         }
     }
     func checkCharDeath() { //you okay bro?
-        if char.activeCharacter.Health < 1 {
+        if char.playerVar.activeCharacter.Health < 1 {
             let chooser = getRandomNumber(upper: 3, lower: 0)
-            char.activeCharacter.isDead = true
-            printOut(text: "Your \(char.activeCharacter.Name) has been killed! Switching to random character...")
+            char.playerVar.activeCharacter.isDead = true
+            printOut(text: "Your \(char.playerVar.activeCharacter.Name) has been killed! Switching to random character...")
             switch chooser {
             case 0: //barb
-                if char.charBarbarian.isDead == false {
-                    char.activeCharacter = char.charBarbarian
+                if char.playerVar.charBarbarian.isDead == false {
+                    char.playerVar.activeCharacter = char.playerVar.charBarbarian
                 } else {
-                    char.activeCharacter = char.charRanger
+                    char.playerVar.activeCharacter = char.playerVar.charRanger
                     checkCharDeath()
                 }
             case 1: //ranger
-                if char.charRanger.isDead == false {
-                    char.activeCharacter = char.charRanger
+                if char.playerVar.charRanger.isDead == false {
+                    char.playerVar.activeCharacter = char.playerVar.charRanger
                 } else {
-                    char.activeCharacter = char.charSorcerer
+                    char.playerVar.activeCharacter = char.playerVar.charSorcerer
                     checkCharDeath()
                 }
             case 2: //sorcerer
-                if char.charSorcerer.isDead == false {
-                    char.activeCharacter = char.charSorcerer
+                if char.playerVar.charSorcerer.isDead == false {
+                    char.playerVar.activeCharacter = char.playerVar.charSorcerer
                 } else {
-                    char.activeCharacter = char.charPriest
+                    char.playerVar.activeCharacter = char.playerVar.charPriest
                     checkCharDeath()
                 }
             case 3: //preist
-                if char.charPriest.isDead == false {
-                    char.activeCharacter = char.charPriest
+                if char.playerVar.charPriest.isDead == false {
+                    char.playerVar.activeCharacter = char.playerVar.charPriest
                 } else {
-                    char.activeCharacter = char.charBarbarian
+                    char.playerVar.activeCharacter = char.playerVar.charBarbarian
                     checkCharDeath()
                 }
             default:
@@ -115,21 +115,21 @@ extension ViewController { // this whole thing is just a collection of functions
     }
     
     func barbarianDamageModel() {
-        currentEnemy.Health -= Int(char.charBarbarian.Power * Double(char.activeCharacter.equippedWeapon!.attack))
-        printOut(text: "You hit the enemy for \(Int(char.charBarbarian.Power * Double(char.activeCharacter.equippedWeapon!.attack)))")
+        currentEnemy.Health -= Int(char.playerVar.charBarbarian.Power * Double(char.playerVar.activeCharacter.equippedWeapon!.attack))
+        printOut(text: "You hit the enemy for \(Int(char.playerVar.charBarbarian.Power * Double(char.playerVar.activeCharacter.equippedWeapon!.attack)))")
     }
     
     func calculateDamage() { //currently only has barbarian damage model...
         //check for an equipped weapon if not then just punch the enemy
-        if char.activeCharacter.equippedWeapon == nil, enemyDistance <= 0 {
-            currentEnemy.Health -= Int(char.activeCharacter.Attack * Double(char.activeCharacter.Experience) + 1) //char.activeCharacter.Experience seems to be the problem
-            currentEnemy.Health -= Int(char.activeCharacter.Attack)
+        if char.playerVar.activeCharacter.equippedWeapon == nil, enemyDistance <= 0 {
+            currentEnemy.Health -= Int(char.playerVar.activeCharacter.Attack * Double(char.playerVar.activeCharacter.Experience) + 1) //char.playerVar.activeCharacter.Experience seems to be the problem
+            currentEnemy.Health -= Int(char.playerVar.activeCharacter.Attack)
             printOut(text: "You don't have a weapon equipped, so you engage with your fists!")
-            printOut(text: "You hit the enemy for \(Int(char.activeCharacter.Attack * Double(char.activeCharacter.Experience) + 1))")
-        } else if char.activeCharacter.equippedWeapon == nil, enemyDistance > 0 {
+            printOut(text: "You hit the enemy for \(Int(char.playerVar.activeCharacter.Attack * Double(char.playerVar.activeCharacter.Experience) + 1))")
+        } else if char.playerVar.activeCharacter.equippedWeapon == nil, enemyDistance > 0 {
             printOut(text: "You don't have a ranged weapon, so you simply wait for the enemy to approach.")
-        } else if char.activeCharacter.equippedWeapon != nil {
-            switch char.activeCharacter.Name {
+        } else if char.playerVar.activeCharacter.equippedWeapon != nil {
+            switch char.playerVar.activeCharacter.Name {
             //case "Barbarian":
                 //barbarianDamageModel()
             default:
