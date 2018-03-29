@@ -8,7 +8,7 @@
 /*
  Full Todo:
  Finish damage models for all characters.
- add weapons for all characters
+ add weapons for all characters <-----
  add weapon equpping for all characters.
  Skill Tree / points / experience
  Character Attacks

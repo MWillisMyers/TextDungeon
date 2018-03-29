@@ -151,13 +151,170 @@ enum RangerWeaponMaterials {
         var rarity = getRandomNumber(upper: 3, lower: 1)
     }
 }
+protocol spellEffect {
+    var severity:Int {get set}
+}
+enum StatusEffects {
+    struct EffectBurn: spellEffect {
+        static var name = "Burn"
+        var severity: Int
+    }
+    struct EffectFrozen: spellEffect {
+        static var name = "Frozen"
+        var severity: Int
+    }
+}
+enum SpellModifiers {
+    case doubleUndeadDamage
+}
+
+class Spell {
+    let spellName:String
+    let damage:Double
+    let range:Int
+    let spellCost:Int
+    let tier:Int
+    let spellEffect:spellEffect?
+    let spellModifier:SpellModifiers?
+    init(name:String, damage:Double, range:Int, spellCost:Int, tier:Int, effect:spellEffect?, modifier:SpellModifiers?) { //init for all values to be defined by subclass
+        self.tier = tier
+        self.spellName = "Tier \(self.tier) \(name) Spell"
+        self.damage = damage
+        self.range = range
+        self.spellCost = spellCost
+        self.spellEffect = effect
+        self.spellModifier = modifier
+    }
+    init(name:String, damage:Double, range:Int, spellCost:Int, tier:Int, modifier:SpellModifiers?) { //init for random effect, does not have to be used by subclass
+        self.tier = tier
+        self.spellName = "Tier \(self.tier) \(name) Spell"
+        self.damage = damage
+        self.range = range
+        self.spellCost = spellCost
+        self.spellModifier = modifier
+        let chooser = getRandomNumber(upper: 2, lower: 1) //will have a higher bound when i add more effects
+        switch chooser {
+        case 1:
+            self.spellEffect = nil
+        case 2:
+            self.spellEffect = StatusEffects.EffectBurn(severity: getRandomNumber(upper: 1, lower: 3))
+        default:
+            self.spellEffect = nil
+        }
+    }
+}
+
+enum SpellContainer {
+    class Fireball: Spell {
+        convenience init(tier:Int) {
+            let damageIn:Double
+            let rangeIn:Int
+            let spellCostIn:Int
+            switch tier {
+            case 1:
+                damageIn = Double(getRandomNumber(upper: 20, lower: 5))
+                rangeIn = getRandomNumber(upper: 10, lower: 1)
+                spellCostIn = getRandomNumber(upper: 25, lower: 15)
+            case 2:
+                damageIn = Double(getRandomNumber(upper: 67, lower: 25))
+                rangeIn = getRandomNumber(upper: 25, lower: 5)
+                spellCostIn = getRandomNumber(upper: 35, lower: 25)
+            case 3:
+                damageIn = Double(getRandomNumber(upper: 90, lower: 40))
+                rangeIn = getRandomNumber(upper: 50, lower: 10)
+                spellCostIn = getRandomNumber(upper: 50, lower: 35)
+            default:
+                damageIn = 1
+                rangeIn = 1
+                spellCostIn = 1
+            }
+            self.init(
+                name: "Fireball",
+                damage: damageIn,
+                range: rangeIn,
+                spellCost: spellCostIn,
+                tier: tier,
+                effect:StatusEffects.EffectBurn(severity: tier),
+                modifier:nil
+            )
+        }
+    }
+    class Destruction: Spell {
+        convenience init(tier:Int) {
+            let damageIn:Double
+            let rangeIn:Int
+            let spellCostIn:Int
+            switch tier {
+            case 1:
+                damageIn = Double(getRandomNumber(upper: 33, lower: 10))
+                rangeIn = getRandomNumber(upper: 5, lower: 1)
+                spellCostIn = getRandomNumber(upper: 20, lower: 10)
+            case 2:
+                damageIn = Double(getRandomNumber(upper: 67, lower: 25))
+                rangeIn = getRandomNumber(upper: 10, lower: 5)
+                spellCostIn = getRandomNumber(upper: 30, lower: 20)
+            case 3:
+                damageIn = Double(getRandomNumber(upper: 90, lower: 40))
+                rangeIn = getRandomNumber(upper: 25, lower: 10)
+                spellCostIn = getRandomNumber(upper: 45, lower: 30)
+            default:
+                damageIn = 1
+                rangeIn = 1
+                spellCostIn = 1
+            }
+            self.init(
+                name: "Destruction",
+                damage: damageIn,
+                range: rangeIn,
+                spellCost: spellCostIn,
+                tier: tier,
+                effect: nil,
+                modifier:nil
+            )
+        }
+    }
+    class Smite: Spell {
+        convenience init(tier:Int) {
+            let damageIn:Double
+            let rangeIn:Int
+            let spellCostIn:Int
+            switch tier {
+            case 1:
+                damageIn = Double(getRandomNumber(upper: 25, lower: 5))
+                rangeIn = getRandomNumber(upper: 5, lower: 1)
+                spellCostIn = getRandomNumber(upper: 20, lower: 10)
+            case 2:
+                damageIn = Double(getRandomNumber(upper: 35, lower: 20))
+                rangeIn = getRandomNumber(upper: 10, lower: 5)
+                spellCostIn = getRandomNumber(upper: 30, lower: 20)
+            case 3:
+                damageIn = Double(getRandomNumber(upper: 50, lower: 33))
+                rangeIn = getRandomNumber(upper: 25, lower: 10)
+                spellCostIn = getRandomNumber(upper: 42, lower: 25)
+            default:
+                damageIn = 1
+                rangeIn = 1
+                spellCostIn = 1
+            }
+            self.init(
+                name: "Smite",
+                damage: damageIn,
+                range: rangeIn,
+                spellCost: spellCostIn,
+                tier: tier,
+                effect: nil,
+                modifier: SpellModifiers.doubleUndeadDamage
+            )
+        }
+    }
+}
 enum weaponTypes:String, Codable {
     case Sword
     case Dagger
     case Staff
     case Bow
     case Arrow
-    
+    case Book
 }
 
 
@@ -344,7 +501,22 @@ class Arrow: Weapon { //Arrow class taken from dagger class, added self.weight a
         fatalError("init(from:) has not been implemented")
     }
 }
-
+class Book: Weapon {
+    let spell1:Spell
+    let spell2:Spell
+    let spell3:Spell
+    init(spell1:Spell, spell2: Spell, spell3: Spell) {
+        self.spell1 = spell1
+        self.spell2 = spell2
+        self.spell3 = spell3
+        super.init(attack: 1, name: "Spellbook", rarity: 2, weight: 1.0, weaponType: .Book)
+    }
+    
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+    
+}
 //MARK: Functions
 /*
 func Debug() {
