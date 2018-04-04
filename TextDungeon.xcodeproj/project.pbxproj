@@ -17,6 +17,7 @@
 		A205D522201F6BB400618B8E /* TextDungeon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A205D520201F6BB400618B8E /* TextDungeon.xcdatamodeld */; };
 		A205D524201F6BB400618B8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A205D523201F6BB400618B8E /* Assets.xcassets */; };
 		A205D527201F6BB400618B8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A205D525201F6BB400618B8E /* LaunchScreen.storyboard */; };
+		A210AE8020619B0100159D3E /* MainGame.sks in Resources */ = {isa = PBXBuildFile; fileRef = A210AE7F20619B0100159D3E /* MainGame.sks */; };
 		BC39075A2022180700F50F82 /* Inventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC3907592022180700F50F82 /* Inventory.swift */; };
 		BCD85D182031E78600E35DA0 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCD85D172031E78600E35DA0 /* Items.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		A205D523201F6BB400618B8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A205D526201F6BB400618B8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A205D528201F6BB400618B8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A210AE7F20619B0100159D3E /* MainGame.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainGame.sks; sourceTree = "<group>"; };
 		BC3907592022180700F50F82 /* Inventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inventory.swift; sourceTree = "<group>"; };
 		BCD85D172031E78600E35DA0 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +79,7 @@
 				6E1B41952024B23E0015E508 /* Weapons.swift */,
 				BCD85D172031E78600E35DA0 /* Items.swift */,
 				A205D51D201F6BB400618B8E /* Main.storyboard */,
+				A210AE7F20619B0100159D3E /* MainGame.sks */,
 				A205D523201F6BB400618B8E /* Assets.xcassets */,
 				A205D525201F6BB400618B8E /* LaunchScreen.storyboard */,
 				A205D528201F6BB400618B8E /* Info.plist */,
@@ -146,6 +149,7 @@
 			files = (
 				A205D527201F6BB400618B8E /* LaunchScreen.storyboard in Resources */,
 				A205D524201F6BB400618B8E /* Assets.xcassets in Resources */,
+				A210AE8020619B0100159D3E /* MainGame.sks in Resources */,
 				A205D51F201F6BB400618B8E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,7 +307,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VG7LJNG82R;
 				INFOPLIST_FILE = TextDungeon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -319,7 +323,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = VG7LJNG82R;
 				INFOPLIST_FILE = TextDungeon/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
