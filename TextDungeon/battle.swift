@@ -68,6 +68,7 @@ extension ViewController { // this whole thing is just a collection of functions
         } else {
             print("if statement broke. enemy distance is \(enemyDistance)")
         }
+        char.savePlayers()
     }
     func checkCharDeath() { //you okay bro?
         if char.playerVar.activeCharacter.Health < 1 {
