@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sbf-9P-z9h">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -80,6 +86,118 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="89.505247376311857"/>
+        </scene>
+        <!--Potential UI-->
+        <scene sceneID="Tpq-Uq-GTP">
+            <objects>
+                <viewController title="Potential UI" id="sbf-9P-z9h" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9hg-21-UlJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="IGw-1R-JIi">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ssz-ll-W7s" userLabel="ActivePane">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                        <subviews>
+                                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="02l-QV-2ZY">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                            </skView>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="02l-QV-2ZY" firstAttribute="leading" secondItem="ssz-ll-W7s" secondAttribute="leading" id="3u5-Ty-uQB"/>
+                                            <constraint firstAttribute="width" secondItem="ssz-ll-W7s" secondAttribute="height" multiplier="5:4" id="9nk-S8-BzM"/>
+                                            <constraint firstItem="02l-QV-2ZY" firstAttribute="top" secondItem="ssz-ll-W7s" secondAttribute="top" id="r2o-U8-Vh0"/>
+                                            <constraint firstAttribute="bottom" secondItem="02l-QV-2ZY" secondAttribute="bottom" id="rXs-4J-G6i"/>
+                                            <constraint firstAttribute="trailing" secondItem="02l-QV-2ZY" secondAttribute="trailing" id="rc8-MH-szl"/>
+                                        </constraints>
+                                    </view>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" showsHorizontalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-fh-Afe">
+                                        <rect key="frame" x="0.0" y="300" width="375" height="156"/>
+                                        <color key="backgroundColor" red="0.25062343479999999" green="0.25082513690000002" blue="0.2551054955" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="GEZ-fh-Afe" secondAttribute="height" multiplier="125:52" id="TP5-pT-yXu"/>
+                                        </constraints>
+                                        <string key="text">Lorem ipsum dolor amet raclette actually normcore XOXO flexitarian. Skateboard hella authentic synth, freegan tilde salvia flannel tumblr snackwave you probably haven't heard of them iceland fashion axe yr austin. YOLO vegan chicharrones, vexillologist deep v XOXO hella messenger bag franzen. Flannel mlkshk sriracha normcore marfa flexitarian keytar blue bottle pickled shaman microdosing jean shorts kickstarter. Kitsch occupy cray vaporware, street art unicorn franzen tacos taiyaki tofu. Hell of tilde locavore, gastropub kitsch XOXO food truck chia.
+
+Tofu four dollar toast raclette stumptown subway tile adaptogen iPhone. Kinfolk pitchfork gluten-free next level meggings vaporware. Church-key farm-to-table freegan, hot chicken umami lo-fi sriracha poke ramps kogi literally kitsch affogato jean shorts tumeric. Four loko fingerstache kale chips neutra. Meggings chicharrones messenger bag authentic scenester. Kinfolk trust fund microdosing viral jean shorts direct trade. Craft beer organic try-hard, flannel retro cliche you probably haven't heard of them lomo beard DIY cray tousled.
+
+Roof party microdosing chambray thundercats cronut wayfarers af organic next level kale chips poutine selvage hot chicken pop-up vape. Butcher VHS kombucha cornhole kinfolk four loko gastropub vice shabby chic palo santo next level vape pabst. Sustainable photo booth fam, taiyaki drinking vinegar echo park irony shabby chic four dollar toast lyft fingerstache deep v activated charcoal blue bottle vape. Health goth lo-fi intelligentsia tbh YOLO drinking vinegar. Knausgaard tacos blog direct trade prism affogato, actually occupy fanny pack church-key plaid gluten-free. Intelligentsia vinyl edison bulb try-hard iPhone taiyaki ethical mustache tacos.
+
+Etsy keffiyeh iceland tbh squid offal williamsburg synth disrupt cornhole polaroid literally. Shoreditch etsy small batch pork belly air plant microdosing celiac sustainable selvage vice hot chicken leggings twee waistcoat. Bushwick leggings vice lumbersexual mumblecore hexagon iPhone organic chambray raclette church-key jianbing. Keffiyeh palo santo aesthetic austin fanny pack tumblr williamsburg kombucha messenger bag DIY salvia meggings neutra raclette. Normcore semiotics lyft shabby chic photo booth, craft beer wolf letterpress keffiyeh.
+
+Asymmetrical banh mi vaporware, tacos hexagon knausgaard humblebrag tousled chillwave letterpress narwhal keffiyeh typewriter. Godard squid wolf bushwick, artisan chillwave church-key cloud bread sartorial actually lomo twee. Wolf distillery tumblr scenester air plant, meggings succulents. Umami pitchfork crucifix cloud bread, migas thundercats viral synth narwhal freegan raw denim. Synth street art sartorial microdosing hoodie forage.</string>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRH-iS-KEx" userLabel="ButtonBox">
+                                        <rect key="frame" x="0.0" y="456" width="375" height="211"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="cGd-0R-4jb" userLabel="Character Portraits">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="94"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="redraw" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DEs-t1-bim" userLabel="Barbarian">
+                                                        <rect key="frame" x="0.0" y="0.0" width="94" height="94"/>
+                                                        <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" backgroundImage="ArcherImage"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBl-y3-A6X" userLabel="Ranger">
+                                                        <rect key="frame" x="94" y="0.0" width="93.5" height="94"/>
+                                                        <color key="backgroundColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" backgroundImage="ArcherImage"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUS-w2-NcE" userLabel="Sorcerer">
+                                                        <rect key="frame" x="187.5" y="0.0" width="94" height="94"/>
+                                                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" backgroundImage="ArcherImage"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9iu-Gr-qoc" userLabel="Priest">
+                                                        <rect key="frame" x="281.5" y="0.0" width="93.5" height="94"/>
+                                                        <color key="backgroundColor" red="0.99953407049999998" green="0.98835557699999999" blue="0.47265523669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" backgroundImage="ArcherImage"/>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="cGd-0R-4jb" secondAttribute="height" multiplier="375:94" id="s5D-nb-gzo"/>
+                                                </constraints>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AMz-Gb-Qsn" userLabel="Action Buttons">
+                                                <rect key="frame" x="0.0" y="94" width="375" height="117"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="AMz-Gb-Qsn" secondAttribute="height" multiplier="125:39" id="sFd-8F-Ddb"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="AMz-Gb-Qsn" firstAttribute="top" secondItem="cGd-0R-4jb" secondAttribute="bottom" id="0Nw-GR-Zhi"/>
+                                            <constraint firstItem="cGd-0R-4jb" firstAttribute="leading" secondItem="SRH-iS-KEx" secondAttribute="leading" id="7ft-XZ-wS4"/>
+                                            <constraint firstAttribute="bottom" secondItem="AMz-Gb-Qsn" secondAttribute="bottom" id="BmJ-JJ-d65"/>
+                                            <constraint firstAttribute="trailing" secondItem="cGd-0R-4jb" secondAttribute="trailing" id="Bwe-JP-DhF"/>
+                                            <constraint firstItem="cGd-0R-4jb" firstAttribute="top" secondItem="SRH-iS-KEx" secondAttribute="top" id="MHi-Qj-JTH"/>
+                                            <constraint firstItem="AMz-Gb-Qsn" firstAttribute="leading" secondItem="SRH-iS-KEx" secondAttribute="leading" id="Vkr-Cs-bCM"/>
+                                            <constraint firstAttribute="trailing" secondItem="AMz-Gb-Qsn" secondAttribute="trailing" id="cm9-m3-Y7a"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IGw-1R-JIi" firstAttribute="bottom" secondItem="kKM-Ct-bEx" secondAttribute="bottom" id="328-Kq-O02"/>
+                            <constraint firstItem="IGw-1R-JIi" firstAttribute="trailing" secondItem="kKM-Ct-bEx" secondAttribute="trailing" id="9hU-ap-PQC"/>
+                            <constraint firstItem="IGw-1R-JIi" firstAttribute="leading" secondItem="kKM-Ct-bEx" secondAttribute="leading" id="EmH-yu-emU"/>
+                            <constraint firstItem="IGw-1R-JIi" firstAttribute="top" secondItem="9hg-21-UlJ" secondAttribute="top" id="ngS-sq-Pr2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="kKM-Ct-bEx"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WIO-tH-C8Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1863.2" y="75.112443778110944"/>
         </scene>
     </scenes>
     <resources>
