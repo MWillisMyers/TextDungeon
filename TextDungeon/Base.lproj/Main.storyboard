@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sbf-9P-z9h">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -16,110 +16,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TextDungeon" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KGO-L1-nqL">
-                                <rect key="frame" x="16" y="444" width="267" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                            </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uFz-U2-IM2">
-                                <rect key="frame" x="17" y="212" width="342" height="212"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ed-Io-a2C">
-                                <rect key="frame" x="236" y="174" width="121" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save Inventory"/>
-                                <connections>
-                                    <action selector="saveInvButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5wQ-oB-YkY"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ASJ-fw-7AZ">
-                                <rect key="frame" x="17" y="174" width="88" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Weapon"/>
-                                <connections>
-                                    <action selector="AddWeaponButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e9h-uA-UP7"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ArcherImage" translatesAutoresizingMaskIntoConstraints="NO" id="wCd-gW-FvG">
-                                <rect key="frame" x="24" y="44" width="137" height="122"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSu-1w-RwY">
-                                <rect key="frame" x="124" y="174" width="113" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save Characters"/>
-                                <connections>
-                                    <action selector="SaveCharacterButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LCk-wr-EKU"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voz-PB-w7z">
-                                <rect key="frame" x="291" y="443" width="65" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Send"/>
-                                <connections>
-                                    <action selector="sendCommand:" destination="BYZ-38-t0r" eventType="touchUpInside" id="z94-J9-AMQ"/>
-                                </connections>
-                            </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZTe-jn-ULl">
-                                <rect key="frame" x="5" y="585" width="364" height="62"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="m4d-VP-GWI">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="A1a-AN-BpY">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OnD-Lu-BqG">
-                                                    <rect key="frame" x="2" y="10" width="46" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Attack"/>
-                                                </button>
-                                            </subviews>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <connections>
-                        <outlet property="CommandView" destination="ZTe-jn-ULl" id="IF2-VE-iR9"/>
-                        <outlet property="OutputField" destination="uFz-U2-IM2" id="NmU-e7-PPx"/>
-                        <outlet property="commandField" destination="KGO-L1-nqL" id="yFX-nP-1pZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="117.59999999999999" y="89.505247376311857"/>
-        </scene>
-        <!--Potential UI-->
+        <!--Main UI-->
         <scene sceneID="Tpq-Uq-GTP">
             <objects>
-                <viewController title="Potential UI" id="sbf-9P-z9h" sceneMemberID="viewController">
+                <viewController title="Main UI" id="sbf-9P-z9h" customClass="ViewController" customModule="TextDungeon" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9hg-21-UlJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -193,8 +93,38 @@ Asymmetrical banh mi vaporware, tacos hexagon knausgaard humblebrag tousled chil
                                                     <constraint firstAttribute="width" secondItem="cGd-0R-4jb" secondAttribute="height" multiplier="375:94" id="s5D-nb-gzo"/>
                                                 </constraints>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AMz-Gb-Qsn" userLabel="Action Buttons">
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AMz-Gb-Qsn" userLabel="Action Buttons">
                                                 <rect key="frame" x="0.0" y="94" width="375" height="117"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K4d-CF-Ndo">
+                                                        <rect key="frame" x="0.0" y="0.0" width="94" height="117"/>
+                                                        <state key="normal" title="Action 1"/>
+                                                        <connections>
+                                                            <action selector="Action1:" destination="sbf-9P-z9h" eventType="touchUpInside" id="gEd-5w-yYg"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jlp-0p-EKf">
+                                                        <rect key="frame" x="94" y="0.0" width="93.5" height="117"/>
+                                                        <state key="normal" title="Action 2"/>
+                                                        <connections>
+                                                            <action selector="Action2:" destination="sbf-9P-z9h" eventType="touchUpInside" id="O1K-VD-nOQ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jt6-8B-bLq">
+                                                        <rect key="frame" x="187.5" y="0.0" width="94" height="117"/>
+                                                        <state key="normal" title="Action 3"/>
+                                                        <connections>
+                                                            <action selector="Action3:" destination="sbf-9P-z9h" eventType="touchUpInside" id="WvN-lA-iKq"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axK-Hj-9Vm">
+                                                        <rect key="frame" x="281.5" y="0.0" width="93.5" height="117"/>
+                                                        <state key="normal" title="Action 4"/>
+                                                        <connections>
+                                                            <action selector="Action4:" destination="sbf-9P-z9h" eventType="touchUpInside" id="GRW-1l-YGo"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="AMz-Gb-Qsn" secondAttribute="height" multiplier="125:39" id="sFd-8F-Ddb"/>
                                                 </constraints>
@@ -223,6 +153,13 @@ Asymmetrical banh mi vaporware, tacos hexagon knausgaard humblebrag tousled chil
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kKM-Ct-bEx"/>
                     </view>
+                    <connections>
+                        <outlet property="Action1Outlet" destination="K4d-CF-Ndo" id="ATr-fl-TSA"/>
+                        <outlet property="Action2Outlet" destination="Jlp-0p-EKf" id="WIb-Ef-Pb0"/>
+                        <outlet property="Action3Outlet" destination="jt6-8B-bLq" id="WtF-Vo-78F"/>
+                        <outlet property="Action4Outlet" destination="axK-Hj-9Vm" id="gIy-gE-9iC"/>
+                        <outlet property="OutputField" destination="GEZ-fh-Afe" id="eC5-fk-4Ec"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WIO-tH-C8Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

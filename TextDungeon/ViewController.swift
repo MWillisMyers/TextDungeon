@@ -38,7 +38,8 @@ class ViewController: UIViewController {
     //battle properties
     var currentEnemy:Enemy!
     var enemyDistance:Int = 0
-    
+    //button var
+    var buttonActionSetter = buttonActions()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -65,33 +66,36 @@ class ViewController: UIViewController {
     }
     
     //outlets
-    @IBOutlet weak var commandField: UITextField!
     @IBOutlet weak var OutputField: UITextView!
-    @IBOutlet weak var CommandView: UICollectionView!
+    
+    @IBOutlet weak var Action1Outlet: UIButton!
+    @IBOutlet weak var Action2Outlet: UIButton!
+    @IBOutlet weak var Action3Outlet: UIButton!
+    @IBOutlet weak var Action4Outlet: UIButton!
     
     
     //IBAction Funcs
+    /*
     @IBAction func sendCommand(_ sender: UIButton) {
         let sentText:String = commandField.text!
         printOut(text: sentText) //prints command sent
         checkCommand(text: sentText) //sends command to base command checker
     }
+    */
     
-    @IBAction func saveInvButton(_ sender: UIButton) {
-        inventory.saveInv()
+    
+    @IBAction func Action1(_ sender: UIButton) {
+        buttonActionSetter.button1Action()
     }
-    @IBAction func AddWeaponButton(_ sender: UIButton) {
-        addWeapon()
-    }
-    @IBAction func SaveCharacterButton(_ sender: UIButton) {
-        char.savePlayers()
-    }
+    
+
+    
+
     //Regular Functions
     
     //Prints to the output UITextField
     func printOut(text:String) {
         OutputField.insertText(text+"\n")
-        commandField.text = ""
         let point = CGPoint(x: 0.0, y: (OutputField.contentSize.height - OutputField.bounds.height))
         OutputField.setContentOffset(point, animated: true)
     }
@@ -174,7 +178,46 @@ class ViewController: UIViewController {
             inventory.WeaponArray += [randUncommonSword()]
         }
     }
-
+    func updateButtons() {
+        switch state {
+        case .isInBattle:
+            setButtonTitles(bt1: "attack", bt2: "approach", bt3: "characters", bt4: "inventory")
+            buttonActionSetter.button1Action = attackEnemy()
+        case .isInCharacter:
+            setButtonTitles(bt1: "switch active", bt2: "back", bt3: "", bt4: "")
+        case .isInInventory:
+            let ret1 = 1
+        case .isInEvironment:
+            let ret2 = 2
+        }
+    }
+    func setButtonTitles(bt1:String, bt2:String, bt3:String, bt4:String) {
+        Action1Outlet.setTitle(bt1, for: .normal)
+        Action2Outlet.setTitle(bt2, for: .normal)
+        Action3Outlet.setTitle(bt3, for: .normal)
+        Action4Outlet.setTitle(bt4, for: .normal)
+    }
+    
+    
+    
+    
+    
+    struct buttonActions {
+        var button1Action:()
+        var button2Action:()
+        var button3Action:()
+        var button4Action:()
+        
+        init() {
+           //button1Action = attackEnemy()
+        }
+        
+    
+        init(btn1:@escaping () -> Void, btn2:() -> Void) {
+            self.button1Action = btn1()
+        }
+    }
+    
     //define states of play, that allow certain commands that only run in a state, such as delete item or attack. You can't attack unless you're battling
     enum states {
         case isInBattle

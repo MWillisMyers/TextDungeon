@@ -14,6 +14,7 @@ extension ViewController { // this whole thing is just a collection of functions
         printOut(text: "A \(enemy.Name) has engaged you!")
         state = states.isInBattle
         currentEnemy = enemy
+        updateButtons()
         if char.playerVar.getActiveCharacterString() == "Barbarian" || char.playerVar.getActiveCharacterString() == "Preist" {
             enemyDistance = 0
             printOut(text: "Your \(char.playerVar.activeCharacter.Name) engaged at close range!")
@@ -24,10 +25,11 @@ extension ViewController { // this whole thing is just a collection of functions
         }
     }
     
+    
     func checkBattleCommands(input:String) {
         switch input {
         case "atk", "attack":
-            attackEnemy()
+            engageAttack()
         case "inventory", "inv":
             printInventory()
             previousState = state
@@ -46,6 +48,7 @@ extension ViewController { // this whole thing is just a collection of functions
             printOut(text: "Unknown battle command.")
         }
     }
+    
     func attackEnemy() {
         if currentEnemy.Speed >= char.playerVar.activeCharacter.Speed {
             doTurn()
@@ -54,8 +57,18 @@ extension ViewController { // this whole thing is just a collection of functions
             calculateDamage()
             doTurn()
         }
-        
     }
+    
+    func engageAttack() {
+        switch char.playerVar.activeCharacter.Name {
+        case "Barbarian":
+            setButtonTitles(bt1: "Light Slash", bt2: "Heavy Slash", bt3: "Charged Blow", bt4: "Block")
+        case "Ranger":
+            setButtonTitles(bt1: <#T##String#>, bt2: <#T##String#>, bt3: <#T##String#>, bt4: <#T##String#>)
+        }
+        setButtonTitles(bt1: , bt2: <#T##String#>, bt3: <#T##String#>, bt4: <#T##String#>)
+    }
+    
     func doTurn() { //what happens in a turn? the enemy attacks + gets closer
         if enemyDistance == 0 {
             checkCharDeath()
