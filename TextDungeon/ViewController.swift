@@ -39,7 +39,10 @@ class ViewController: UIViewController {
     var currentEnemy:Enemy!
     var enemyDistance:Int = 0
     //button var
-    var buttonActionSetter = buttonActions()
+    var Action1State:buttonStates = .Attack1
+    var Action2State:buttonStates = .Attack2
+    var Action3State:buttonStates = .Attack3
+    var Action4State:buttonStates = .Attack4
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -85,7 +88,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func Action1(_ sender: UIButton) {
-        buttonActionSetter.button1Action()
+        
     }
     
 
@@ -182,7 +185,7 @@ class ViewController: UIViewController {
         switch state {
         case .isInBattle:
             setButtonTitles(bt1: "attack", bt2: "approach", bt3: "characters", bt4: "inventory")
-            buttonActionSetter.button1Action = attackEnemy()
+            
         case .isInCharacter:
             setButtonTitles(bt1: "switch active", bt2: "back", bt3: "", bt4: "")
         case .isInInventory:
@@ -202,21 +205,7 @@ class ViewController: UIViewController {
     
     
     
-    struct buttonActions {
-        var button1Action:()
-        var button2Action:()
-        var button3Action:()
-        var button4Action:()
-        
-        init() {
-           //button1Action = attackEnemy()
-        }
-        
-    
-        init(btn1:@escaping () -> Void, btn2:() -> Void) {
-            self.button1Action = btn1()
-        }
-    }
+
     
     //define states of play, that allow certain commands that only run in a state, such as delete item or attack. You can't attack unless you're battling
     enum states {
@@ -224,6 +213,12 @@ class ViewController: UIViewController {
         case isInEvironment
         case isInInventory
         case isInCharacter
+    }
+    enum buttonStates {
+        case Attack1
+        case Attack2
+        case Attack3
+        case Attack4
     }
 }
 

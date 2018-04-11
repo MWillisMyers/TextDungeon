@@ -60,13 +60,18 @@ extension ViewController { // this whole thing is just a collection of functions
     }
     
     func engageAttack() {
-        switch char.playerVar.activeCharacter.Name {
-        case "Barbarian":
+        switch char.playerVar.activeCharacter {
+        case is barbarian:
             setButtonTitles(bt1: "Light Slash", bt2: "Heavy Slash", bt3: "Charged Blow", bt4: "Block")
-        case "Ranger":
-            setButtonTitles(bt1: <#T##String#>, bt2: <#T##String#>, bt3: <#T##String#>, bt4: <#T##String#>)
+        case is ranger:
+            setButtonTitles(bt1: "Shoot", bt2: "", bt3: "", bt4: "")
+        case is sorcerer:
+            setButtonTitles(bt1: "Spell 1", bt2: "Spell 2", bt3: "Spell 3", bt4: "Melee")
+        case is preist:
+            setButtonTitles(bt1: "Heal", bt2: "Shield", bt3: "Slash", bt4: "")
+        default:
+            setButtonTitles(bt1: "Unknown type", bt2: "", bt3: "", bt4: "")
         }
-        setButtonTitles(bt1: , bt2: <#T##String#>, bt3: <#T##String#>, bt4: <#T##String#>)
     }
     
     func doTurn() { //what happens in a turn? the enemy attacks + gets closer
