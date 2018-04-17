@@ -61,6 +61,8 @@ class player: entity {
     var Experience: Int
     let Name: String
     var isDead: Bool
+    var Stamina: Int
+    var MaxStamina: Int
     var equippedWeapon: Weapon?
     init(Health:Int,
          Attack:Double,
@@ -69,12 +71,16 @@ class player: entity {
          Experience:Int,
          Name:String,
          isDead:Bool,
+         Stamina: Int,
+         MaxStamina: Int,
          equippedWeapon:Weapon?
         ) {
         self.Gold = Gold
         self.Experience = Experience
         self.Name = Name
         self.isDead = isDead
+        self.Stamina = Stamina
+        self.MaxStamina = MaxStamina
         self.equippedWeapon = equippedWeapon
         super.init(Health: Health, Attack: Attack, Speed: Speed)
     }
@@ -83,6 +89,8 @@ class player: entity {
         case Experience
         case Name
         case isDead
+        case Stamina
+        case MaxStamina
         case equippedWeapon
     }
     
@@ -92,6 +100,8 @@ class player: entity {
         Experience = try values.decode(Int.self, forKey: .Experience)
         Name = try values.decode(String.self, forKey: .Name)
         isDead = try values.decode(Bool.self, forKey: .isDead)
+        Stamina = try values.decode(Int.self, forKey: .Stamina)
+        MaxStamina = try values.decode(Int.self, forKey: .MaxStamina)
         equippedWeapon = try values.decodeIfPresent(Weapon.self, forKey: .equippedWeapon)
         try super.init(from: decoder)
         }
@@ -103,6 +113,8 @@ class player: entity {
         try container.encode(Experience, forKey: .Experience)
         try container.encode(Name, forKey: .Name)
         try container.encode(isDead, forKey: .isDead)
+        try container.encode(Stamina, forKey: .Stamina)
+        try container.encode(MaxStamina, forKey: .MaxStamina)
         try container.encodeIfPresent(equippedWeapon, forKey: .equippedWeapon)
         
     }
@@ -116,7 +128,7 @@ class player: entity {
 class sorcerer: player {
     var Mana:Int
     var spAttack:Double
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Mana:Int, spAttack:Double, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Mana:Int, spAttack:Double, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
         self.Mana = Mana //value used for magical attacks
         self.spAttack = spAttack //modifier for magical attacks
         super.init(Health: Health,
@@ -126,6 +138,8 @@ class sorcerer: player {
                    Experience: Experience,
                    Name:"Sorcerer",
                    isDead:isDead,
+                   Stamina:Stamina,
+                   MaxStamina:MaxStamina,
                    equippedWeapon:equippedWeapon
                    ) //after initalizing the class values, need to init super class values here
     }
@@ -140,6 +154,8 @@ class sorcerer: player {
             spAttack: 1.0,
             Name: "Sorcerer",
             isDead: false,
+            Stamina: 100,
+            MaxStamina: 100,
             equippedWeapon: nil
         )
     }
@@ -163,7 +179,7 @@ class sorcerer: player {
 //MARK:Barbarian
 class barbarian: player {
     var Power:Double //since the barbarian has nothing but melee, i'm going to add another base modifier that buffs his damage
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Power:Double, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Power:Double, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
         self.Power = Power
         super.init(
             Health: Health,
@@ -173,6 +189,8 @@ class barbarian: player {
             Experience: Experience,
             Name:"Barbarian",
             isDead:isDead,
+            Stamina:Stamina,
+            MaxStamina:MaxStamina,
             equippedWeapon:equippedWeapon
         )
     }
@@ -186,6 +204,8 @@ class barbarian: player {
             Power: 1.0,
             Name: "Barbarian",
             isDead: false,
+            Stamina: 100,
+            MaxStamina: 100,
             equippedWeapon: nil
         )
     }
@@ -209,7 +229,7 @@ class barbarian: player {
 class ranger: player {
     var hitChance:Double
     var rangedAttack:Double
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, hitChance:Double, rangedAttack:Double, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, hitChance:Double, rangedAttack:Double, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
         self.hitChance = hitChance
         self.rangedAttack = rangedAttack
         super.init(
@@ -220,6 +240,8 @@ class ranger: player {
             Experience: Experience,
             Name:Name,
             isDead:isDead,
+            Stamina:Stamina,
+            MaxStamina:MaxStamina,
             equippedWeapon:equippedWeapon
         )
     }
@@ -234,6 +256,8 @@ class ranger: player {
             rangedAttack: 1.0,
             Name: "Ranger",
             isDead: false,
+            Stamina: 100,
+            MaxStamina: 100,
             equippedWeapon: nil
         )
     }
@@ -259,7 +283,7 @@ class ranger: player {
 //MARK:Priest
 class preist: player {
     var healRate:Int
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, healRate:Int, Name:String, isDead:Bool, equippedWeapon:Weapon?) {
+    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, healRate:Int, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
         self.healRate = healRate
         super.init(
             Health: Health,
@@ -269,6 +293,8 @@ class preist: player {
             Experience: Experience,
             Name:Name,
             isDead:isDead,
+            Stamina:Stamina,
+            MaxStamina:MaxStamina,
             equippedWeapon:equippedWeapon
         )
     }
@@ -282,6 +308,8 @@ class preist: player {
             healRate: 1,
             Name: "Preist",
             isDead: false,
+            Stamina: 100,
+            MaxStamina: 100,
             equippedWeapon: nil
         )
     }

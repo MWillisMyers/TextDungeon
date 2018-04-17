@@ -38,15 +38,10 @@ class ViewController: UIViewController {
     //battle properties
     var currentEnemy:Enemy!
     var enemyDistance:Int = 0
+    var chosenAttack:Int = 1  // attacks from 1 - 4, 0 not inclusive
     //button var
-    var Action1State:buttonStates = .Attack1
-    var Action2State:buttonStates = .Attack2
-    var Action3State:buttonStates = .Attack3
-    var Action4State:buttonStates = .Attack4
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        enemyDebug() //enemy debug function
         if let savedInv = inventory.loadInv() { //loads inventory
             print("loading saved inv")
             inventory.WeaponArray += savedInv
@@ -59,8 +54,10 @@ class ViewController: UIViewController {
             print("loadedAttack = \(loadedPlayers.charBarbarian.Attack)")
             char.playerVar = loadedPlayers
         } else {
-            return
+            
         }
+        Action1Outlet.removeTarget(nil, action: nil, for: .allEvents)
+        enemyDebug()
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,9 +84,6 @@ class ViewController: UIViewController {
     */
     
     
-    @IBAction func Action1(_ sender: UIButton) {
-        
-    }
     
 
     
@@ -103,24 +97,7 @@ class ViewController: UIViewController {
         OutputField.setContentOffset(point, animated: true)
     }
     
-    
-    func checkCommand(text:String) {
-        switch state {
-        case .isInEvironment:
-            print("current state is environment, sending command over there...")
-            checkEnvironmentCommands(input: text)
-        case .isInBattle:
-            print("current state is battling, sending command over there...")
-            checkBattleCommands(input: text)
-        case .isInCharacter:
-            print("current state is character menu, sending command over there...")
-            checkCharacterMenuCommands(input: text)
-        case .isInInventory:
-            print("current state is inventory menu, sending command over there...")
-            checkInventoryCommands(input: text)
-        }
-        
-    }
+
     
     func checkEnvironmentCommands(input:String) { // the command written will be passed through here if the player is in the "default environment"
         switch input {
@@ -185,7 +162,7 @@ class ViewController: UIViewController {
         switch state {
         case .isInBattle:
             setButtonTitles(bt1: "attack", bt2: "approach", bt3: "characters", bt4: "inventory")
-            
+            setAction1(#selector(engageAttack))
         case .isInCharacter:
             setButtonTitles(bt1: "switch active", bt2: "back", bt3: "", bt4: "")
         case .isInInventory:
@@ -194,13 +171,26 @@ class ViewController: UIViewController {
             let ret2 = 2
         }
     }
+    
+        
     func setButtonTitles(bt1:String, bt2:String, bt3:String, bt4:String) {
         Action1Outlet.setTitle(bt1, for: .normal)
         Action2Outlet.setTitle(bt2, for: .normal)
         Action3Outlet.setTitle(bt3, for: .normal)
         Action4Outlet.setTitle(bt4, for: .normal)
     }
-    
+        
+    func setAction1(_ functionName:Selector) {
+        Action1Outlet.removeTarget(nil, action: nil, for: .allEvents)
+        Action1Outlet.addTarget(self, action: functionName, for: .touchUpInside)
+    }
+        
+    func setAction2(_ functionName:Selector) {
+        Action2Outlet.removeTarget(nil, action: nil, for: .allEvents)
+        Action2Outlet.addTarget(self, action: functionName, for: .touchUpInside)
+    }
+
+
     
     
     
@@ -213,12 +203,6 @@ class ViewController: UIViewController {
         case isInEvironment
         case isInInventory
         case isInCharacter
-    }
-    enum buttonStates {
-        case Attack1
-        case Attack2
-        case Attack3
-        case Attack4
     }
 }
 

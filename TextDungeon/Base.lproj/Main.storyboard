@@ -29,18 +29,9 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ssz-ll-W7s" userLabel="ActivePane">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
-                                        <subviews>
-                                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="02l-QV-2ZY">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
-                                            </skView>
-                                        </subviews>
                                         <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="02l-QV-2ZY" firstAttribute="leading" secondItem="ssz-ll-W7s" secondAttribute="leading" id="3u5-Ty-uQB"/>
                                             <constraint firstAttribute="width" secondItem="ssz-ll-W7s" secondAttribute="height" multiplier="5:4" id="9nk-S8-BzM"/>
-                                            <constraint firstItem="02l-QV-2ZY" firstAttribute="top" secondItem="ssz-ll-W7s" secondAttribute="top" id="r2o-U8-Vh0"/>
-                                            <constraint firstAttribute="bottom" secondItem="02l-QV-2ZY" secondAttribute="bottom" id="rXs-4J-G6i"/>
-                                            <constraint firstAttribute="trailing" secondItem="02l-QV-2ZY" secondAttribute="trailing" id="rc8-MH-szl"/>
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" showsHorizontalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-fh-Afe">
@@ -49,15 +40,6 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="GEZ-fh-Afe" secondAttribute="height" multiplier="125:52" id="TP5-pT-yXu"/>
                                         </constraints>
-                                        <string key="text">Lorem ipsum dolor amet raclette actually normcore XOXO flexitarian. Skateboard hella authentic synth, freegan tilde salvia flannel tumblr snackwave you probably haven't heard of them iceland fashion axe yr austin. YOLO vegan chicharrones, vexillologist deep v XOXO hella messenger bag franzen. Flannel mlkshk sriracha normcore marfa flexitarian keytar blue bottle pickled shaman microdosing jean shorts kickstarter. Kitsch occupy cray vaporware, street art unicorn franzen tacos taiyaki tofu. Hell of tilde locavore, gastropub kitsch XOXO food truck chia.
-
-Tofu four dollar toast raclette stumptown subway tile adaptogen iPhone. Kinfolk pitchfork gluten-free next level meggings vaporware. Church-key farm-to-table freegan, hot chicken umami lo-fi sriracha poke ramps kogi literally kitsch affogato jean shorts tumeric. Four loko fingerstache kale chips neutra. Meggings chicharrones messenger bag authentic scenester. Kinfolk trust fund microdosing viral jean shorts direct trade. Craft beer organic try-hard, flannel retro cliche you probably haven't heard of them lomo beard DIY cray tousled.
-
-Roof party microdosing chambray thundercats cronut wayfarers af organic next level kale chips poutine selvage hot chicken pop-up vape. Butcher VHS kombucha cornhole kinfolk four loko gastropub vice shabby chic palo santo next level vape pabst. Sustainable photo booth fam, taiyaki drinking vinegar echo park irony shabby chic four dollar toast lyft fingerstache deep v activated charcoal blue bottle vape. Health goth lo-fi intelligentsia tbh YOLO drinking vinegar. Knausgaard tacos blog direct trade prism affogato, actually occupy fanny pack church-key plaid gluten-free. Intelligentsia vinyl edison bulb try-hard iPhone taiyaki ethical mustache tacos.
-
-Etsy keffiyeh iceland tbh squid offal williamsburg synth disrupt cornhole polaroid literally. Shoreditch etsy small batch pork belly air plant microdosing celiac sustainable selvage vice hot chicken leggings twee waistcoat. Bushwick leggings vice lumbersexual mumblecore hexagon iPhone organic chambray raclette church-key jianbing. Keffiyeh palo santo aesthetic austin fanny pack tumblr williamsburg kombucha messenger bag DIY salvia meggings neutra raclette. Normcore semiotics lyft shabby chic photo booth, craft beer wolf letterpress keffiyeh.
-
-Asymmetrical banh mi vaporware, tacos hexagon knausgaard humblebrag tousled chillwave letterpress narwhal keffiyeh typewriter. Godard squid wolf bushwick, artisan chillwave church-key cloud bread sartorial actually lomo twee. Wolf distillery tumblr scenester air plant, meggings succulents. Umami pitchfork crucifix cloud bread, migas thundercats viral synth narwhal freegan raw denim. Synth street art sartorial microdosing hoodie forage.</string>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -99,30 +81,18 @@ Asymmetrical banh mi vaporware, tacos hexagon knausgaard humblebrag tousled chil
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K4d-CF-Ndo">
                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="117"/>
                                                         <state key="normal" title="Action 1"/>
-                                                        <connections>
-                                                            <action selector="Action1:" destination="sbf-9P-z9h" eventType="touchUpInside" id="gEd-5w-yYg"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jlp-0p-EKf">
                                                         <rect key="frame" x="94" y="0.0" width="93.5" height="117"/>
                                                         <state key="normal" title="Action 2"/>
-                                                        <connections>
-                                                            <action selector="Action2:" destination="sbf-9P-z9h" eventType="touchUpInside" id="O1K-VD-nOQ"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jt6-8B-bLq">
                                                         <rect key="frame" x="187.5" y="0.0" width="94" height="117"/>
                                                         <state key="normal" title="Action 3"/>
-                                                        <connections>
-                                                            <action selector="Action3:" destination="sbf-9P-z9h" eventType="touchUpInside" id="WvN-lA-iKq"/>
-                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="axK-Hj-9Vm">
                                                         <rect key="frame" x="281.5" y="0.0" width="93.5" height="117"/>
                                                         <state key="normal" title="Action 4"/>
-                                                        <connections>
-                                                            <action selector="Action4:" destination="sbf-9P-z9h" eventType="touchUpInside" id="GRW-1l-YGo"/>
-                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>

@@ -24,32 +24,9 @@ extension ViewController { // this whole thing is just a collection of functions
             printOut(text: "Your \(char.playerVar.activeCharacter.Name) engaged at a range of \(enemyDistance) meters")
         }
     }
+
     
-    
-    func checkBattleCommands(input:String) {
-        switch input {
-        case "atk", "attack":
-            engageAttack()
-        case "inventory", "inv":
-            printInventory()
-            previousState = state
-            state = states.isInInventory
-            print("setting state to inv")
-        case "characters", "char":
-            printStats()
-            previousState = state
-            state = states.isInCharacter
-            print("setting state to char")
-        case "approach", "get closer", "close in":
-            enemyDistance = 0
-            printOut(text: "You waited for the enemy to engage you in close range.")
-            printOut(text: "Your range is now 0m.")
-        default:
-            printOut(text: "Unknown battle command.")
-        }
-    }
-    
-    func attackEnemy() {
+    @objc func attackEnemy() {
         if currentEnemy.Speed >= char.playerVar.activeCharacter.Speed {
             doTurn()
             calculateDamage()
@@ -59,18 +36,26 @@ extension ViewController { // this whole thing is just a collection of functions
         }
     }
     
-    func engageAttack() {
-        switch char.playerVar.activeCharacter {
-        case is barbarian:
-            setButtonTitles(bt1: "Light Slash", bt2: "Heavy Slash", bt3: "Charged Blow", bt4: "Block")
-        case is ranger:
-            setButtonTitles(bt1: "Shoot", bt2: "", bt3: "", bt4: "")
-        case is sorcerer:
-            setButtonTitles(bt1: "Spell 1", bt2: "Spell 2", bt3: "Spell 3", bt4: "Melee")
-        case is preist:
-            setButtonTitles(bt1: "Heal", bt2: "Shield", bt3: "Slash", bt4: "")
-        default:
-            setButtonTitles(bt1: "Unknown type", bt2: "", bt3: "", bt4: "")
+    @objc func engageAttack() {
+        if char.playerVar.activeCharacter.equippedWeapon == nil {
+            setButtonTitles(bt1: "Punch", bt2: "", bt3: "", bt4: "")
+            chosenAttack = 1
+            setAction1(#selector(attackEnemy))
+        } else {
+            switch char.playerVar.activeCharacter {
+            case is barbarian:
+                setButtonTitles(bt1: "Light Slash", bt2: "Heavy Slash", bt3: "Charged Blow", bt4: "Block")
+                chosenAttack = 1
+                setAction1(#selector(attackEnemy))
+            case is ranger:
+                setButtonTitles(bt1: "Shoot", bt2: "", bt3: "", bt4: "")
+            case is sorcerer:
+                setButtonTitles(bt1: "Spell 1", bt2: "Spell 2", bt3: "Spell 3", bt4: "Melee")
+            case is preist:
+                setButtonTitles(bt1: "Heal", bt2: "Shield", bt3: "Slash", bt4: "")
+            default:
+                setButtonTitles(bt1: "Unknown type", bt2: "", bt3: "", bt4: "")
+            }
         }
     }
     
@@ -130,12 +115,18 @@ extension ViewController { // this whole thing is just a collection of functions
         if currentEnemy.Health < 1 {
             printOut(text: "You killed the \(currentEnemy.Name)!")
             state = .isInEvironment
+            updateButtons()
         }
     }
     
-    func barbarianDamageModel() {
-        currentEnemy.Health -= Int(char.playerVar.charBarbarian.Power * Double(char.playerVar.activeCharacter.equippedWeapon!.attack))
-        printOut(text: "You hit the enemy for \(Int(char.playerVar.charBarbarian.Power * Double(char.playerVar.activeCharacter.equippedWeapon!.attack)))")
+    @objc func barbarianDamageModel() {
+        switch chosenAttack {
+        case 1:
+            currentEnemy.Health -= Int(char.playerVar.charBarbarian.Power * Double(char.playerVar.activeCharacter.equippedWeapon!.attack)) //enemyhealth - power * weaponAttack
+            printOut(text: "You hit the enemy for \(Int(char.playerVar.charBarbarian.Power * Double(char.playerVar.activeCharacter.equippedWeapon!.attack)))")
+        default:
+            printOut(text: "Not implemeted")
+        }
     }
     
     func calculateDamage() { //currently only has barbarian damage model...
@@ -149,8 +140,8 @@ extension ViewController { // this whole thing is just a collection of functions
             printOut(text: "You don't have a ranged weapon, so you simply wait for the enemy to approach.")
         } else if char.playerVar.activeCharacter.equippedWeapon != nil {
             switch char.playerVar.activeCharacter.Name {
-            //case "Barbarian":
-                //barbarianDamageModel()
+            case "Barbarian":
+                barbarianDamageModel()
             default:
                 printOut(text: "Somehow weapon equipped states broke")
             }
