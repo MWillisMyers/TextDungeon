@@ -10,8 +10,10 @@ import os.log
 
 class Enemy: entity {
     var Name:String
-    init(Health: Int, Attack: Double, Speed: Int, Name:String) {
+    var Ranged:Bool
+    init(Health: Int, Attack: Double, Speed: Int, Name:String, Ranged:Bool) {
         self.Name = Name
+        self.Ranged = Ranged
         super.init(Health: Health, Attack: Attack, Speed: Speed)
         self.Health = Health
         self.Attack = Attack
@@ -31,7 +33,8 @@ class Goblin: Enemy {
             Health: Int(level),
             Attack: Double(getRandomNumber(upper: Int(levelupper), lower: Int(levellower)) + 1),
             Speed: Int(level),
-            Name: "Goblin"
+            Name: "Goblin",
+            Ranged: true
         )
     }
 }

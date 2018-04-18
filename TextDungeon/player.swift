@@ -120,6 +120,14 @@ class player: entity {
     }
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.appendingPathComponent("players")
+    
+    struct skillTree {
+        var skills = ["health":0, "speed":0]
+        
+        func addSkill() {
+            
+        }
+    }
 }
 
 
@@ -224,7 +232,12 @@ class barbarian: player {
         try super.encode(to: encoder)
         try container.encode(Power, forKey: .Power)
     }
+    
+    
 }
+
+
+
 //MARK:Ranger
 class ranger: player {
     var hitChance:Double

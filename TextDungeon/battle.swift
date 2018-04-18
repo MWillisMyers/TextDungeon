@@ -24,9 +24,15 @@ extension ViewController { // this whole thing is just a collection of functions
             printOut(text: "Your \(char.playerVar.activeCharacter.Name) engaged at a range of \(enemyDistance) meters")
         }
     }
+    
+    @objc func closeDistance() {
+        enemyDistance = 0
+        doTurn()
+    }
 
     
     @objc func attackEnemy() {
+        //if char.playerVar.activeCharacter.Stamina =< 
         if currentEnemy.Speed >= char.playerVar.activeCharacter.Speed {
             doTurn()
             calculateDamage()
@@ -123,6 +129,7 @@ extension ViewController { // this whole thing is just a collection of functions
         switch chosenAttack {
         case 1:
             currentEnemy.Health -= Int(char.playerVar.charBarbarian.Power * Double(char.playerVar.activeCharacter.equippedWeapon!.attack)) //enemyhealth - power * weaponAttack
+            
             printOut(text: "You hit the enemy for \(Int(char.playerVar.charBarbarian.Power * Double(char.playerVar.activeCharacter.equippedWeapon!.attack)))")
         default:
             printOut(text: "Not implemeted")

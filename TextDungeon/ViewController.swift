@@ -158,11 +158,15 @@ class ViewController: UIViewController {
             inventory.WeaponArray += [randUncommonSword()]
         }
     }
+    
+    
+    
     func updateButtons() {
         switch state {
         case .isInBattle:
             setButtonTitles(bt1: "attack", bt2: "approach", bt3: "characters", bt4: "inventory")
             setAction1(#selector(engageAttack))
+            setAction2(#selector(closeDistance))
         case .isInCharacter:
             setButtonTitles(bt1: "switch active", bt2: "back", bt3: "", bt4: "")
         case .isInInventory:
@@ -172,7 +176,6 @@ class ViewController: UIViewController {
         }
     }
     
-        
     func setButtonTitles(bt1:String, bt2:String, bt3:String, bt4:String) {
         Action1Outlet.setTitle(bt1, for: .normal)
         Action2Outlet.setTitle(bt2, for: .normal)
@@ -188,6 +191,11 @@ class ViewController: UIViewController {
     func setAction2(_ functionName:Selector) {
         Action2Outlet.removeTarget(nil, action: nil, for: .allEvents)
         Action2Outlet.addTarget(self, action: functionName, for: .touchUpInside)
+    }
+    
+    func setAction3(_ functionName:Selector) {
+        Action3Outlet.removeTarget(nil, action: nil, for: .allEvents)
+        Action3Outlet.addTarget(self, action: functionName, for: .touchUpInside)
     }
 
 
