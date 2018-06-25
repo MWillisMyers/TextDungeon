@@ -23,6 +23,10 @@ extension ViewController { // this whole thing is just a collection of functions
             enemyDistance = 50
             printOut(text: "Your \(char.playerVar.activeCharacter.Name) engaged at a range of \(enemyDistance) meters")
         }
+        
+    }
+    @objc func returnFromAttack() {
+        updateButtons()
     }
     
     @objc func closeDistance() {
@@ -44,9 +48,10 @@ extension ViewController { // this whole thing is just a collection of functions
     
     @objc func engageAttack() {
         if char.playerVar.activeCharacter.equippedWeapon == nil {
-            setButtonTitles(bt1: "Punch", bt2: "", bt3: "", bt4: "")
+            setButtonTitles(bt1: "Punch", bt2: "Back", bt3: "", bt4: "")
             chosenAttack = 1
             setAction1(#selector(attackEnemy))
+            setAction2(#selector(returnFromAttack))
         } else {
             switch char.playerVar.activeCharacter {
             case is barbarian:

@@ -52,11 +52,13 @@ class entity: Codable {
         case Attack
         case Speed
     }
-    
+   //no need for codable function implementation, it auto-generated it for us
 }
 
 //MARK: Base Player Class
 class player: entity {
+    var maxHealth: Int
+    var maxExperience: Int
     var Gold: Int
     var Experience: Int
     let Name: String
@@ -67,6 +69,8 @@ class player: entity {
     init(Health:Int,
          Attack:Double,
          Speed:Int,
+         maxHealth: Int,
+         maxExperience: Int,
          Gold:Int,
          Experience:Int,
          Name:String,
@@ -75,6 +79,8 @@ class player: entity {
          MaxStamina: Int,
          equippedWeapon:Weapon?
         ) {
+        self.maxHealth = maxHealth
+        self.maxExperience = maxExperience
         self.Gold = Gold
         self.Experience = Experience
         self.Name = Name
@@ -85,6 +91,8 @@ class player: entity {
         super.init(Health: Health, Attack: Attack, Speed: Speed)
     }
     private enum CodingKeys: String, CodingKey {
+        case maxHealth
+        case maxExperience
         case Gold
         case Experience
         case Name
@@ -96,6 +104,8 @@ class player: entity {
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        maxHealth = try values.decode(Int.self, forKey: .maxHealth)
+        maxExperience = try values.decode(Int.self, forKey: .maxExperience)
         Gold = try values.decode(Int.self, forKey: .Gold)
         Experience = try values.decode(Int.self, forKey: .Experience)
         Name = try values.decode(String.self, forKey: .Name)
@@ -109,6 +119,8 @@ class player: entity {
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(maxHealth, forKey: .maxHealth)
+        try container.encode(maxExperience, forKey: .maxExperience)
         try container.encode(Gold, forKey: .Gold)
         try container.encode(Experience, forKey: .Experience)
         try container.encode(Name, forKey: .Name)
@@ -136,12 +148,14 @@ class player: entity {
 class sorcerer: player {
     var Mana:Int
     var spAttack:Double
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Mana:Int, spAttack:Double, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
+    init(Health:Int, Attack:Double, Speed:Int, maxHealth:Int, maxExperience:Int, Gold:Int, Experience:Int, Mana:Int, spAttack:Double, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
         self.Mana = Mana //value used for magical attacks
         self.spAttack = spAttack //modifier for magical attacks
         super.init(Health: Health,
                    Attack: Attack,
                    Speed: Speed,
+                   maxHealth: maxHealth,
+                   maxExperience: maxExperience,
                    Gold: Gold,
                    Experience: Experience,
                    Name:"Sorcerer",
@@ -156,6 +170,8 @@ class sorcerer: player {
             Health: 10,
             Attack: 1.0,
             Speed: 1,
+            maxHealth: 10,
+            maxExperience: 10,
             Gold: 0,
             Experience: 0,
             Mana: 100,
@@ -187,12 +203,14 @@ class sorcerer: player {
 //MARK:Barbarian
 class barbarian: player {
     var Power:Double //since the barbarian has nothing but melee, i'm going to add another base modifier that buffs his damage
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, Power:Double, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
+    init(Health:Int, Attack:Double, Speed:Int, maxHealth:Int, maxExperience:Int, Gold:Int, Experience:Int, Power:Double, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
         self.Power = Power
         super.init(
             Health: Health,
             Attack: Attack,
             Speed: Speed,
+            maxHealth: maxHealth,
+            maxExperience: maxExperience,
             Gold: Gold,
             Experience: Experience,
             Name:"Barbarian",
@@ -207,6 +225,8 @@ class barbarian: player {
             Health: 10,
             Attack: 1.0,
             Speed: 1,
+            maxHealth: 10,
+            maxExperience: 10,
             Gold: 0,
             Experience: 0,
             Power: 1.0,
@@ -234,21 +254,22 @@ class barbarian: player {
     }
     
     
+    
 }
-
-
 
 //MARK:Ranger
 class ranger: player {
     var hitChance:Double
     var rangedAttack:Double
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, hitChance:Double, rangedAttack:Double, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
+    init(Health:Int, Attack:Double, Speed:Int, maxHealth:Int, maxExperience:Int, Gold:Int, Experience:Int, hitChance:Double, rangedAttack:Double, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
         self.hitChance = hitChance
         self.rangedAttack = rangedAttack
         super.init(
             Health: Health,
             Attack: Attack,
             Speed: Speed,
+            maxHealth: maxHealth,
+            maxExperience: maxExperience,
             Gold: Gold,
             Experience: Experience,
             Name:Name,
@@ -263,6 +284,8 @@ class ranger: player {
             Health: 10,
             Attack: 1.0,
             Speed: 1,
+            maxHealth: 10,
+            maxExperience: 10,
             Gold: 0,
             Experience: 0,
             hitChance: 0.5,
@@ -293,15 +316,18 @@ class ranger: player {
         try container.encode(hitChance, forKey: .hitChance)
     }
 }
+
 //MARK:Priest
 class preist: player {
     var healRate:Int
-    init(Health:Int, Attack:Double, Speed:Int, Gold:Int, Experience:Int, healRate:Int, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
+    init(Health:Int, Attack:Double, Speed:Int, maxHealth:Int, maxExperience:Int, Gold:Int, Experience:Int, healRate:Int, Name:String, isDead:Bool, Stamina:Int, MaxStamina:Int, equippedWeapon:Weapon?) {
         self.healRate = healRate
         super.init(
             Health: Health,
             Attack: Attack,
             Speed: Speed,
+            maxHealth: maxHealth,
+            maxExperience: maxExperience,
             Gold: Gold,
             Experience: Experience,
             Name:Name,
@@ -316,6 +342,8 @@ class preist: player {
             Health: 10,
             Attack: 1.0,
             Speed: 1,
+            maxHealth: 10,
+            maxExperience: 10,
             Gold: 0,
             Experience: 0,
             healRate: 1,

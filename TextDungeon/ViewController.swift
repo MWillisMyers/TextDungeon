@@ -58,22 +58,32 @@ class ViewController: UIViewController {
         }
         Action1Outlet.removeTarget(nil, action: nil, for: .allEvents)
         enemyDebug()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
     }
+    
+    
     
     //outlets
     @IBOutlet weak var OutputField: UITextView!
     
+
+    @IBOutlet weak var CharMenuView: UIView!
+    @IBOutlet weak var OutputFieldConstraint: NSLayoutConstraint!
+    @IBOutlet weak var StackViewOutlet: UIStackView!
+    
+    @IBOutlet weak var HealthBar: UIProgressView!
     @IBOutlet weak var Action1Outlet: UIButton!
     @IBOutlet weak var Action2Outlet: UIButton!
     @IBOutlet weak var Action3Outlet: UIButton!
     @IBOutlet weak var Action4Outlet: UIButton!
     
-    
+
     //IBAction Funcs
     /*
     @IBAction func sendCommand(_ sender: UIButton) {
@@ -82,6 +92,22 @@ class ViewController: UIViewController {
         checkCommand(text: sentText) //sends command to base command checker
     }
     */
+    @IBAction func BarbarianPortriat(_ sender: UIButton) {
+        showCharMenu(1)
+    }
+    
+    @IBAction func RangerPortriat(_ sender: UIButton) {
+        showCharMenu(2)
+    }
+    
+    @IBAction func SorcererPortrait(_ sender: UIButton) {
+        showCharMenu(3)
+    }
+    
+    @IBAction func PriestPortrait(_ sender: UIButton) {
+        showCharMenu(4)
+    }
+    
     
     
     
@@ -89,6 +115,51 @@ class ViewController: UIViewController {
     
 
     //Regular Functions
+    
+    
+    
+    
+    
+    var charMenuOpen:Bool = false
+    
+    func showCharMenu(_ id:Int) { // 1 = barb, 2 = rang, 3 = sorc, 4 = pri
+        let closedMultiplier:CGFloat = 2.4
+        let openMultiplier:CGFloat = 3.6
+        if charMenuOpen == false {
+            OutputFieldConstraint = OutputFieldConstraint.setMultiplier(multiplier: openMultiplier)
+            CharMenuView.isHidden = false
+            charMenuOpen = true
+            updateCharMenu(id)
+        } else {
+            OutputFieldConstraint = OutputFieldConstraint.setMultiplier(multiplier: closedMultiplier)
+            CharMenuView.isHidden = true
+            charMenuOpen = false
+        }
+    }
+    
+    func updateCharMenu(_ id:Int) { // missing stamina bars and other chars too
+        var currentHealth:Int?
+        var maxHealth:Int?
+        switch id {
+        case 1:
+            currentHealth = char.playerVar.charBarbarian.Health
+            maxHealth = char.playerVar.charBarbarian.maxHealth
+        case 2:
+            currentHealth = char.playerVar.charRanger.Health
+            maxHealth = char.playerVar.charRanger.maxHealth
+        case 3:
+            currentHealth = char.playerVar.charSorcerer.Health
+            maxHealth = char.playerVar.charSorcerer.maxHealth
+        case 4:
+            currentHealth = char.playerVar.charPriest.Health
+            maxHealth = char.playerVar.charPriest.maxHealth
+        default:
+            printOut(text: "not implemented")
+        }
+        let progressRatio = Float(currentHealth!) / Float(maxHealth!)
+        HealthBar.progress = progressRatio
+        
+    }
     
     //Prints to the output UITextField
     func printOut(text:String) {
@@ -98,7 +169,7 @@ class ViewController: UIViewController {
     }
     
 
-    
+    /* most of this is useless
     func checkEnvironmentCommands(input:String) { // the command written will be passed through here if the player is in the "default environment"
         switch input {
         case "inventory", "inv":
@@ -140,6 +211,7 @@ class ViewController: UIViewController {
             printOut(text: "Unknown Command. Type 'help' You're in the character menu")
         }
     }
+    */
     
     func loadSampleSwords() {
         let Sword1 = Sword(material: 0)
@@ -211,6 +283,30 @@ class ViewController: UIViewController {
         case isInEvironment
         case isInInventory
         case isInCharacter
+    }
+}
+
+extension NSLayoutConstraint {
+    
+    func setMultiplier(multiplier:CGFloat) -> NSLayoutConstraint {
+        
+        NSLayoutConstraint.deactivate([self])
+        
+        let newConstraint = NSLayoutConstraint(
+            item: firstItem!,
+            attribute: firstAttribute,
+            relatedBy: relation,
+            toItem: secondItem,
+            attribute: secondAttribute,
+            multiplier: multiplier,
+            constant: constant)
+        
+        newConstraint.priority = priority
+        newConstraint.shouldBeArchived = shouldBeArchived
+        newConstraint.identifier = identifier
+        
+        NSLayoutConstraint.activate([newConstraint])
+        return newConstraint
     }
 }
 

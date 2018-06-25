@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sbf-9P-z9h">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sbf-9P-z9h">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,27 +25,56 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="IGw-1R-JIi">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="-51" width="375" height="718"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ssz-ll-W7s" userLabel="ActivePane">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="THINGS ARE HAPPENING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Iam-Cj-nsv">
+                                                <rect key="frame" x="57" y="136.5" width="261.5" height="27.5"/>
+                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="23"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
                                         <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="Iam-Cj-nsv" firstAttribute="centerY" secondItem="ssz-ll-W7s" secondAttribute="centerY" id="1ni-iB-TNT"/>
                                             <constraint firstAttribute="width" secondItem="ssz-ll-W7s" secondAttribute="height" multiplier="5:4" id="9nk-S8-BzM"/>
+                                            <constraint firstItem="Iam-Cj-nsv" firstAttribute="centerX" secondItem="ssz-ll-W7s" secondAttribute="centerX" id="Z4s-SU-BtO"/>
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" showsHorizontalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEZ-fh-Afe">
-                                        <rect key="frame" x="0.0" y="300" width="375" height="156"/>
+                                        <rect key="frame" x="0.0" y="300" width="375" height="156.5"/>
                                         <color key="backgroundColor" red="0.25062343479999999" green="0.25082513690000002" blue="0.2551054955" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="GEZ-fh-Afe" secondAttribute="height" multiplier="125:52" id="TP5-pT-yXu"/>
+                                            <constraint firstAttribute="width" secondItem="GEZ-fh-Afe" secondAttribute="height" multiplier="2.4" identifier="OutputConstraint" id="TP5-pT-yXu"/>
                                         </constraints>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oEL-SY-ZCY">
+                                        <rect key="frame" x="0.0" y="456.5" width="375" height="50"/>
+                                        <subviews>
+                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9AV-It-Ijy">
+                                                <rect key="frame" x="9.5" y="38" width="170" height="2"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="170" id="KNg-x8-Ycj"/>
+                                                </constraints>
+                                                <color key="progressTintColor" red="1" green="0.02328635045" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="trackTintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </progressView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="oEL-SY-ZCY" secondAttribute="height" multiplier="15:2" id="7so-fN-Bpa"/>
+                                            <constraint firstItem="9AV-It-Ijy" firstAttribute="centerY" secondItem="oEL-SY-ZCY" secondAttribute="centerY" constant="14" id="D34-bl-3sX"/>
+                                            <constraint firstItem="9AV-It-Ijy" firstAttribute="centerX" secondItem="oEL-SY-ZCY" secondAttribute="centerX" constant="-93" id="r78-pu-fs5"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRH-iS-KEx" userLabel="ButtonBox">
-                                        <rect key="frame" x="0.0" y="456" width="375" height="211"/>
+                                        <rect key="frame" x="0.0" y="506.5" width="375" height="211.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="cGd-0R-4jb" userLabel="Character Portraits">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="94"/>
@@ -54,21 +83,33 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="94"/>
                                                         <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" backgroundImage="ArcherImage"/>
+                                                        <connections>
+                                                            <action selector="BarbarianPortriat:" destination="sbf-9P-z9h" eventType="touchUpInside" id="8D0-iv-pJQ"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IBl-y3-A6X" userLabel="Ranger">
                                                         <rect key="frame" x="94" y="0.0" width="93.5" height="94"/>
                                                         <color key="backgroundColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" backgroundImage="ArcherImage"/>
+                                                        <connections>
+                                                            <action selector="RangerPortriat:" destination="sbf-9P-z9h" eventType="touchUpInside" id="zfR-Qv-lJ7"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUS-w2-NcE" userLabel="Sorcerer">
                                                         <rect key="frame" x="187.5" y="0.0" width="94" height="94"/>
                                                         <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" backgroundImage="ArcherImage"/>
+                                                        <connections>
+                                                            <action selector="SorcererPortrait:" destination="sbf-9P-z9h" eventType="touchUpInside" id="spd-rG-ZDD"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9iu-Gr-qoc" userLabel="Priest">
                                                         <rect key="frame" x="281.5" y="0.0" width="93.5" height="94"/>
                                                         <color key="backgroundColor" red="0.99953407049999998" green="0.98835557699999999" blue="0.47265523669999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" backgroundImage="ArcherImage"/>
+                                                        <connections>
+                                                            <action selector="PriestPortrait:" destination="sbf-9P-z9h" eventType="touchUpInside" id="4Hr-gu-ZJC"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -76,7 +117,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AMz-Gb-Qsn" userLabel="Action Buttons">
-                                                <rect key="frame" x="0.0" y="94" width="375" height="117"/>
+                                                <rect key="frame" x="0.0" y="94.5" width="375" height="117"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K4d-CF-Ndo">
                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="117"/>
@@ -119,7 +160,6 @@
                             <constraint firstItem="IGw-1R-JIi" firstAttribute="bottom" secondItem="kKM-Ct-bEx" secondAttribute="bottom" id="328-Kq-O02"/>
                             <constraint firstItem="IGw-1R-JIi" firstAttribute="trailing" secondItem="kKM-Ct-bEx" secondAttribute="trailing" id="9hU-ap-PQC"/>
                             <constraint firstItem="IGw-1R-JIi" firstAttribute="leading" secondItem="kKM-Ct-bEx" secondAttribute="leading" id="EmH-yu-emU"/>
-                            <constraint firstItem="IGw-1R-JIi" firstAttribute="top" secondItem="9hg-21-UlJ" secondAttribute="top" id="ngS-sq-Pr2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kKM-Ct-bEx"/>
                     </view>
@@ -128,12 +168,16 @@
                         <outlet property="Action2Outlet" destination="Jlp-0p-EKf" id="WIb-Ef-Pb0"/>
                         <outlet property="Action3Outlet" destination="jt6-8B-bLq" id="WtF-Vo-78F"/>
                         <outlet property="Action4Outlet" destination="axK-Hj-9Vm" id="gIy-gE-9iC"/>
+                        <outlet property="CharMenuView" destination="oEL-SY-ZCY" id="VNW-hK-qGC"/>
+                        <outlet property="HealthBar" destination="9AV-It-Ijy" id="v1C-O8-4pN"/>
                         <outlet property="OutputField" destination="GEZ-fh-Afe" id="eC5-fk-4Ec"/>
+                        <outlet property="OutputFieldConstraint" destination="TP5-pT-yXu" id="XiK-bu-sl7"/>
+                        <outlet property="StackViewOutlet" destination="IGw-1R-JIi" id="ZSD-DT-ljm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WIO-tH-C8Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1863.2" y="75.112443778110944"/>
+            <point key="canvasLocation" x="1861.5999999999999" y="74.212893553223395"/>
         </scene>
     </scenes>
     <resources>
